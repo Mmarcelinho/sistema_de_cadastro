@@ -6,7 +6,7 @@ namespace SistemaDeCadastro.Domain.Entidades;
 
         public string NomeFantasia { get; set; }
 
-        public int SobrenomeSocial { get; set; }
+        public string SobrenomeSocial { get; set; }
 
         public bool Empresa { get; set; }
 
