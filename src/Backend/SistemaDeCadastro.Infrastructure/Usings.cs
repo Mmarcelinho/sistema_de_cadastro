@@ -5,4 +5,4 @@ global using Dapper;
 global using System.Reflection;
 global using FluentMigrator.Runner;
 global using SistemaDeCadastro.Domain.Extension;
-
+global using FluentMigrator.Builders.Create.Table;
