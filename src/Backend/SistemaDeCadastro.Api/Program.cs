@@ -1,6 +1,3 @@
-using SistemaDeCadastro.Domain.Extension;
-using SistemaDeCadastro.Infrastructure.Migrations;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
