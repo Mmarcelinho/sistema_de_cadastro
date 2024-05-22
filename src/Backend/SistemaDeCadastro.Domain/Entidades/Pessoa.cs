@@ -2,7 +2,9 @@ namespace SistemaDeCadastro.Domain.Entidades;
 
     public class Pessoa : EntidadeBase
     {
-        public string CpfCnpj { get; set; }
+        public string Cpf { get; set; }
+
+        public string Cnpj { get; set; }
 
         public string Nome { get; set; }
 
