@@ -9,9 +9,9 @@ public static class Database
         var parametros = new DynamicParameters();
         parametros.Add("nome", nomeDatabase);
 
-        var registros = minhaConexao.Query("SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = @nome", parametros);
+        var registros = minhaConexao.Query("SELECT * FROM sys.databases WHERE name = @nome", parametros);
 
         if (!registros.Any())
-            minhaConexao.Execute($"CREATE DATABASE {nomeDatabase}");
+            minhaConexao.Execute($"CREATE DATABASE [{nomeDatabase}]");
     }
 }
