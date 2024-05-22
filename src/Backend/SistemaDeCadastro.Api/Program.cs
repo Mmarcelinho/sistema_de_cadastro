@@ -15,15 +15,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-CriarBaseDeDados();
+AtualizarBaseDeDados();
 
 app.Run();
 
-void CriarBaseDeDados()
+void AtualizarBaseDeDados()
 {
     var conexao = builder.Configuration.GetConexao();
 
     var nomeDatabase = builder.Configuration.GetNomeDatabase();
 
     Database.CriarDatabase(conexao, nomeDatabase);
+
+    app.MigrateBancoDeDados();
 }
