@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{194F6C48-D996-42CA-81E9-4A4F072FE2B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{BC29D2B0-DF37-4A48-A4D1-1281B0B573A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeCadastro.Domain", "src\Backend\SistemaDeCadastro.Domain\SistemaDeCadastro.Domain.csproj", "{7A321E23-B135-45AC-8BCF-2F01F1D6ED67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaDeCadastro.Infrastructure", "src\Backend\SistemaDeCadastro.Infrastructure\SistemaDeCadastro.Infrastructure.csproj", "{EC862032-74CA-409B-B30A-BBB6838951CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A321E23-B135-45AC-8BCF-2F01F1D6ED67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A321E23-B135-45AC-8BCF-2F01F1D6ED67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A321E23-B135-45AC-8BCF-2F01F1D6ED67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A321E23-B135-45AC-8BCF-2F01F1D6ED67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC862032-74CA-409B-B30A-BBB6838951CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC862032-74CA-409B-B30A-BBB6838951CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC862032-74CA-409B-B30A-BBB6838951CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC862032-74CA-409B-B30A-BBB6838951CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC29D2B0-DF37-4A48-A4D1-1281B0B573A8} = {194F6C48-D996-42CA-81E9-4A4F072FE2B5}
+		{7A321E23-B135-45AC-8BCF-2F01F1D6ED67} = {BC29D2B0-DF37-4A48-A4D1-1281B0B573A8}
+		{EC862032-74CA-409B-B30A-BBB6838951CE} = {BC29D2B0-DF37-4A48-A4D1-1281B0B573A8}
+	EndGlobalSection
+EndGlobal
