@@ -6,7 +6,6 @@ public static class CadastroQueries
     {
         string tabela = ContextMappings.RecuperarTabelaCadastro();
 
-
         string query = @$"SELECT * FROM {tabela} WITH (READPAST)";
 
         var parameters = new { };
