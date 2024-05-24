@@ -8,3 +8,6 @@ global using FluentMigrator;
 global using FluentMigrator.Runner;
 global using SistemaDeCadastro.Domain.Extension;
 global using FluentMigrator.Builders.Create.Table;
+global using SistemaDeCadastro.Domain.Entidades;
+global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Map;
+

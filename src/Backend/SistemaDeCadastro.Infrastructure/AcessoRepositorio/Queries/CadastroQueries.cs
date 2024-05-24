@@ -1,6 +1,3 @@
-using SistemaDeCadastro.Domain.Entidades;
-using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Map;
-
 namespace SistemaDeCadastro.Infrastructure.AcessoRepositorio.Queries;
 
 public static class CadastroQueries
