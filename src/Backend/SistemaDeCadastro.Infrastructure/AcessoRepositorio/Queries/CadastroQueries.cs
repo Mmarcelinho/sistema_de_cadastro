@@ -17,8 +17,7 @@ public static class CadastroQueries
     {
         string tabela = ContextMappings.RecuperarTabelaCadastro();
 
-
-        string query = @$"SELECT * FROM {tabela} WITH (READPAST) WHERE Id @Id";
+        string query = @$"SELECT * FROM {tabela} WITH (READPAST) WHERE Id = @Id";
 
         var parameters = new
         {
@@ -173,8 +172,7 @@ public static class CadastroQueries
     {
         string tabela = ContextMappings.RecuperarTabelaCadastro();
 
-
-        string query = @$"DELETE FROM {tabela} WHERE Id @Id";
+        string query = @$"DELETE FROM {tabela} WHERE Id = @Id";
 
         var parameters = new
         {
