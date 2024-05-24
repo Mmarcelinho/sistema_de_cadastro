@@ -117,4 +117,18 @@ public static class PessoaQueries
 
         return new QueryModel(query, parameters);
     }
+
+    public static QueryModel DeletarPessoaQuery(long id)
+    {
+        string tabela = ContextMappings.RecuperarTabelaPessoa();
+
+        string query = @$"DELETE FROM {tabela} WHERE Id = @Id";
+
+        var parameters = new
+        {
+            Id = id
+        };
+
+        return new QueryModel(query, parameters);
+    }
 }
