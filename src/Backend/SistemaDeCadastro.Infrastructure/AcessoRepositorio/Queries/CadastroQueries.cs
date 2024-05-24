@@ -172,4 +172,19 @@ public static class CadastroQueries
 
         return new QueryModel(query, parameters);
     }
+
+    public static QueryModel DeletarCadastroQuery(long id)
+    {
+        string tabela = ContextMappings.RecuperarTabelaCadastro();
+
+
+        string query = @$"DELETE FROM {tabela} WHERE Id @Id";
+
+        var parameters = new
+        {
+            Id = id
+        };
+
+        return new QueryModel(query, parameters);
+    }
 }
