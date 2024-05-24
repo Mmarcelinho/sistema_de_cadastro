@@ -33,10 +33,10 @@ public static class CadastroQueries
     }
 
     public static QueryModel InserirCadastroQuery(Cadastro cadastro)
-        {
-            string tabela = ContextMappings.RecuperarTabelaCadastro();
+    {
+        string tabela = ContextMappings.RecuperarTabelaCadastro();
 
-            string query = @$"
+        string query = @$"
                 INSERT INTO {tabela} (
                     DataCriacao,
                     Email,
@@ -86,32 +86,90 @@ public static class CadastroQueries
                 ); 
                 SELECT CAST(SCOPE_IDENTITY() as int)";
 
-            var parameters = new
-            {
-                cadastro.DataCriacao,
-                cadastro.Email,
-                cadastro.NomeFantasia,
-                cadastro.SobrenomeSocial,
-                cadastro.Empresa,
-                CredencialBloqueada = cadastro.Credencial.Bloqueada,
-                CredencialExpirada = cadastro.Credencial.Expirada,
-                CredencialSenha = cadastro.Credencial.Senha,
-                InscritoAssinante = cadastro.Inscrito.Assinante,
-                InscritoAssociado = cadastro.Inscrito.Associado,
-                InscritoSenha = cadastro.Inscrito.Senha,
-                ParceiroCliente = cadastro.Parceiro.Cliente,
-                ParceiroFornecedor = cadastro.Parceiro.Fornecedor,
-                ParceiroPrestador = cadastro.Parceiro.Prestador,
-                ParceiroColaborador = cadastro.Parceiro.Colaborador,
-                DocumentoNumero = cadastro.Documento.Numero,
-                DocumentoOrgaoEmissor = cadastro.Documento.OrgaoEmissor,
-                DocumentoEstadoEmissor = cadastro.Documento.EstadoEmissor,
-                DocumentoDataValidade = cadastro.Documento.DataValidade,
-                IdentificacaoEmpresa = cadastro.Identificador.Empresa,
-                IdentificacaoIdentificador = cadastro.Identificador.Identificador,
-                IdentificacaoTipo = cadastro.Identificador.Tipo
-            };
+        var parameters = new
+        {
+            cadastro.DataCriacao,
+            cadastro.Email,
+            cadastro.NomeFantasia,
+            cadastro.SobrenomeSocial,
+            cadastro.Empresa,
+            CredencialBloqueada = cadastro.Credencial.Bloqueada,
+            CredencialExpirada = cadastro.Credencial.Expirada,
+            CredencialSenha = cadastro.Credencial.Senha,
+            InscritoAssinante = cadastro.Inscrito.Assinante,
+            InscritoAssociado = cadastro.Inscrito.Associado,
+            InscritoSenha = cadastro.Inscrito.Senha,
+            ParceiroCliente = cadastro.Parceiro.Cliente,
+            ParceiroFornecedor = cadastro.Parceiro.Fornecedor,
+            ParceiroPrestador = cadastro.Parceiro.Prestador,
+            ParceiroColaborador = cadastro.Parceiro.Colaborador,
+            DocumentoNumero = cadastro.Documento.Numero,
+            DocumentoOrgaoEmissor = cadastro.Documento.OrgaoEmissor,
+            DocumentoEstadoEmissor = cadastro.Documento.EstadoEmissor,
+            DocumentoDataValidade = cadastro.Documento.DataValidade,
+            IdentificacaoEmpresa = cadastro.Identificador.Empresa,
+            IdentificacaoIdentificador = cadastro.Identificador.Identificador,
+            IdentificacaoTipo = cadastro.Identificador.Tipo
+        };
 
-            return new QueryModel(query, parameters);
-        }
+        return new QueryModel(query, parameters);
+    }
+
+    public static QueryModel AtualizarCadastroQuery(Cadastro cadastro)
+    {
+        string tabela = ContextMappings.RecuperarTabelaCadastro();
+
+        string query = @$"
+                UPDATE {tabela} SET
+                    Email = @Email,
+                    NomeFantasia = @NomeFantasia,
+                    SobrenomeSocial = @SobrenomeSocial,
+                    Empresa = @Empresa,
+                    CredencialBloqueada = @CredencialBloqueada,
+                    CredencialExpirada = @CredencialExpirada,
+                    CredencialSenha = @CredencialSenha,
+                    InscritoAssinante = @InscritoAssinante,
+                    InscritoAssociado = @InscritoAssociado,
+                    InscritoSenha = @InscritoSenha,
+                    ParceiroCliente = @ParceiroCliente,
+                    ParceiroFornecedor = @ParceiroFornecedor,
+                    ParceiroPrestador = @ParceiroPrestador,
+                    ParceiroColaborador = @ParceiroColaborador,
+                    DocumentoNumero = @DocumentoNumero,
+                    DocumentoOrgaoEmissor = @DocumentoOrgaoEmissor,
+                    DocumentoEstadoEmissor = @DocumentoEstadoEmissor,
+                    DocumentoDataValidade = @DocumentoDataValidade,
+                    IdentificacaoEmpresa = @IdentificacaoEmpresa,
+                    IdentificacaoIdentificador = @IdentificacaoIdentificador,
+                    IdentificacaoTipo = @IdentificacaoTipo
+                WHERE Id = @Id";
+
+        var parameters = new
+        {
+            cadastro.Id,
+            cadastro.Email,
+            cadastro.NomeFantasia,
+            cadastro.SobrenomeSocial,
+            cadastro.Empresa,
+            CredencialBloqueada = cadastro.Credencial.Bloqueada,
+            CredencialExpirada = cadastro.Credencial.Expirada,
+            CredencialSenha = cadastro.Credencial.Senha,
+            InscritoAssinante = cadastro.Inscrito.Assinante,
+            InscritoAssociado = cadastro.Inscrito.Associado,
+            InscritoSenha = cadastro.Inscrito.Senha,
+            ParceiroCliente = cadastro.Parceiro.Cliente,
+            ParceiroFornecedor = cadastro.Parceiro.Fornecedor,
+            ParceiroPrestador = cadastro.Parceiro.Prestador,
+            ParceiroColaborador = cadastro.Parceiro.Colaborador,
+            DocumentoNumero = cadastro.Documento.Numero,
+            DocumentoOrgaoEmissor = cadastro.Documento.OrgaoEmissor,
+            DocumentoEstadoEmissor = cadastro.Documento.EstadoEmissor,
+            DocumentoDataValidade = cadastro.Documento.DataValidade,
+            IdentificacaoEmpresa = cadastro.Identificador.Empresa,
+            IdentificacaoIdentificador = cadastro.Identificador.Identificador,
+            IdentificacaoTipo = cadastro.Identificador.Tipo
+        };
+
+        return new QueryModel(query, parameters);
+    }
 }
