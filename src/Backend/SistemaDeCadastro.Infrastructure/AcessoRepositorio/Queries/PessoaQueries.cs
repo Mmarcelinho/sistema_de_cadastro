@@ -38,9 +38,59 @@ public static class PessoaQueries
             FROM 
                 {tabela} p
             INNER JOIN 
-                Cadastros c ON p.CadastroId = c.Id;";
+                Cadastros c WITH (READPAST) ON p.CadastroId = c.Id;";
+
 
         var parameters = new { };
+
+        return new QueryModel(query, parameters);
+    }
+
+    public static QueryModel RecuperarPorIdQuery(long id)
+    {
+        string tabela = ContextMappings.RecuperarTabelaPessoa();
+
+        string query = @$"SELECT 
+                p.Id,
+                p.DataCriacao,
+                p.Cpf,
+                p.Cnpj,
+                p.Nome,
+                p.Nascimento,
+                p.Token,
+                c.Email,
+                c.NomeFantasia,
+                c.SobrenomeSocial,
+                c.Empresa,
+                c.CredencialBloqueada,
+                c.CredencialExpirada,
+                c.CredencialSenha,
+                c.InscritoAssinante,
+                c.InscritoAssociado,
+                c.InscritoSenha,
+                c.ParceiroCliente,
+                c.ParceiroFornecedor,
+                c.ParceiroPrestador,
+                c.ParceiroColaborador,
+                c.DocumentoNumero,
+                c.DocumentoOrgaoEmissor,
+                c.DocumentoEstadoEmissor,
+                c.DocumentoDataValidade,
+                c.IdentificacaoEmpresa,
+                c.IdentificacaoIdentificador,
+                c.IdentificacaoTipo
+            FROM 
+                {tabela} p
+            INNER JOIN 
+                Cadastros c WITH (READPAST) ON p.CadastroId = c.Id
+            WHERE 
+                p.Id = @Id;";
+
+
+        var parameters = new 
+        { 
+            Id = id
+        };
 
         return new QueryModel(query, parameters);
     }
