@@ -87,9 +87,32 @@ public static class PessoaQueries
                 p.Id = @Id;";
 
 
-        var parameters = new 
-        { 
+        var parameters = new
+        {
             Id = id
+        };
+
+        return new QueryModel(query, parameters);
+    }
+
+    public static QueryModel InserirPessoaQuery(Pessoa pessoa, long cadastroId)
+    {
+        string tabela = ContextMappings.RecuperarTabelaPessoa();
+
+        string query = @$"INSERT INTO {tabela} 
+                    (Cpf, Cnpj, Nome, Nascimento, Token, CadastroId) 
+                    VALUES 
+                    (@Cpf, @Cnpj, @Nome, @Nascimento, @Token, @CadastroId);
+                    SELECT CAST(SCOPE_IDENTITY() as int);";
+
+        var parameters = new
+        {
+            pessoa.Cpf,
+            pessoa.Cnpj,
+            pessoa.Nome,
+            pessoa.Nascimento,
+            pessoa.Token,
+            CadastroId = cadastroId
         };
 
         return new QueryModel(query, parameters);
