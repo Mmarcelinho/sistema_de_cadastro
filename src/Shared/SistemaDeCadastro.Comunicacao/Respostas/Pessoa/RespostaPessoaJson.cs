@@ -1,0 +1,32 @@
+namespace SistemaDeCadastro.Comunicacao.Respostas.Pessoa;
+
+    public record RepostaPessoaJson(
+        long Id,
+        string Cpf,
+        string Cnpj,
+        string Nome,
+        DateTime Nascimento,
+        string Token,
+        long CadastroId,
+        string Email,
+        string NomeFantasia,
+        string SobrenomeSocial,
+        bool Empresa,
+        bool CredencialBloqueada,
+        string CredencialExpirada,
+        string CredencialSenha,
+        bool InscritoAssinante,
+        bool InscritoAssociado,
+        string InscritoSenha,
+        bool ParceiroCliente,
+        bool ParceiroFornecedor,
+        bool ParceiroPrestador,
+        bool ParceiroColaborador,
+        string DocumentoNumero,
+        string DocumentoOrgaoEmissor,
+        string DocumentoEstadoEmissor,
+        DateTime DocumentoDataValidade,
+        int IdentificacaoEmpresa,
+        string IdentificacaoIdentificador,
+        short IdentificacaoTipo
+    );
