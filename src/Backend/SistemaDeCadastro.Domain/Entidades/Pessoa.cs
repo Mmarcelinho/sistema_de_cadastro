@@ -19,4 +19,6 @@ namespace SistemaDeCadastro.Domain.Entidades;
         public List<Domicilio> Domicilios { get; set; }
 
         public Telefone Telefone { get; set; }
+
+        public long CadastroId { get; set; }
     }

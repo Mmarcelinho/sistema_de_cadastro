@@ -14,6 +14,6 @@ global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Map;
 global using System.Data;
 global using SistemaDeCadastro.Domain.Enum;
 global using SistemaDeCadastro.Domain.Repositorios.Cadastro;
+global using SistemaDeCadastro.Domain.Repositorios.Pessoa;
 global using SistemaDeCadastro.Domain.ValueObjects;
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Queries;
-
