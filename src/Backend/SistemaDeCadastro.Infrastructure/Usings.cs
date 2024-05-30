@@ -16,4 +16,9 @@ global using SistemaDeCadastro.Domain.Enum;
 global using SistemaDeCadastro.Domain.Repositorios.Cadastro;
 global using SistemaDeCadastro.Domain.Repositorios.Pessoa;
 global using SistemaDeCadastro.Domain.ValueObjects;
+global using SistemaDeCadastro.Domain.Repositorios;
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Queries;
+global using Microsoft.EntityFrameworkCore;
+
+
+
