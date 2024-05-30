@@ -5,4 +5,6 @@ namespace SistemaDeCadastro.Domain.Repositorios.Cadastro;
         Task<IEnumerable<Entidades.Cadastro>> RecuperarTodos();
 
         Task<Entidades.Cadastro> RecuperarPorId(long cadastroId);
+
+        Task<Entidades.Cadastro> RecuperarPorEmail(string email);
     }

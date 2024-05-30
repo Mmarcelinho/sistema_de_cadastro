@@ -20,6 +20,13 @@ public class CadastroRepositorio : ICadastroReadOnlyRepositorio, ICadastroWriteO
         return MapToCadastro(resultado);
     }
 
+    public async Task<Cadastro> RecuperarPorEmail(string email)
+    {
+        var query = CadastroQueries.RecuperarPorEmailQuery(email);
+        var resultado = await _connection.QueryFirstOrDefaultAsync<dynamic>(query.Query, query.Parameters);
+        return MapToCadastro(resultado);
+    }
+
     public async Task Registrar(Cadastro cadastro)
     {
         var query = CadastroQueries.InserirCadastroQuery(cadastro);
