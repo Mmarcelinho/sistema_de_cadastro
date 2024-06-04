@@ -6,5 +6,5 @@ namespace SistemaDeCadastro.Domain.Repositorios.Cadastro;
 
         Task<Entidades.Cadastro> RecuperarPorId(long cadastroId);
 
-        Task<Entidades.Cadastro> RecuperarPorEmail(string email);
+        Task<bool> RecuperarCadastroExistentePorEmail(string email);
     }
