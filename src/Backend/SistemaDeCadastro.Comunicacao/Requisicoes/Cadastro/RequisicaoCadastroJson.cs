@@ -1,6 +1,7 @@
 namespace SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
 
 public record RequisicaoCadastroJson(
+    string Email,
     string NomeFantasia,
     string SobrenomeSocial,
     bool Empresa,

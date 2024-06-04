@@ -20,11 +20,11 @@ public class CadastroRepositorio : ICadastroReadOnlyRepositorio, ICadastroWriteO
         return MapToCadastro(resultado);
     }
 
-    public async Task<Cadastro> RecuperarPorEmail(string email)
+    public async Task<bool> RecuperarCadastroExistentePorEmail(string email)
     {
-        var query = CadastroQueries.RecuperarPorEmailQuery(email);
-        var resultado = await _connection.QueryFirstOrDefaultAsync<dynamic>(query.Query, query.Parameters);
-        return MapToCadastro(resultado);
+        var query = CadastroQueries.RecuperarCadastroExistentePorEmailQuery(email);
+        var count = await _connection.ExecuteScalarAsync<int>(query.Query, query.Parameters);
+        return count > 0;
     }
 
     public async Task Registrar(Cadastro cadastro)

@@ -27,11 +27,11 @@ public static class CadastroQueries
         return new QueryModel(query, parameters);
     }
 
-    public static QueryModel RecuperarPorEmailQuery(string email)
+    public static QueryModel RecuperarCadastroExistentePorEmailQuery(string email)
     {
         string tabela = ContextMappings.RecuperarTabelaCadastro();
 
-        string query = @$"SELECT * FROM {tabela} WITH (READPAST) WHERE Email = @Email";
+        string query = @$"SELECT COUNT(*) FROM {tabela} WITH (READPAST) WHERE Email = @Email";
 
         var parameters = new
         {
