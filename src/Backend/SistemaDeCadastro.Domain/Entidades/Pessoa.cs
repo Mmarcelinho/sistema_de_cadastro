@@ -20,5 +20,7 @@ namespace SistemaDeCadastro.Domain.Entidades;
 
         public Telefone Telefone { get; set; }
 
+        public Cadastro Cadastro { get; set; } = default!;
+
         public long CadastroId { get; set; }
     }
