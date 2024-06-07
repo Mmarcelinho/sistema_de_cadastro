@@ -79,7 +79,7 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
                     cadastro.Documento.Numero,
                     cadastro.Documento.OrgaoEmissor,
                     cadastro.Documento.EstadoEmissor,
-                    cadastro.Documento.DataValidade.ToShortTimeString(),
+                    cadastro.Documento.DataValidade.ToShortDateString(),
                     cadastro.Identificador.Empresa,
                     cadastro.Identificador.Identificador,
                     (short)cadastro.Identificador.Tipo
