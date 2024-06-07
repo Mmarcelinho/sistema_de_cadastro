@@ -19,17 +19,5 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-AtualizarBaseDeDados();
-
 app.Run();
 
-void AtualizarBaseDeDados()
-{
-    var conexao = builder.Configuration.GetConexao();
-
-    var nomeDatabase = builder.Configuration.GetNomeDatabase();
-
-    Database.CriarDatabase(conexao, nomeDatabase);
-
-    app.MigrateBancoDeDados();
-}
