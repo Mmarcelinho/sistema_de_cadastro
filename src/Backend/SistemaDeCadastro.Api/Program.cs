@@ -1,9 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AdicionarInfrastructure(builder.Configuration);
+builder.Services.AdicionarApplication();
 
 var app = builder.Build();
 
@@ -14,6 +16,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 AtualizarBaseDeDados();
 
