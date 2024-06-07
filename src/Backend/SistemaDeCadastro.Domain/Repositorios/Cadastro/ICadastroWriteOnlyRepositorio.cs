@@ -4,5 +4,5 @@ namespace SistemaDeCadastro.Domain.Repositorios.Cadastro;
     {
         Task Registrar(Entidades.Cadastro cadastro);
 
-        Task Deletar(long cadastroId);
+        Task<bool> Deletar(long cadastroId);
     }
