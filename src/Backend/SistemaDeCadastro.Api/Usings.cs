@@ -1,4 +1,5 @@
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.Filters;
 
 global using SistemaDeCadastro.Infrastructure;
 
@@ -9,3 +10,7 @@ global using SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
 global using SistemaDeCadastro.Comunicacao.Respostas;
 global using SistemaDeCadastro.Comunicacao.Respostas.Cadastro;
 
+global using SistemaDeCadastro.Exceptions;
+global using SistemaDeCadastro.Exceptions.ExceptionsBase;
+
+global using SistemaDeCadastro.Api.Filtros;

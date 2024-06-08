@@ -4,6 +4,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltroDeExcecao)));
+
 builder.Services.AdicionarInfrastructure(builder.Configuration);
 builder.Services.AdicionarApplication();
 
