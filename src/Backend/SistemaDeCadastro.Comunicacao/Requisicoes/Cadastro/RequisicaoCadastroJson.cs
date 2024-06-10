@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Comunicacao.Enum;
+
 namespace SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
 
 public record RequisicaoCadastroJson(
@@ -5,20 +7,41 @@ public record RequisicaoCadastroJson(
     string NomeFantasia,
     string SobrenomeSocial,
     bool Empresa,
-    bool CredencialBloqueada,
-    string CredencialExpirada,
-    string CredencialSenha,
-    bool InscritoAssinante,
-    bool InscritoAssociado,
-    string InscritoSenha,
-    bool ParceiroCliente,
-    bool ParceiroFornecedor,
-    bool ParceiroPrestador,
-    bool ParceiroColaborador,
-    string DocumentoNumero,
-    string DocumentoOrgaoEmissor,
-    string DocumentoEstadoEmissor,
-    DateTime DocumentoDataValidade,
-    int IdentificacaoEmpresa,
-    string IdentificacaoIdentificador,
-    short IdentificacaoTipo);
+    RequisicaoCredencialJson Credencial,
+    RequisicaoInscritoJson Inscrito,
+    RequisicaoParceiroJson Parceiro,
+    RequisicaoDocumentoJson Documento,
+    RequisicaoIdentificacaoJson Identificador
+    );
+
+public record RequisicaoCredencialJson(
+    bool Bloqueada,
+    string Expirada,
+    string Senha
+);
+
+public record RequisicaoInscritoJson(
+    bool Assinante,
+    bool Associado,
+    string Senha
+);
+
+public record RequisicaoParceiroJson(
+    bool Cliente,
+    bool Fornecedor,
+    bool Prestador,
+    bool Colaborador
+);
+
+public record RequisicaoDocumentoJson(
+    string Numero,
+    string OrgaoEmissor,
+    string EstadoEmissor,
+    DateTime DataValidade
+);
+
+public record RequisicaoIdentificacaoJson(
+    int Empresa,
+    string Identificador,
+    IdentificacaoTipo Tipo
+);
