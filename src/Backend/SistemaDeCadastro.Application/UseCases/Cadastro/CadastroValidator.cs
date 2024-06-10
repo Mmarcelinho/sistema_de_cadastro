@@ -11,19 +11,19 @@ public class CadastroValidator : AbstractValidator<RequisicaoCadastroJson>
         RuleFor(x => x.NomeFantasia)
         .NotEmpty().WithMessage(CadastroMensagensDeErro.CADASTRO_NOME_FANTASIA_EMBRANCO);
 
-        RuleFor(x => x.CredencialSenha)
+        RuleFor(x => x.Credencial.Senha)
         .NotEmpty().WithMessage(CadastroMensagensDeErro.CADASTRO_CREDENCIAL_SENHA_EMBRANCO);
 
-        RuleFor(x => x.DocumentoNumero)
+        RuleFor(x => x.Documento.Numero)
         .NotEmpty().WithMessage(CadastroMensagensDeErro.CADASTRO_DOCUMENTO_NUMERO_EMBRANCO);
 
-        RuleFor(x => x.DocumentoOrgaoEmissor)
+        RuleFor(x => x.Documento.OrgaoEmissor)
         .NotEmpty().WithMessage(CadastroMensagensDeErro.CADASTRO_DOCUMENTO_ORGAO_EMISSOR_EMBRANCO);
 
-        RuleFor(x => x.DocumentoDataValidade)
+        RuleFor(x => x.Documento.DataValidade)
         .GreaterThan(DateTime.MinValue).WithMessage(CadastroMensagensDeErro.CADASTRO_DOCUMENTO_DATA_VALIDADE_INVALIDA);
 
-        RuleFor(x => x.IdentificacaoIdentificador)
+        RuleFor(x => x.Identificador)
         .NotEmpty().WithMessage(CadastroMensagensDeErro.CADASTRO_IDENTIFICADOR_EMBRANCO);
 
         RuleFor(x => x.Empresa)

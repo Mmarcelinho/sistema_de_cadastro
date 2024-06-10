@@ -89,7 +89,7 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                     Bairro = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Complemento = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     PontoReferencia = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    UF = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
+                    Uf = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
                     Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Ibge = table.Column<int>(type: "int", nullable: true),
                     PessoaId = table.Column<long>(type: "bigint", nullable: false),

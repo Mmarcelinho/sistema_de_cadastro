@@ -353,11 +353,11 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                         .HasColumnType("nvarchar(255)")
                                         .HasColumnName("PontoReferencia");
 
-                                    b2.Property<string>("UF")
+                                    b2.Property<string>("Uf")
                                         .IsRequired()
                                         .HasMaxLength(2)
                                         .HasColumnType("nvarchar(2)")
-                                        .HasColumnName("UF");
+                                        .HasColumnName("Uf");
 
                                     b2.HasKey("DomicilioId");
 
