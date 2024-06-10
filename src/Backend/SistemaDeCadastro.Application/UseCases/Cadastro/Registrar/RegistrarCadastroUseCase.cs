@@ -26,33 +26,33 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
             Empresa = requisicao.Empresa,
             Credencial = new Credencial
             {
-                Bloqueada = requisicao.CredencialBloqueada,
-                Expirada = requisicao.CredencialExpirada,
-                Senha = requisicao.CredencialSenha,
+                Bloqueada = requisicao.Credencial.Bloqueada,
+                Expirada = requisicao.Credencial.Expirada,
+                Senha = requisicao.Credencial.Senha,
             },
             Inscrito = new Inscrito
             {
-                Assinante = requisicao.InscritoAssinante,
-                Associado = requisicao.InscritoAssociado,
-                Senha = requisicao.InscritoSenha
+                Assinante = requisicao.Inscrito.Assinante,
+                Associado = requisicao.Inscrito.Associado,
+                Senha = requisicao.Inscrito.Senha
             },
             Parceiro = new Parceiro
             {
-                Cliente = requisicao.ParceiroCliente,
-                Fornecedor = requisicao.ParceiroFornecedor,
-                Prestador = requisicao.ParceiroPrestador,
-                Colaborador = requisicao.ParceiroColaborador
+                Cliente = requisicao.Parceiro.Cliente,
+                Fornecedor = requisicao.Parceiro.Fornecedor,
+                Prestador = requisicao.Parceiro.Prestador,
+                Colaborador = requisicao.Parceiro.Colaborador
             },
             Documento = new Documento(
-                        requisicao.DocumentoNumero,
-                        requisicao.DocumentoOrgaoEmissor,
-                        requisicao.DocumentoEstadoEmissor,
-                        requisicao.DocumentoDataValidade
+                        requisicao.Documento.Numero,
+                        requisicao.Documento.OrgaoEmissor,
+                        requisicao.Documento.EstadoEmissor,
+                        requisicao.Documento.DataValidade
                     ),
             Identificador = new Identificacao(
-                        requisicao.IdentificacaoEmpresa,
-                        requisicao.IdentificacaoIdentificador,
-                        (IdentificacaoTipo)requisicao.IdentificacaoTipo
+                        requisicao.Identificador.Empresa,
+                        requisicao.Identificador.Identificador,
+                        (IdentificacaoTipo)requisicao.Identificador.Tipo
                     )
         };
 
@@ -61,30 +61,34 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
         await _unidadeDeTrabalho.Commit();
 
         return new RespostaCadastroJson(
-                    cadastro.Id.ToString(),
-                    cadastro.Email,
-                    cadastro.NomeFantasia,
-                    cadastro.SobrenomeSocial,
-                    cadastro.Empresa,
-                    cadastro.Credencial.Bloqueada,
-                    cadastro.Credencial.Expirada,
-                    cadastro.Credencial.Senha,
-                    cadastro.Inscrito.Assinante,
-                    cadastro.Inscrito.Associado,
-                    cadastro.Inscrito.Senha,
-                    cadastro.Parceiro.Cliente,
-                    cadastro.Parceiro.Fornecedor,
-                    cadastro.Parceiro.Prestador,
-                    cadastro.Parceiro.Colaborador,
-                    cadastro.Documento.Numero,
-                    cadastro.Documento.OrgaoEmissor,
-                    cadastro.Documento.EstadoEmissor,
-                    cadastro.Documento.DataValidade.ToShortDateString(),
-                    cadastro.Identificador.Empresa,
-                    cadastro.Identificador.Identificador,
-                    (short)cadastro.Identificador.Tipo
-                );
-    }
+            cadastro.Id.ToString(),
+            cadastro.DataCriacao.ToShortDateString(),
+            cadastro.Email,
+            cadastro.NomeFantasia,
+            cadastro.SobrenomeSocial,
+            cadastro.Empresa,
+            new RespostaCredencialJson(
+                cadastro.Credencial.Bloqueada,
+                cadastro.Credencial.Expirada,
+                cadastro.Credencial.Senha),
+            new RespostaInscritoJson(
+                cadastro.Inscrito.Assinante,
+                cadastro.Inscrito.Associado,
+                cadastro.Inscrito.Senha),
+            new RespostaParceiroJson(
+                cadastro.Parceiro.Cliente,
+                cadastro.Parceiro.Fornecedor,
+                cadastro.Parceiro.Prestador,
+                cadastro.Parceiro.Colaborador),
+            new RespostaDocumentoJson(
+                cadastro.Documento.Numero,
+                cadastro.Documento.OrgaoEmissor,
+                cadastro.Documento.EstadoEmissor,
+                cadastro.Documento.DataValidade.ToShortDateString()),
+            new RespostaIdentificacaoJson(
+                cadastro.Identificador.Empresa,
+                cadastro.Identificador.Identificador,
+                (Comunicacao.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));    }
 
     private async Task Validar(RequisicaoCadastroJson requisicao)
     {
