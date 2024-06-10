@@ -53,7 +53,7 @@ namespace SistemaDeCadastro.Infrastructure.AcessoRepositorio.Mappings;
                     enderecoBuilder.Property(e => e.Bairro).HasColumnName("Bairro").HasMaxLength(50).IsRequired();
                     enderecoBuilder.Property(e => e.Complemento).HasColumnName("Complemento").HasMaxLength(255);
                     enderecoBuilder.Property(e => e.PontoReferencia).HasColumnName("PontoReferencia").HasMaxLength(255);
-                    enderecoBuilder.Property(e => e.UF).HasColumnName("UF").HasMaxLength(2).IsRequired();
+                    enderecoBuilder.Property(e => e.Uf).HasColumnName("Uf").HasMaxLength(2).IsRequired();
                     enderecoBuilder.Property(e => e.Cidade).HasColumnName("Cidade").HasMaxLength(50).IsRequired();
                     enderecoBuilder.Property(e => e.Ibge).HasColumnName("Ibge").IsRequired();
                 });

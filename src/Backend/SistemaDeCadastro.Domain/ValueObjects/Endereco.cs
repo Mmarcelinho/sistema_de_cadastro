@@ -14,13 +14,13 @@ public class Endereco : ValueObject
 
     public string PontoReferencia { get; }
 
-    public string UF { get; }
+    public string Uf { get; }
 
     public string Cidade { get; }
 
     public int Ibge { get; }
 
-    public Endereco(string cep, string logradouro, string numero, string bairro, string complemento, string pontoReferencia, string uF, string cidade, int ibge)
+    public Endereco(string cep, string logradouro, string numero, string bairro, string complemento, string pontoReferencia, string uf, string cidade, int ibge)
     {
         Cep = cep;
         Logradouro = logradouro;
@@ -28,7 +28,7 @@ public class Endereco : ValueObject
         Bairro = bairro;
         Complemento = complemento;
         PontoReferencia = pontoReferencia;
-        UF = uF;
+        Uf = uf;
         Cidade = cidade;
         Ibge = ibge;
     }
@@ -47,7 +47,7 @@ public class Endereco : ValueObject
 
         yield return PontoReferencia;
 
-        yield return UF;
+        yield return Uf;
 
         yield return Cidade;
 
