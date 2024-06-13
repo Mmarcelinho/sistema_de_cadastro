@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Comunicacao.Enum;
-
 namespace SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
 
 public record RequisicaoCadastroJson(

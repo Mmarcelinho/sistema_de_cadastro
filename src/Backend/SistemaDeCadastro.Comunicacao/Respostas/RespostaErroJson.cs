@@ -6,14 +6,9 @@ public class RespostaErroJson
 
     public RespostaErroJson(string mensagem)
     {
-        Mensagens = new List<string>
-        {
-            mensagem
-        };
+        Mensagens = [mensagem];
     }
 
-    public RespostaErroJson(List<string> mensagens)
-    {
-        Mensagens = mensagens;
-    }
+    public RespostaErroJson(List<string> mensagens) => Mensagens = mensagens;
+    
 }
