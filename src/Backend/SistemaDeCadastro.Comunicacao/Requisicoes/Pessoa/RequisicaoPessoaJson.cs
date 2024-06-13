@@ -1,31 +1,29 @@
 namespace SistemaDeCadastro.Comunicacao.Requisicoes.Pessoa;
 
-public record RequisicaoPessoaJson(
+public record RequisicaoRegistrarPessoaJson(
         string Cpf,
         string Cnpj,
         string Nome,
-        DateTime Nascimento,
-        string Token,
-        long CadastroId,
-        string Email,
         string NomeFantasia,
-        string SobrenomeSocial,
-        bool Empresa,
-        bool CredencialBloqueada,
-        string CredencialExpirada,
-        string CredencialSenha,
-        bool InscritoAssinante,
-        bool InscritoAssociado,
-        string InscritoSenha,
-        bool ParceiroCliente,
-        bool ParceiroFornecedor,
-        bool ParceiroPrestador,
-        bool ParceiroColaborador,
-        string DocumentoNumero,
-        string DocumentoOrgaoEmissor,
-        string DocumentoEstadoEmissor,
-        DateTime DocumentoDataValidade,
-        int IdentificacaoEmpresa,
-        string IdentificacaoIdentificador,
-        short IdentificacaoTipo
-    );
+        string Email,
+        DateTime Nascimento,
+        int Token,
+        List<RequisicaoDomicilioJson> Domicilios,
+        RequisicaoTelefoneJson Telefone,
+        RequisicaoCadastroJson Cadastro);
+
+public record RequisicaoDomicilioJson(
+        DomicilioTipo Tipo,
+        RequisicaoEnderecoJson Endereco);
+
+public record RequisicaoEnderecoJson(
+    string Cep,
+    string Numero,
+    string Complemento,
+    string PontoReferencia);
+
+public record RequisicaoTelefoneJson(
+    long Numero,
+    bool Celular,
+    bool Whatsapp,
+    bool Telegram);
