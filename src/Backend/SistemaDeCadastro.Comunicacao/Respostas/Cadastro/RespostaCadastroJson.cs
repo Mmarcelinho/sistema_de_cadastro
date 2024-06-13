@@ -1,4 +1,3 @@
-using SistemaDeCadastro.Comunicacao.Enum;
 namespace SistemaDeCadastro.Comunicacao.Respostas.Cadastro;
 
 public record RespostaCadastroJson(
