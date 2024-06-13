@@ -1,32 +1,35 @@
 namespace SistemaDeCadastro.Comunicacao.Respostas.Pessoa;
 
-    public record RepostaPessoaJson(
-        long Id,
-        string Cpf,
-        string Cnpj,
-        string Nome,
-        DateTime Nascimento,
-        string Token,
-        long CadastroId,
-        string Email,
-        string NomeFantasia,
-        string SobrenomeSocial,
-        bool Empresa,
-        bool CredencialBloqueada,
-        string CredencialExpirada,
-        string CredencialSenha,
-        bool InscritoAssinante,
-        bool InscritoAssociado,
-        string InscritoSenha,
-        bool ParceiroCliente,
-        bool ParceiroFornecedor,
-        bool ParceiroPrestador,
-        bool ParceiroColaborador,
-        string DocumentoNumero,
-        string DocumentoOrgaoEmissor,
-        string DocumentoEstadoEmissor,
-        DateTime DocumentoDataValidade,
-        int IdentificacaoEmpresa,
-        string IdentificacaoIdentificador,
-        short IdentificacaoTipo
-    );
+public record RespostaPessoaJson(
+     long Id,
+     string Cpf,
+     string Cnpj,
+     string Nome,
+     string NomeFantasia,
+     string Email,
+     DateTime Nascimento,
+     int Token,
+     List<RespostaDomicilioJson> Domicilios,
+     RespostaTelefoneJson Telefone,
+     RespostaCadastroJson Cadastro);
+
+public record RespostaDomicilioJson(
+    DomicilioTipo Tipo,
+    RespostaEnderecoJson Endereco);
+
+public record RespostaEnderecoJson(
+    string Cep,
+    string Logradouro,
+    string Numero,
+    string Bairro,
+    string Complemento,
+    string PontoReferencia,
+    string Uf,
+    string Cidade,
+    int Ibge);
+
+public record RespostaTelefoneJson(
+    long Numero,
+    bool Celular,
+    bool Whatsapp,
+    bool Telegram);
