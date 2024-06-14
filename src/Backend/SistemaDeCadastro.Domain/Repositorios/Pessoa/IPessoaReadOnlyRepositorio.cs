@@ -5,4 +5,8 @@ namespace SistemaDeCadastro.Domain.Repositorios.Pessoa;
         Task<IEnumerable<Entidades.Pessoa>> RecuperarTodos();
 
         Task<Entidades.Pessoa> RecuperarPorId(long pessoaId);
+
+        Task<bool> RecuperarPessoaExistentePorCpf(string cpf);
+
+        Task<bool> RecuperarPessoaExistentePorCnpj(string cnpj);
     }
