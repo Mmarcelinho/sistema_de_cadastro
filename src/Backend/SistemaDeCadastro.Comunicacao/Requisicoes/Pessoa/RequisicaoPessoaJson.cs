@@ -1,6 +1,6 @@
 namespace SistemaDeCadastro.Comunicacao.Requisicoes.Pessoa;
 
-public record RequisicaoRegistrarPessoaJson(
+public record RequisicaoPessoaJson(
         string Cpf,
         string Cnpj,
         string Nome,
