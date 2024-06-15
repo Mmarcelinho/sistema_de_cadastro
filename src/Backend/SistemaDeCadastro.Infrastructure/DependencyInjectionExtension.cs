@@ -24,5 +24,9 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICadastroReadOnlyRepositorio, CadastroRepositorio>();
         services.AddScoped<ICadastroWriteOnlyRepositorio, CadastroRepositorio>();
         services.AddScoped<ICadastroUpdateOnlyRepositorio, CadastroRepositorio>();
+
+        services.AddScoped<IPessoaReadOnlyRepositorio, PessoaRepositorio>();
+        services.AddScoped<IPessoaWriteOnlyRepositorio, PessoaRepositorio>();
+        services.AddScoped<IPessoaUpdateOnlyRepositorio, PessoaRepositorio>();
     }
 }
