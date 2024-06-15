@@ -4,5 +4,5 @@ namespace SistemaDeCadastro.Application.Servicos.CepServices;
     {
         bool ValidarCep(string cep);
 
-        Task<Endereco> RecuperarEndereco(string cep);
+        Task<EnderecoJson> RecuperarEndereco(string cep);
     }

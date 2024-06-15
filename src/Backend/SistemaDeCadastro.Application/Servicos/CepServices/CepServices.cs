@@ -4,7 +4,7 @@ public class CepServices : ICepServices
 {
     public bool ValidarCep(string cep) => !string.IsNullOrEmpty(cep) && cep.Length == 8;
 
-    public async Task<Endereco> RecuperarEndereco(string cep)
+    public async Task<EnderecoJson> RecuperarEndereco(string cep)
     {
         if (!ValidarCep(cep))
             throw new ErrosDeValidacaoException(mensagensDeErro: [MensagensDeErro.CEP_INVALIDO]);
@@ -15,13 +15,13 @@ public class CepServices : ICepServices
 
         var content = await resposta.Content.ReadAsStringAsync();
 
-        var resultado = JsonSerializer.Deserialize<Endereco>(content);
+        var resultado = JsonSerializer.Deserialize<EnderecoJson>(content);
 
         return resultado;
     }
 }
 
-public record Endereco(
+public record EnderecoJson(
     [property: JsonPropertyName("cep")] string Cep,
     [property: JsonPropertyName("logradouro")] string Logradouro,
     [property: JsonPropertyName("complemento")] string Complemento,
