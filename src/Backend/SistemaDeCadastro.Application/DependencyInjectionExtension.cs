@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
+
 namespace SistemaDeCadastro.Application;
 
 public static class DependencyInjectionExtension
@@ -11,5 +13,6 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<ICepServices, CepServices>();
         services.AddScoped<IRegistrarCadastroUseCase, RegistrarCadastroUseCase>();
+        services.AddScoped<IRegistrarPessoaUseCase, RegistrarPessoaUseCase>();
     }
 }

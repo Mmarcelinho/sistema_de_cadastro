@@ -3,15 +3,17 @@ namespace SistemaDeCadastro.Domain.ValueObjects;
 public class Telefone : ValueObject
 {
     public long Numero { get; }
+
     public bool Celular { get; }
 
     public bool Whatsapp { get; }
 
     public bool Telegram { get; }
 
-    public Telefone(long numero, bool whatsapp, bool telegram)
+    public Telefone(long numero, bool celular, bool whatsapp, bool telegram)
     {
         Numero = numero;
+        Celular = celular;
         Whatsapp = whatsapp;
         Telegram = telegram;
     }

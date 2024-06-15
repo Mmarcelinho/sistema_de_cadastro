@@ -26,7 +26,7 @@ public record RespostaEnderecoJson(
     string PontoReferencia,
     string Uf,
     string Cidade,
-    int Ibge);
+    string Ibge);
 
 public record RespostaTelefoneJson(
     long Numero,

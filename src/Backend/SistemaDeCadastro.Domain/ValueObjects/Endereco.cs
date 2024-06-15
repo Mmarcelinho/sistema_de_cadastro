@@ -18,9 +18,9 @@ public class Endereco : ValueObject
 
     public string Cidade { get; }
 
-    public int Ibge { get; }
+    public string Ibge { get; }
 
-    public Endereco(string cep, string logradouro, string numero, string bairro, string complemento, string pontoReferencia, string uf, string cidade, int ibge)
+    public Endereco(string cep, string logradouro, string numero, string bairro, string complemento, string pontoReferencia, string uf, string cidade, string ibge)
     {
         Cep = cep;
         Logradouro = logradouro;

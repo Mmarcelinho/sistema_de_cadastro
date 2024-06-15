@@ -2,18 +2,33 @@ namespace SistemaDeCadastro.Exceptions;
 
 public static class PessoaMensagensDeErro
 {
-    public static string PESSOA_CPF_EMBRANCO = "O CPF deve ser informado.";
+    public static string PESSOA_CPF_JA_REGISTRADO = "O CPF informado já está registrado na base de dados.";
 
-    public static string PESSOA_CPF_INVALIDO = "O CPF informado é inválido.";
+    public const string PESSOA_CPF_EMBRANCO = "O CPF da pessoa deve ser informado.";
 
-    public static string PESSOA_CNPJ_INVALIDO = "O CNPJ informado é inválido.";
+    public const string PESSOA_CPF_INVALIDO = "O CPF da pessoa é inválido.";
 
-    public static string PESSOA_NOME_EMBRANCO = "O nome deve ser informado.";
+    public static string PESSOA_CNPJ_JA_REGISTRADO = "O CNPJ informado já está registrado na base de dados.";
 
-    public static string PESSOA_NASCIMENTO_INVALIDO = "A data de nascimento é inválida.";
+    public const string PESSOA_CNPJ_INVALIDO = "O CNPJ da pessoa é inválido.";
 
-    public static string PESSOA_TOKEN_EMBRANCO = "O token deve ser informado.";
+    public const string PESSOA_NOME_EMBRANCO = "O nome da pessoa deve ser informado.";
 
-    public static string PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada.";
+    public const string PESSOA_NOME_FANTASIA_EMBRANCO = "O nome fantasia da pessoa deve ser informado.";
 
+    public const string PESSOA_EMAIL_EMBRANCO = "O email da pessoa deve ser informado.";
+
+    public const string PESSOA_EMAIL_INVALIDO = "O email da pessoa é inválido.";
+
+    public const string PESSOA_DATA_NASCIMENTO_INVALIDA = "A data de nascimento da pessoa é inválida.";
+
+    public const string PESSOA_TOKEN_INVALIDO = "O token da pessoa é inválido.";
+
+    public const string PESSOA_DOMICILIOS_EMBRANCO = "Os domicílios da pessoa devem ser informados.";
+
+    public const string PESSOA_DOMICILIO_CEP_EMBRANCO = "O CEP do domicílio deve ser informado.";
+
+    public const string PESSOA_TELEFONE_EMBRANCO = "O número de telefone deve ser informado.";
+
+    public const string PESSOA_CADASTRO_EMBRANCO = "O cadastro da pessoa deve ser informado.";
 }
