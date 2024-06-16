@@ -11,7 +11,6 @@ public static class DependencyInjectionExtension
 
     private static void AdicionarUseCases(IServiceCollection services)
     {
-        services.AddScoped<ICepServices, CepServices>();
         services.AddScoped<IRegistrarCadastroUseCase, RegistrarCadastroUseCase>();
         services.AddScoped<IRegistrarPessoaUseCase, RegistrarPessoaUseCase>();
     }
