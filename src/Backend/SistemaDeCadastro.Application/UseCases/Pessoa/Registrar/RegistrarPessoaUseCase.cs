@@ -8,17 +8,17 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private readonly IPessoaReadOnlyRepositorio _repositorioRead;
 
-    private ICepServices _cepServices;
+    private IViaCep _viaCep;
 
     private IUnidadeDeTrabalho _unidadeDeTrabalho;
 
-    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, ICepServices cepServices, IUnidadeDeTrabalho unidadeDeTrabalho)
+    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, IViaCep viaCep, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
         _repositorioCadastro = repositorioCadastro;
         _repositorioWrite = repositorioWrite;
         _repositorioRead = repositorioRead;
         _unidadeDeTrabalho = unidadeDeTrabalho;
-        _cepServices = cepServices;
+        _viaCep = viaCep;
     }
 
     public async Task<RespostaPessoaJson> Executar(RequisicaoPessoaJson requisicao)
@@ -183,7 +183,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
         foreach (var domicilio in requisicao.Domicilios)
         {
-            var resultado = await _cepServices.RecuperarEndereco(domicilio.Endereco.Cep);
+            var resultado = await _viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
 
             Endereco Endereco = new(
                 domicilio.Endereco.Cep,

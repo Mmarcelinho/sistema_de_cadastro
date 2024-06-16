@@ -28,5 +28,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPessoaReadOnlyRepositorio, PessoaRepositorio>();
         services.AddScoped<IPessoaWriteOnlyRepositorio, PessoaRepositorio>();
         services.AddScoped<IPessoaUpdateOnlyRepositorio, PessoaRepositorio>();
+
+        services.AddScoped<IViaCep, ViaCep>();
     }
 }

@@ -15,6 +15,7 @@
 
       <ItemGroup>
     <ProjectReference Include="..\SistemaDeCadastro.Domain\SistemaDeCadastro.Domain.csproj" />
+    <ProjectReference Include="..\SistemaDeCadastro.Exceptions\SistemaDeCadastro.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

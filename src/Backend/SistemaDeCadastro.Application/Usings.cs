@@ -1,6 +1,3 @@
-global using System.Text.Json;
-global using System.Text.Json.Serialization;
-
 global using FluentValidation;
 global using Microsoft.Extensions.DependencyInjection;
 
@@ -10,9 +7,9 @@ global using SistemaDeCadastro.Domain.Repositorios;
 global using SistemaDeCadastro.Domain.Repositorios.Cadastro;
 global using SistemaDeCadastro.Domain.Repositorios.Pessoa;
 global using SistemaDeCadastro.Domain.ValueObjects;
+global using SistemaDeCadastro.Domain.Servicos.ViaCep;
 
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;
-global using SistemaDeCadastro.Application.Servicos.CepServices;
 global using SistemaDeCadastro.Application.UseCases.Cadastro;
 
 global using SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
