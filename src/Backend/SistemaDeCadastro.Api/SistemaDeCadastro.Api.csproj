@@ -19,7 +19,7 @@
     <ProjectReference Include="..\SistemaDeCadastro.Infrastructure\SistemaDeCadastro.Infrastructure.csproj" />
     <ProjectReference Include="..\SistemaDeCadastro.Domain\SistemaDeCadastro.Domain.csproj" />
     <ProjectReference Include="..\SistemaDeCadastro.Application\SistemaDeCadastro.Application.csproj" />
-    <ProjectReference Include="..\SistemaDeCadastro.Comunicacao\SistemaDeCadastro.Comunicacao.csproj" />
+    <ProjectReference Include="..\SistemaDeCadastro.Communication\SistemaDeCadastro.Communication.csproj" />
     <ProjectReference Include="..\SistemaDeCadastro.Exceptions\SistemaDeCadastro.Exceptions.csproj" />
   </ItemGroup>
 

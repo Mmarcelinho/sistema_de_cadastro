@@ -95,7 +95,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
             pessoa.Nascimento,
             pessoa.Token,
             pessoa.Domicilios.Select(d => new RespostaDomicilioJson(
-                (Comunicacao.Enum.DomicilioTipo)d.Tipo,
+                (Communication.Enum.DomicilioTipo)d.Tipo,
                 new RespostaEnderecoJson(
                     d.Endereco.Cep,
                     d.Endereco.Logradouro,
@@ -146,7 +146,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
                 new RespostaIdentificacaoJson(
                     pessoa.Cadastro.Identificador.Empresa,
                     pessoa.Cadastro.Identificador.Identificador,
-                    (Comunicacao.Enum.IdentificacaoTipo)pessoa.Cadastro.Identificador.Tipo
+                    (Communication.Enum.IdentificacaoTipo)pessoa.Cadastro.Identificador.Tipo
                 )
             )
         );

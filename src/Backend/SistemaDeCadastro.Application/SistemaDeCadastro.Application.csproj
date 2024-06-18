@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaDeCadastro.Infrastructure\SistemaDeCadastro.Infrastructure.csproj" />
-    <ProjectReference Include="..\SistemaDeCadastro.Comunicacao\SistemaDeCadastro.Comunicacao.csproj" />
+    <ProjectReference Include="..\SistemaDeCadastro.Communication\SistemaDeCadastro.Communication.csproj" />
     <ProjectReference Include="..\SistemaDeCadastro.Exceptions\SistemaDeCadastro.Exceptions.csproj" />
   </ItemGroup>
 

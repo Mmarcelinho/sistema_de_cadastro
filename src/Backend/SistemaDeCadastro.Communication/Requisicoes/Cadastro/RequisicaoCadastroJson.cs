@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Comunicacao.Requisicoes.Cadastro;
+namespace SistemaDeCadastro.Communication.Requisicoes.Cadastro;
 
 public record RequisicaoCadastroJson(
     string Email,

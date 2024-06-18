@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Comunicacao.Respostas;
+namespace SistemaDeCadastro.Communication.Respostas;
 
 public class RespostaErroJson
 {

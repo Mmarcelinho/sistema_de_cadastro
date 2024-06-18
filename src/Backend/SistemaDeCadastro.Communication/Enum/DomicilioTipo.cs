@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Comunicacao.Enum;
+namespace SistemaDeCadastro.Communication.Enum;
 
 public enum DomicilioTipo
 {
