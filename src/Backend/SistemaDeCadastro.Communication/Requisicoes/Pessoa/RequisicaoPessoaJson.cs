@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Comunicacao.Requisicoes.Pessoa;
+namespace SistemaDeCadastro.Communication.Requisicoes.Pessoa;
 
 public record RequisicaoPessoaJson(
         string Cpf,

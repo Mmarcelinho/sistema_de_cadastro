@@ -88,7 +88,7 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
             new RespostaIdentificacaoJson(
                 cadastro.Identificador.Empresa,
                 cadastro.Identificador.Identificador,
-                (Comunicacao.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));
+                (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));
     }
 
     private async Task Validar(RequisicaoCadastroJson requisicao)

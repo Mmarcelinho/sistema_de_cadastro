@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Comunicacao.Respostas.Cadastro;
+namespace SistemaDeCadastro.Communication.Respostas.Cadastro;
 
 public record RespostaCadastroJson(
 string Id,
