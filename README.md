@@ -45,7 +45,7 @@ O sistema de cadastro é uma API que permite o gerenciamento de cadastros de pes
 
 Abaixo está um diagrama simplificado representando as principais entidades e seus relacionamentos dentro do sistema.
 
-![Diagrama de Entidades](Files/diagrama.jpg)
+![Diagrama de Entidades](images/diagrama.jpg)
 
 ## Instalação
 
