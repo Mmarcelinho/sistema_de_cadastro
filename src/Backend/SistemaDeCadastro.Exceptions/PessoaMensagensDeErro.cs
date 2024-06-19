@@ -2,13 +2,13 @@ namespace SistemaDeCadastro.Exceptions;
 
 public static class PessoaMensagensDeErro
 {
-    public static string PESSOA_CPF_JA_REGISTRADO = "O CPF informado já está registrado na base de dados.";
+    public const string PESSOA_CPF_JA_REGISTRADO = "O CPF informado já está registrado na base de dados.";
 
     public const string PESSOA_CPF_EMBRANCO = "O CPF da pessoa deve ser informado.";
 
     public const string PESSOA_CPF_INVALIDO = "O CPF da pessoa é inválido.";
 
-    public static string PESSOA_CNPJ_JA_REGISTRADO = "O CNPJ informado já está registrado na base de dados.";
+    public const string PESSOA_CNPJ_JA_REGISTRADO = "O CNPJ informado já está registrado na base de dados.";
 
     public const string PESSOA_CNPJ_INVALIDO = "O CNPJ da pessoa é inválido.";
 
