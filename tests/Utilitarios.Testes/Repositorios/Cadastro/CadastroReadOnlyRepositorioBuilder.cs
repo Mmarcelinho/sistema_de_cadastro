@@ -20,5 +20,12 @@ public class CadastroReadOnlyRepositorioBuilder
         return this;
     }
 
+    public CadastroReadOnlyRepositorioBuilder RecuperarCadastroExistentePorEmail(string email)
+    {
+        _repositorio.Setup(repositorio => repositorio.RecuperarCadastroExistentePorEmail(email)).ReturnsAsync(true);
+
+        return this;
+    }
+
     public ICadastroReadOnlyRepositorio Build() => _repositorio.Object;
 }
