@@ -4,7 +4,6 @@ namespace SistemaDeCadastro.Infrastructure.AcessoRepositorio.Mappings;
     {
         public void Configure(EntityTypeBuilder<Pessoa> builder)
         {
-            // Configurações básicas
             builder.ToTable("Pessoas");
 
             builder.HasKey(p => p.Id);
