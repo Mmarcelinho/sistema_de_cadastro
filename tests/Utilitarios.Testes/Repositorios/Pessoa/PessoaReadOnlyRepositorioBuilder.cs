@@ -20,5 +20,19 @@ public class PessoaReadOnlyRepositorioBuilder
         return this;
     }
 
+    public PessoaReadOnlyRepositorioBuilder RecuperarPessoaExistentePorCpf(string cpf)
+    {
+        _repositorio.Setup(repositorio => repositorio.RecuperarPessoaExistentePorCpf(cpf)).ReturnsAsync(true);
+
+        return this;
+    }
+
+    public PessoaReadOnlyRepositorioBuilder RecuperarPessoaExistentePorCnpj(string cnpj)
+    {
+        _repositorio.Setup(repositorio => repositorio.RecuperarPessoaExistentePorCnpj(cnpj)).ReturnsAsync(true);
+
+        return this;
+    }
+
     public IPessoaReadOnlyRepositorio Build() => _repositorio.Object;
 }
