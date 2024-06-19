@@ -6,37 +6,38 @@ public class RequisicaoCadastroJsonBuilder
     {
         var faker = new Faker();
 
-        return new Faker<RequisicaoCadastroJson>()
-            .RuleFor(r => r.Email, f => f.Internet.Email())
-            .RuleFor(r => r.NomeFantasia, f => f.Company.CompanyName())
-            .RuleFor(r => r.SobrenomeSocial, f => f.Name.LastName())
-            .RuleFor(r => r.Empresa, f => f.Random.Bool())
-            .RuleFor(r => r.Credencial, f => new RequisicaoCredencialJson(
-                f.Random.Bool(),
-                f.Date.Future().ToString("yyyy-MM-dd"),
-                f.Internet.Password()
-            ))
-            .RuleFor(r => r.Inscrito, f => new RequisicaoInscritoJson(
-                f.Random.Bool(),
-                f.Random.Bool(),
-                f.Internet.Password()
-            ))
-            .RuleFor(r => r.Parceiro, f => new RequisicaoParceiroJson(
-                f.Random.Bool(),
-                f.Random.Bool(),
-                f.Random.Bool(),
-                f.Random.Bool()
-            ))
-            .RuleFor(r => r.Documento, f => new RequisicaoDocumentoJson(
-                f.Random.Replace("###########"),
-                f.Company.CompanyName(),
-                f.Address.StateAbbr(),
-                f.Date.Future()
-            ))
-            .RuleFor(r => r.Identificador, f => new RequisicaoIdentificacaoJson(
-                f.Random.Int(1, 10),
-                f.Random.AlphaNumeric(10),
-                f.PickRandom<SistemaDeCadastro.Communication.Enum.IdentificacaoTipo>()
-            ));
+        return new RequisicaoCadastroJson(
+            faker.Internet.Email(),
+            faker.Company.CompanyName(),
+            faker.Name.LastName(),
+            faker.Random.Bool(),
+            new RequisicaoCredencialJson(
+                faker.Random.Bool(),
+                faker.Date.Future().ToString(),
+                faker.Internet.Password()
+            ),
+            new RequisicaoInscritoJson(
+                faker.Random.Bool(),
+                faker.Random.Bool(),
+                faker.Internet.Password()
+            ),
+            new RequisicaoParceiroJson(
+                faker.Random.Bool(),
+                faker.Random.Bool(),
+                faker.Random.Bool(),
+                faker.Random.Bool()
+            ),
+            new RequisicaoDocumentoJson(
+                faker.Random.ReplaceNumbers("###########"),
+                faker.Company.CompanyName(),
+                faker.Address.StateAbbr(),
+                faker.Date.Future()
+            ),
+            new RequisicaoIdentificacaoJson(
+                faker.Random.Int(1, 10),
+                faker.Random.AlphaNumeric(10),
+                faker.PickRandom<SistemaDeCadastro.Communication.Enum.IdentificacaoTipo>()
+            )
+        );
     }
 }
