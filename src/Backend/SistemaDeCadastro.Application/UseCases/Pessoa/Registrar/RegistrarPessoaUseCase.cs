@@ -86,7 +86,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
         await _unidadeDeTrabalho.Commit();
 
         return new RespostaPessoaJson(
-            pessoa.Id,
+            pessoa.Id.ToString(),
             pessoa.Cpf,
             pessoa.Cnpj,
             pessoa.Nome,
