@@ -1,16 +1,16 @@
-namespace WebApi.Test.V1.Cadastro.Registrar;
+namespace WebApi.Test.V1.Pessoa.Registrar;
 
-public class RegistrarCadastroTest : SistemaDeCadastroClassFixture
+public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
 {
-    private const string METODO = "cadastro";
+    private const string METODO = "pessoa";
 
-    public RegistrarCadastroTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    public RegistrarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     { }
 
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoPessoaJsonBuilder.Build();
 
         var resultado = await DoPost(requestUri: METODO, request: requisicao);
 
