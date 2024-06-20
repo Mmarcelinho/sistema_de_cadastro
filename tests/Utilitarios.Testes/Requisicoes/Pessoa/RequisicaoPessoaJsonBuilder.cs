@@ -18,7 +18,7 @@ public class RequisicaoPessoaJsonBuilder
                 new RequisicaoDomicilioJson(
                     faker.PickRandom<SistemaDeCadastro.Communication.Enum.DomicilioTipo>(),
                     new RequisicaoEnderecoJson(
-                        faker.Address.ZipCode("########"),
+                        "16016020",
                         faker.Address.BuildingNumber(),
                         faker.Address.SecondaryAddress(),
                         faker.Lorem.Sentence()
