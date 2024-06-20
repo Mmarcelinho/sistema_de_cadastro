@@ -2,6 +2,8 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Filters;
 
 global using SistemaDeCadastro.Infrastructure;
+global using SistemaDeCadastro.Infrastructure.Extensions;
+global using SistemaDeCadastro.Infrastructure.Migrations;
 
 global using SistemaDeCadastro.Application;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;
