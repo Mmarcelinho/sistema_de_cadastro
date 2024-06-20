@@ -4,8 +4,12 @@ public static class DependencyInjectionExtension
 {
     public static void AdicionarInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AdicionarContexto(services, configuration);
         AdicionarRepositorios(services);
+
+        if (configuration.IsTestEnvironment() == false)
+        {
+            AdicionarContexto(services, configuration);
+        }
     }
 
     private static void AdicionarContexto(IServiceCollection services, IConfiguration configuration)
