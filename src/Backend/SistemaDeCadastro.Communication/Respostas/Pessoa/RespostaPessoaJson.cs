@@ -1,7 +1,7 @@
 namespace SistemaDeCadastro.Communication.Respostas.Pessoa;
 
 public record RespostaPessoaJson(
-     string Id,
+     long Id,
      string Cpf,
      string Cnpj,
      string Nome,
