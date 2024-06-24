@@ -1,8 +1,8 @@
 namespace SistemaDeCadastro.Communication.Respostas.Cadastro;
 
 public record RespostaCadastroJson(
-string Id,
-string DataCriacao,
+long Id,
+DateTime DataCriacao,
 string Email,
 string NomeFantasia,
 string SobrenomeSocial,
@@ -36,7 +36,7 @@ public record RespostaDocumentoJson(
     string Numero,
     string OrgaoEmissor,
     string EstadoEmissor,
-    string DataValidade
+    DateTime DataValidade
 );
 
 public record RespostaIdentificacaoJson(

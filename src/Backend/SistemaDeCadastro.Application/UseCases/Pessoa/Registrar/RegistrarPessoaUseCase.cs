@@ -86,7 +86,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
         await _unidadeDeTrabalho.Commit();
 
         return new RespostaPessoaJson(
-            pessoa.Id.ToString(),
+            pessoa.Id,
             pessoa.Cpf,
             pessoa.Cnpj,
             pessoa.Nome,
@@ -115,8 +115,8 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
                 pessoa.Telefone.Telegram
             ),
             new RespostaCadastroJson(
-                pessoa.Cadastro.Id.ToString(),
-                pessoa.Cadastro.DataCriacao.ToString(),
+                pessoa.Cadastro.Id,
+                pessoa.Cadastro.DataCriacao,
                 pessoa.Cadastro.Email,
                 pessoa.Cadastro.NomeFantasia,
                 pessoa.Cadastro.SobrenomeSocial,
@@ -141,7 +141,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
                     pessoa.Cadastro.Documento.Numero,
                     pessoa.Cadastro.Documento.OrgaoEmissor,
                     pessoa.Cadastro.Documento.EstadoEmissor,
-                    pessoa.Cadastro.Documento.DataValidade.ToShortDateString()
+                    pessoa.Cadastro.Documento.DataValidade
                 ),
                 new RespostaIdentificacaoJson(
                     pessoa.Cadastro.Identificador.Empresa,
