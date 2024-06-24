@@ -8,6 +8,13 @@ O sistema de cadastro é uma API que permite o gerenciamento de cadastros de pes
 - Domain-Driven Design (DDD)
 - Princípios SOLID
 
+## Build Status
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=marcelinho_sistemadecadastro&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marcelinho_sistemadecadastro)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=marcelinho_sistemadecadastro&metric=bugs)](https://sonarcloud.io/summary/new_code?id=marcelinho_sistemadecadastro)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=marcelinho_sistemadecadastro&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=marcelinho_sistemadecadastro)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marcelinho_sistemadecadastro&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marcelinho_sistemadecadastro)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=marcelinho_sistemadecadastro&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=marcelinho_sistemadecadastro)
+
 ## Tecnologias Utilizadas
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
