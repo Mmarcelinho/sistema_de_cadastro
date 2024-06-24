@@ -6,7 +6,7 @@ public static class DependencyInjectionExtension
     {
         AdicionarRepositorios(services);
 
-        if (configuration.IsTestEnvironment() == false)
+        if (configuration.IsTestEnvironment())
         {
             AdicionarContexto(services, configuration);
         }
