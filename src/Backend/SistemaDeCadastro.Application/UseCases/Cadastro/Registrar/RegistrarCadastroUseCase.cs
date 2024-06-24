@@ -6,7 +6,7 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
 
     private readonly ICadastroReadOnlyRepositorio _repositorioRead;
 
-    private IUnidadeDeTrabalho _unidadeDeTrabalho;
+    private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
     public RegistrarCadastroUseCase(ICadastroWriteOnlyRepositorio repositorioWrite, ICadastroReadOnlyRepositorio repositorioRead, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
@@ -61,8 +61,8 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
         await _unidadeDeTrabalho.Commit();
 
         return new RespostaCadastroJson(
-            cadastro.Id.ToString(),
-            cadastro.DataCriacao.ToShortDateString(),
+            cadastro.Id,
+            cadastro.DataCriacao,
             cadastro.Email,
             cadastro.NomeFantasia,
             cadastro.SobrenomeSocial,
@@ -84,7 +84,7 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
                 cadastro.Documento.Numero,
                 cadastro.Documento.OrgaoEmissor,
                 cadastro.Documento.EstadoEmissor,
-                cadastro.Documento.DataValidade.ToShortDateString()),
+                cadastro.Documento.DataValidade),
             new RespostaIdentificacaoJson(
                 cadastro.Identificador.Empresa,
                 cadastro.Identificador.Identificador,
