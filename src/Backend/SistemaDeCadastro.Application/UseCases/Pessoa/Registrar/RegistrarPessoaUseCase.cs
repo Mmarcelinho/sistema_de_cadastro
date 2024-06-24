@@ -8,9 +8,9 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private readonly IPessoaReadOnlyRepositorio _repositorioRead;
 
-    private IViaCep _viaCep;
+    private readonly IViaCep _viaCep;
 
-    private IUnidadeDeTrabalho _unidadeDeTrabalho;
+    private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
     public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, IViaCep viaCep, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
