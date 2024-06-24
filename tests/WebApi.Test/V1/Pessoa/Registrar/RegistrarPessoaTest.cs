@@ -20,6 +20,6 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
 
         var resposta = await JsonDocument.ParseAsync(body);
 
-        resposta.RootElement.GetProperty("id").GetString().Should().NotBeNullOrWhiteSpace();
+        resposta.RootElement.GetProperty("email").GetString().Should().NotBeNullOrWhiteSpace();
     }
 }
