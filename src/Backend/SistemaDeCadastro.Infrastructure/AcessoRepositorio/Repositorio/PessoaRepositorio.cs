@@ -6,7 +6,7 @@ public class PessoaRepositorio : IPessoaReadOnlyRepositorio, IPessoaWriteOnlyRep
 
     public PessoaRepositorio(SistemaDeCadastroContext contexto) => _contexto = contexto;
 
-    public async Task<IEnumerable<Pessoa>> RecuperarTodos() => await _contexto.Pessoas.AsNoTracking().ToListAsync();
+    public async Task<IEnumerable<Pessoa>> RecuperarTodos() => await _contexto.Pessoas.AsNoTracking().Include(c => c.Cadastro).ToListAsync();
 
     public async Task<Pessoa> RecuperarPorId(long pessoaId) => await _contexto.Pessoas
     .AsNoTracking()
