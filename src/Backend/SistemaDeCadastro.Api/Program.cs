@@ -23,7 +23,7 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-if (builder.Configuration.IsTestEnvironment())
+if (builder.Configuration.IsTestEnvironment()  == false)
 {
     await AtualizarBaseDeDados();
 }
