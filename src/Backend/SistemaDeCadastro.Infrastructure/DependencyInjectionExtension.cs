@@ -17,7 +17,7 @@ public static class DependencyInjectionExtension
 
         services.AddDbContext<SistemaDeCadastroContext>(opcoes =>
         {
-            opcoes.UseSqlServer(connectionString);
+            opcoes.UseNpgsql(connectionString);
         });
     }
 
