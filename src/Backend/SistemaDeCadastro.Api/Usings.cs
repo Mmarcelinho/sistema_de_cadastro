@@ -7,7 +7,10 @@ global using SistemaDeCadastro.Infrastructure.Migrations;
 
 global using SistemaDeCadastro.Application;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;
+global using SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarTodos;
+
 global using SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
+global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarTodos;
 
 global using SistemaDeCadastro.Communication.Requisicoes.Cadastro;
 global using SistemaDeCadastro.Communication.Respostas;
