@@ -4,6 +4,8 @@ public static class PessoaMensagensDeErro
 {
     public const string PESSOA_CPF_JA_REGISTRADO = "O CPF informado já está registrado na base de dados.";
 
+    public static string PESSOA_NAO_ENCONTRADO = "Pessoa não encontrado.";
+
     public const string PESSOA_CPF_EMBRANCO = "O CPF da pessoa deve ser informado.";
 
     public const string PESSOA_CPF_INVALIDO = "O CPF da pessoa é inválido.";
