@@ -3,11 +3,22 @@ namespace SistemaDeCadastro.Api.Controllers;
 public class PessoaController : SistemaDeCadastroController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(RespostaCadastroJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(RespostaPessoaJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RecuperarTodos([FromServices] IRecuperarTodosPessoaUseCase useCase)
     {
         var resposta = await useCase.Executar();
+
+        return Ok(resposta);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(RespostaPessoaJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> RecuperarPorId([FromServices] IRecuperarPessoaPorIdUseCase useCase, [FromRoute] long id)
+    {
+        var resposta = await useCase.Executar(id);
 
         return Ok(resposta);
     }
