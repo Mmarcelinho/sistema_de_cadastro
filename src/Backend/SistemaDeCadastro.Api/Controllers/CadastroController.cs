@@ -11,6 +11,17 @@ public class CadastroController : SistemaDeCadastroController
 
         return Ok(resposta);
     }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(RespostaCadastroJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> RecuperarPorId([FromServices] IRecuperarCadastroPorIdUseCase useCase, [FromRoute] long id)
+    {
+        var resposta = await useCase.Executar(id);
+
+        return Ok(resposta);
+    }
     
     [HttpPost]
     [ProducesResponseType(typeof(RespostaCadastroJson), StatusCodes.Status201Created)]
