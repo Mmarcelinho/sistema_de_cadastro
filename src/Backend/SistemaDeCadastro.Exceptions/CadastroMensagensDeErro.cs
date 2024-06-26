@@ -4,6 +4,8 @@ public static class CadastroMensagensDeErro
 {
     public static string CADASTRO_EMAIL_JA_REGISTRADO = "O e-mail informado já está registrado na base de dados.";
 
+    public static string CADASTRO_NAO_ENCONTRADO = "Cadastro não encontrado.";
+
     public static string CADASTRO_EMAIL_EMBRANCO = "O e-mail deve ser informado.";
 
     public static string CADASTRO_EMAIL_INVALIDO = "O e-mail informado é inválido.";
