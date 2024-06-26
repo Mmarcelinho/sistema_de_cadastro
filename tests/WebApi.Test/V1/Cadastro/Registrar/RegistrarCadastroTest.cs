@@ -10,7 +10,7 @@ public class RegistrarCadastroTest : SistemaDeCadastroClassFixture
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
 
         var resultado = await DoPost(requestUri: METODO, request: requisicao);
 

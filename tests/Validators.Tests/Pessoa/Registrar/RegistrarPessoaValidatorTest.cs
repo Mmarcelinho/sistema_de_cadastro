@@ -7,7 +7,7 @@ namespace Validators.Tests.Pessoa.Registrar;
         {
             var validator = new RegistrarPessoaValidator();
 
-            var requisicao = RequisicaoPessoaJsonBuilder.Build();
+            var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
             var resultado = validator.Validate(requisicao);
 
@@ -19,7 +19,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { Cpf = string.Empty };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Cpf = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -40,7 +40,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { Nome = string.Empty };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Nome = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -53,7 +53,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { NomeFantasia = string.Empty };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { NomeFantasia = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -66,7 +66,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { Email = string.Empty };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Email = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -87,7 +87,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { Nascimento = DateTime.MinValue };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Nascimento = DateTime.MinValue };
 
         var resultado = validator.Validate(requisicao);
 
@@ -100,7 +100,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     {
         var validator = new RegistrarPessoaValidator();
 
-        var requisicao = RequisicaoPessoaJsonBuilder.Build() with { Token = 0 };
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Token = 0 };
 
         var resultado = validator.Validate(requisicao);
 
