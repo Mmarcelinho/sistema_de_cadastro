@@ -2,7 +2,27 @@ namespace Utilitarios.Testes.Entidades;
 
 public class PessoaBuilder
 {
-    public static Pessoa Build(Cadastro cadastro)
+    public static List<Pessoa> Colecao(uint count = 2)
+    {
+        var listPessoas = new List<Pessoa>();
+        var cadastro = CadastroBuilder.Instancia();
+
+        if (count == 0)
+            count = 1;
+
+        var pessoaId = 1;
+
+        for (int i = 0; i < count; i++)
+        {
+            var pessoa = Instancia(cadastro);
+            pessoa.Id = pessoaId++;
+
+            listPessoas.Add(pessoa);
+        }
+
+        return listPessoas;
+    }
+    public static Pessoa Instancia(Cadastro cadastro)
     {
         var faker = new Faker();
 

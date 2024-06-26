@@ -2,7 +2,7 @@ namespace Utilitarios.Testes.Requisicoes.Pessoa;
 
 public class RequisicaoPessoaJsonBuilder
 {
-    public static RequisicaoPessoaJson Build()
+    public static RequisicaoPessoaJson Instancia()
     {
         var faker = new Faker();
 
@@ -31,7 +31,7 @@ public class RequisicaoPessoaJsonBuilder
                 faker.Random.Bool(),
                 faker.Random.Bool()
             ),
-            RequisicaoCadastroJsonBuilder.Build()
+            RequisicaoCadastroJsonBuilder.Instancia()
         );
     }
 }
