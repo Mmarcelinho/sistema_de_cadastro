@@ -5,14 +5,19 @@ public class RecuperarTodosPessoaUseCase : IRecuperarTodosPessoaUseCase
     private readonly IPessoaReadOnlyRepositorio _repositorio;
 
     public RecuperarTodosPessoaUseCase(IPessoaReadOnlyRepositorio repositorio)
-    {
+    =>
         _repositorio = repositorio;
-    }
+    
     public async Task<IEnumerable<RespostaPessoaJson>> Executar()
     {
         var pessoas = await _repositorio.RecuperarTodos();
 
-        var resultado = pessoas.Select(pessoa => new RespostaPessoaJson(
+        return pessoas.Select(MapearDePessoa);
+    }
+
+    private static RespostaPessoaJson MapearDePessoa(Domain.Entidades.Pessoa pessoa)
+    {
+        return new RespostaPessoaJson(
             pessoa.Id,
             pessoa.Cpf,
             pessoa.Cnpj,
@@ -76,8 +81,6 @@ public class RecuperarTodosPessoaUseCase : IRecuperarTodosPessoaUseCase
                     (Communication.Enum.IdentificacaoTipo)pessoa.Cadastro.Identificador.Tipo
                 )
             )
-        ));
-
-        return resultado;
+        );
     }
 }

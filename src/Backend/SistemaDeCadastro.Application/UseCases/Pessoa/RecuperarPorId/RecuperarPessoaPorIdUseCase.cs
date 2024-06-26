@@ -16,6 +16,11 @@ public class RecuperarPessoaPorIdUseCase : IRecuperarPessoaPorIdUseCase
         if (pessoa is null)
             throw new Exception(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
 
+        return MapearParaResposta(pessoa);
+    }
+
+    private static RespostaPessoaJson MapearParaResposta(Domain.Entidades.Pessoa pessoa)
+    {
         return new RespostaPessoaJson(
             pessoa.Id,
             pessoa.Cpf,

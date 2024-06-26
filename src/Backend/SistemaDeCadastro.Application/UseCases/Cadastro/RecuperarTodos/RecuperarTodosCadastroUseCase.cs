@@ -13,7 +13,12 @@ public class RecuperarTodosCadastroUseCase : IRecuperarTodosCadastroUseCase
     {
         var cadastros = await _repositorio.RecuperarTodos();
 
-        var resultado = cadastros.Select(cadastro => new RespostaCadastroJson(
+        return cadastros.Select(MapearDeCadastro);
+    }
+
+    private static RespostaCadastroJson MapearDeCadastro(Domain.Entidades.Cadastro cadastro)
+    {
+        return new RespostaCadastroJson(
             cadastro.Id,
             cadastro.DataCriacao,
             cadastro.Email,
@@ -41,8 +46,6 @@ public class RecuperarTodosCadastroUseCase : IRecuperarTodosCadastroUseCase
             new RespostaIdentificacaoJson(
                 cadastro.Identificador.Empresa,
                 cadastro.Identificador.Identificador,
-                (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo)));
-
-        return resultado;
+                (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));
     }
 }
