@@ -14,7 +14,7 @@ public class RecuperarPessoaPorIdUseCase : IRecuperarPessoaPorIdUseCase
         var pessoa = await _repositorio.RecuperarPorId(pessoaId);
 
         if (pessoa is null)
-            throw new Exception(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
+            throw new NaoEncontradoException(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
 
         return MapearParaResposta(pessoa);
     }

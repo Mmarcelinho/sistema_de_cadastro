@@ -13,7 +13,7 @@ public class RecuperarCadastroPorIdUseCase : IRecuperarCadastroPorIdUseCase
         var cadastro = await _repositorio.RecuperarPorId(cadastroId);
 
         if (cadastro is null)
-            throw new Exception(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
+            throw new NaoEncontradoException(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
 
         return MapearDeCadastro(cadastro);
     }

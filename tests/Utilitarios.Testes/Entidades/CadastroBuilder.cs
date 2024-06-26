@@ -2,7 +2,27 @@ namespace Utilitarios.Testes.Entidades;
 
 public class CadastroBuilder
 {
-    public static Cadastro Build()
+    public static List<Cadastro> Colecao(uint count = 2)
+    {
+        var listaCadastros = new List<Cadastro>();
+
+        if (count == 0)
+            count = 1;
+
+        var cadastroId = 1;
+
+        for (int i = 0; i < count; i++)
+        {
+            var cadastro = Instancia();
+            cadastro.Id = cadastroId++;
+
+            listaCadastros.Add(cadastro);
+        }
+
+        return listaCadastros;
+    }
+
+    public static Cadastro Instancia()
     {
         return new Faker<Cadastro>()
             .RuleFor(c => c.Id, _ => 1)

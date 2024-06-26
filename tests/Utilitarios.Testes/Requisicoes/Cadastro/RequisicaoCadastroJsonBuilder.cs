@@ -2,7 +2,7 @@ namespace Utilitarios.Testes.Requisicoes.Cadastro;
 
 public class RequisicaoCadastroJsonBuilder
 {
-    public static RequisicaoCadastroJson Build()
+    public static RequisicaoCadastroJson Instancia()
     {
         var faker = new Faker();
 

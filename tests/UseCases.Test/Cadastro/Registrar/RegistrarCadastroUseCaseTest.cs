@@ -5,7 +5,7 @@ public class RegistrarCadastroUseCaseTest
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
 
         var useCase = CriarUseCase();
 
@@ -17,7 +17,7 @@ public class RegistrarCadastroUseCaseTest
     [Fact]
     public async Task CadastroExistente_DeveRetornarErro()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
 
         var useCase = CriarUseCase(requisicao.Email);
 
@@ -31,7 +31,7 @@ public class RegistrarCadastroUseCaseTest
     [Fact]
     public async Task DocumentoInvalido_DeveRetornarErro()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
         requisicao = requisicao with
         {
             Documento = requisicao.Documento with { Numero = "" }
@@ -49,7 +49,7 @@ public class RegistrarCadastroUseCaseTest
     [Fact]
     public async Task CredencialSenhaEmBranco_DeveRetornarErro()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
         requisicao = requisicao with
         {
             Credencial = requisicao.Credencial with { Senha = "" }
