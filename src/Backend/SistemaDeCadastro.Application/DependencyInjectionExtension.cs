@@ -11,8 +11,10 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IRegistrarCadastroUseCase, RegistrarCadastroUseCase>();
         services.AddScoped<IRecuperarTodosCadastroUseCase, RecuperarTodosCadastroUseCase>();
+        services.AddScoped<IRecuperarCadastroPorIdUseCase, RecuperarCadastroPorIdUseCase>();
         
         services.AddScoped<IRegistrarPessoaUseCase, RegistrarPessoaUseCase>();
         services.AddScoped<IRecuperarTodosPessoaUseCase, RecuperarTodosPessoaUseCase>();
+        services.AddScoped<IRecuperarPessoaPorIdUseCase, RecuperarPessoaPorIdUseCase>();
     }
 }
