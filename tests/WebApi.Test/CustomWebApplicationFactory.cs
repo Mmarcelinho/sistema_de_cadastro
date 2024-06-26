@@ -32,7 +32,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     private Cadastro AdicionarCadastro(SistemaDeCadastroContext dbContext)
     {
-        var cadastro = CadastroBuilder.Build();
+        var cadastro = CadastroBuilder.Instancia();
         
         dbContext.Cadastros.Add(cadastro);
 
@@ -41,10 +41,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     private Pessoa AdicionarPessoa(SistemaDeCadastroContext dbContext, long cadastroId)
     {
-        var cadastro = CadastroBuilder.Build();
+        var cadastro = CadastroBuilder.Instancia();
         cadastro.Id = cadastroId;
 
-        var pessoa = PessoaBuilder.Build(cadastro);
+        var pessoa = PessoaBuilder.Instancia(cadastro);
         
         dbContext.Pessoas.Add(pessoa);
 

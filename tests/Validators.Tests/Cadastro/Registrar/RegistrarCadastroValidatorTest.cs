@@ -8,7 +8,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build();
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
 
         var resultado = validator.Validate(requisicao);
 
@@ -20,7 +20,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Email = string.Empty };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Email = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -43,7 +43,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Email = "emailinvalido" };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Email = "emailinvalido" };
 
         var resultado = validator.Validate(requisicao);
 
@@ -56,7 +56,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { NomeFantasia = string.Empty };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { NomeFantasia = string.Empty };
 
         var resultado = validator.Validate(requisicao);
 
@@ -69,7 +69,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Credencial = new RequisicaoCredencialJson(true, "2024-12-31", string.Empty) };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Credencial = new RequisicaoCredencialJson(true, "2024-12-31", string.Empty) };
 
         var resultado = validator.Validate(requisicao);
 
@@ -82,7 +82,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Documento = new RequisicaoDocumentoJson(string.Empty, "orgaoEmissor", "estadoEmissor", DateTime.Now) };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson(string.Empty, "orgaoEmissor", "estadoEmissor", DateTime.Now) };
 
         var resultado = validator.Validate(requisicao);
 
@@ -95,7 +95,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Documento = new RequisicaoDocumentoJson("numero", string.Empty, "estadoEmissor", DateTime.Now) };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson("numero", string.Empty, "estadoEmissor", DateTime.Now) };
 
         var resultado = validator.Validate(requisicao);
 
@@ -108,7 +108,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Documento = new RequisicaoDocumentoJson("numero", "orgaoEmissor", "estadoEmissor", DateTime.MinValue) };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson("numero", "orgaoEmissor", "estadoEmissor", DateTime.MinValue) };
 
         var resultado = validator.Validate(requisicao);
 
@@ -121,7 +121,7 @@ public class RegistrarCadastroValidatorTest
     {
         var validator = new RegistrarCadastroValidator();
 
-        var requisicao = RequisicaoCadastroJsonBuilder.Build() with { Identificador = null! };
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Identificador = null! };
 
         var resultado = validator.Validate(requisicao);
 
