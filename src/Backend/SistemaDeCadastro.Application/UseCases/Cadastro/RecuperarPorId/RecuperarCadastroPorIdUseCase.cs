@@ -15,6 +15,11 @@ public class RecuperarCadastroPorIdUseCase : IRecuperarCadastroPorIdUseCase
         if (cadastro is null)
             throw new Exception(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
 
+        return MapearDeCadastro(cadastro);
+    }
+
+    private static RespostaCadastroJson MapearDeCadastro(Domain.Entidades.Cadastro cadastro)
+    {
         return new RespostaCadastroJson(
             cadastro.Id,
             cadastro.DataCriacao,
@@ -43,7 +48,6 @@ public class RecuperarCadastroPorIdUseCase : IRecuperarCadastroPorIdUseCase
             new RespostaIdentificacaoJson(
                 cadastro.Identificador.Empresa,
                 cadastro.Identificador.Identificador,
-                (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo)
-        );
+                (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));
     }
 }
