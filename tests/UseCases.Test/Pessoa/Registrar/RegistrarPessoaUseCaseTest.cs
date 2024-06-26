@@ -5,7 +5,7 @@ public class RegistrarPessoaUseCaseTest
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoPessoaJsonBuilder.Build();
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
         var useCase = CriarUseCase();
 
@@ -19,7 +19,7 @@ public class RegistrarPessoaUseCaseTest
     [Fact]
     public async Task DeveRetornarErroQuandoCpfJaExistente()
     {
-        var requisicao = RequisicaoPessoaJsonBuilder.Build();
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
         var useCase = CriarUseCase(requisicao.Cpf);
 
@@ -33,7 +33,7 @@ public class RegistrarPessoaUseCaseTest
     [Fact]
     public async Task DeveRetornarErroQuandoCnpjJaExistente()
     {
-        var requisicao = RequisicaoPessoaJsonBuilder.Build();
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
         var useCase = CriarUseCase(string.Empty, requisicao.Cnpj);
 
