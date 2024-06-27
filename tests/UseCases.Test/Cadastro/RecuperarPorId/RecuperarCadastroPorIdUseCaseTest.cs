@@ -32,7 +32,8 @@ public class RecuperarCadastroPorIdUseCaseTest
     private RecuperarCadastroPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null)
     {
         var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
-
-        return new RecuperarCadastroPorIdUseCase(repositorio);
+        var cache = CachingServiceBuilder.Build();
+        
+        return new RecuperarCadastroPorIdUseCase(repositorio, cache);
     }
 }
