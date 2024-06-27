@@ -14,9 +14,12 @@ global using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Repositorio;
 global using SistemaDeCadastro.Infrastructure.Servicos.ViaCep;
 global using SistemaDeCadastro.Infrastructure.Extensions;
+global using SistemaDeCadastro.Infrastructure.Caching;
 
 global using SistemaDeCadastro.Exceptions;
 global using SistemaDeCadastro.Exceptions.ExceptionsBase;
+
+
 
 
 
