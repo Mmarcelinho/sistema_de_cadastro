@@ -13,10 +13,10 @@ public class RecuperarTodosCadastroUseCase : IRecuperarTodosCadastroUseCase
     {
         var cadastros = await _repositorio.RecuperarTodos();
 
-        return cadastros.Select(MapearDeCadastro);
+        return cadastros.Select(MapearCadastroParaResposta);
     }
 
-    private static RespostaCadastroJson MapearDeCadastro(Domain.Entidades.Cadastro cadastro)
+    private static RespostaCadastroJson MapearCadastroParaResposta(Domain.Entidades.Cadastro cadastro)
     {
         return new RespostaCadastroJson(
             cadastro.Id,
