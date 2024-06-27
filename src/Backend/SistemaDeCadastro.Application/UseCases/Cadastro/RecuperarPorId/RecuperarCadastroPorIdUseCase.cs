@@ -4,21 +4,37 @@ public class RecuperarCadastroPorIdUseCase : IRecuperarCadastroPorIdUseCase
 {
     private readonly ICadastroReadOnlyRepositorio _repositorio;
 
-    public RecuperarCadastroPorIdUseCase(ICadastroReadOnlyRepositorio repositorio)
-    =>
-        _repositorio = repositorio;
+    private readonly ICachingService _cache;
 
+    public RecuperarCadastroPorIdUseCase(ICadastroReadOnlyRepositorio repositorio, ICachingService cache)
+    {
+        _repositorio = repositorio;
+        _cache = cache;
+    }
+        
     public async Task<RespostaCadastroJson> Executar(long cadastroId)
     {
-        var cadastro = await _repositorio.RecuperarPorId(cadastroId);
+        string? cadastroCache = await _cache.Recuperar(cadastroId.ToString());
+        Domain.Entidades.Cadastro? cadastro;
 
-        if (cadastro is null)
+        if(string.IsNullOrEmpty(cadastroCache))
+        {
+            cadastro = await _repositorio.RecuperarPorId(cadastroId);
+
+            if (cadastro is null)
             throw new NaoEncontradoException(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
 
-        return MapearDeCadastro(cadastro);
+            await _cache.Registrar(cadastroId.ToString(), JsonConvert.SerializeObject(cadastro));
+
+            return MapearCadastroParaResposta(cadastro);
+        }
+
+        cadastro = JsonConvert.DeserializeObject<Domain.Entidades.Cadastro>(cadastroCache);
+
+        return MapearCadastroParaResposta(cadastro);
     }
 
-    private static RespostaCadastroJson MapearDeCadastro(Domain.Entidades.Cadastro cadastro)
+    private static RespostaCadastroJson MapearCadastroParaResposta(Domain.Entidades.Cadastro cadastro)
     {
         return new RespostaCadastroJson(
             cadastro.Id,

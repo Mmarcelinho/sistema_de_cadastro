@@ -12,10 +12,10 @@ public class RecuperarTodosPessoaUseCase : IRecuperarTodosPessoaUseCase
     {
         var pessoas = await _repositorio.RecuperarTodos();
 
-        return pessoas.Select(MapearDePessoa);
+        return pessoas.Select(MapearPessoaParaResposta);
     }
 
-    private static RespostaPessoaJson MapearDePessoa(Domain.Entidades.Pessoa pessoa)
+    private static RespostaPessoaJson MapearPessoaParaResposta(Domain.Entidades.Pessoa pessoa)
     {
         return new RespostaPessoaJson(
             pessoa.Id,
