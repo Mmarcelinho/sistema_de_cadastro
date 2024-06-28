@@ -33,3 +33,8 @@ public record RespostaTelefoneJson(
     bool Celular,
     bool Whatsapp,
     bool Telegram);
+
+public record RespostaPessoasJson
+{
+    public List<RespostaPessoaJson> Pessoas { get; init; }
+}
