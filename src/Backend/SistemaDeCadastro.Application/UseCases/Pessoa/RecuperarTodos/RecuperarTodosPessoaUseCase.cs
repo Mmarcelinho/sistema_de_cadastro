@@ -8,11 +8,14 @@ public class RecuperarTodosPessoaUseCase : IRecuperarTodosPessoaUseCase
     =>
         _repositorio = repositorio;
     
-    public async Task<IEnumerable<RespostaPessoaJson>> Executar()
+    public async Task<RespostaPessoasJson> Executar()
     {
         var pessoas = await _repositorio.RecuperarTodos();
 
-        return pessoas.Select(MapearPessoaParaResposta);
+        return new RespostaPessoasJson
+        {
+            Pessoas = pessoas.Select(MapearPessoaParaResposta).ToList()
+        };
     }
 
     private static RespostaPessoaJson MapearPessoaParaResposta(Domain.Entidades.Pessoa pessoa)
