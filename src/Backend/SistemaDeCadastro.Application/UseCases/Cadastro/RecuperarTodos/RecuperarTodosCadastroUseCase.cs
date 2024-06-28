@@ -9,11 +9,14 @@ public class RecuperarTodosCadastroUseCase : IRecuperarTodosCadastroUseCase
         _repositorio = repositorio;
 
 
-    public async Task<IEnumerable<RespostaCadastroJson>> Executar()
+    public async Task<RespostaCadastrosJson> Executar()
     {
         var cadastros = await _repositorio.RecuperarTodos();
 
-        return cadastros.Select(MapearCadastroParaResposta);
+        return new RespostaCadastrosJson
+        {
+            Cadastros = cadastros.Select(MapearCadastroParaResposta).ToList()
+        };
     }
 
     private static RespostaCadastroJson MapearCadastroParaResposta(Domain.Entidades.Cadastro cadastro)
