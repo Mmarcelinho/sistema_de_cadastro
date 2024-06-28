@@ -9,6 +9,9 @@ public class CadastroController : SistemaDeCadastroController
     {
         var resposta = await useCase.Executar();
 
+        if (resposta.Cadastros.Count == 0)
+            return NoContent();
+
         return Ok(resposta);
     }
 
@@ -22,7 +25,7 @@ public class CadastroController : SistemaDeCadastroController
 
         return Ok(resposta);
     }
-    
+
     [HttpPost]
     [ProducesResponseType(typeof(RespostaCadastroJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(RespostaErroJson), StatusCodes.Status400BadRequest)]

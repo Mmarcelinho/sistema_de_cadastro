@@ -44,3 +44,8 @@ public record RespostaIdentificacaoJson(
     string Identificador,
     IdentificacaoTipo Tipo
 );
+
+public record RespostaCadastrosJson
+{
+    public List<RespostaCadastroJson> Cadastros { get; init; }
+}

@@ -9,6 +9,9 @@ public class PessoaController : SistemaDeCadastroController
     {
         var resposta = await useCase.Executar();
 
+        if (resposta.Pessoas.Count == 0)
+            return NoContent();
+
         return Ok(resposta);
     }
 
