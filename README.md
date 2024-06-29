@@ -35,16 +35,16 @@ O sistema de cadastro é uma API que permite o gerenciamento de cadastros de pes
 ### Cadastro:
 
 - [x] Registrar.
-- [ ] Recuperar todos.
-- [ ] Recuperar por Id.
+- [x] Recuperar todos.
+- [x] Recuperar por Id.
 - [ ] Atualizar.
 - [ ] Deletar.
 
 ### Pessoa:
 
 - [x] Registrar.
-- [ ] Recuperar todos.
-- [ ] Recuperar por Id.
+- [x] Recuperar todos.
+- [x] Recuperar por Id.
 - [ ] Atualizar.
 - [ ] Deletar.
 
