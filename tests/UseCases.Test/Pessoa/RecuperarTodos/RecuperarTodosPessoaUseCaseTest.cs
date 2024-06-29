@@ -12,7 +12,11 @@ public class RecuperarTodosPessoaUseCaseTest
         var resultado = await useCase.Executar();
 
         resultado.Should().NotBeNull();
-        resultado.Should().HaveCountGreaterThan(0);
+        resultado.Pessoas.Should().NotBeNull().And.AllSatisfy(pessoa =>
+        {
+            pessoa.Id.Should().BeGreaterThan(0);
+            pessoa.Email.Should().NotBeNullOrEmpty();
+        });
     }
 
     private RecuperarTodosPessoaUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Pessoa> pessoas)

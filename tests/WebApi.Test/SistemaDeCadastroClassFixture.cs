@@ -8,8 +8,11 @@ public class SistemaDeCadastroClassFixture : IClassFixture<CustomWebApplicationF
     =>
         _httpClient = webApplicationFactory.CreateClient();
 
+    protected async Task<HttpResponseMessage> DoGet(string requestUri)
+    =>  await _httpClient.GetAsync(requestUri);
+    
+
     protected async Task<HttpResponseMessage> DoPost(string requestUri, object request)
-    {
-        return await _httpClient.PostAsJsonAsync(requestUri, request);
-    }
+    => await _httpClient.PostAsJsonAsync(requestUri, request);
+    
 }
