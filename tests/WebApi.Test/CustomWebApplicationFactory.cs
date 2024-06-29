@@ -2,9 +2,13 @@ namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
+    private Cadastro? _cadastro;
+
+    private Pessoa? _pessoa;
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Test")
+        _ = builder.UseEnvironment("Test")
         .ConfigureServices(services =>
         {
             var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
@@ -15,6 +19,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 config.UseInternalServiceProvider(provider);
             });
 
+            var cacheMock = new Mock<ICachingService>();
+
+            cacheMock.Setup(x => x.Recuperar(It.IsAny<string>()))
+                            .ReturnsAsync((string)null);
+            cacheMock.Setup(x => x.Registrar(It.IsAny<string>(), It.IsAny<string>()))
+                            .Returns(Task.CompletedTask);
+
+            services.AddSingleton(cacheMock.Object);
+
+
             var scope = services.BuildServiceProvider().CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<SistemaDeCadastroContext>();
 
@@ -24,8 +38,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     private void IniciarDatabase(SistemaDeCadastroContext dbContext)
     {
-        _ = AdicionarCadastro(dbContext);
-        _ = AdicionarPessoa(dbContext, 2);
+        _cadastro = AdicionarCadastro(dbContext);
+        _pessoa = AdicionarPessoa(dbContext, 2);
 
         dbContext.SaveChanges();
     }
@@ -33,7 +47,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     private Cadastro AdicionarCadastro(SistemaDeCadastroContext dbContext)
     {
         var cadastro = CadastroBuilder.Instancia();
-        
+
         dbContext.Cadastros.Add(cadastro);
 
         return cadastro;
@@ -45,10 +59,13 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         cadastro.Id = cadastroId;
 
         var pessoa = PessoaBuilder.Instancia(cadastro);
-        
+
         dbContext.Pessoas.Add(pessoa);
 
         return pessoa;
     }
 
+    public Cadastro RecuperarCadastro => _cadastro;
+
+    public Pessoa RecuperarPessoa => _pessoa;
 }
