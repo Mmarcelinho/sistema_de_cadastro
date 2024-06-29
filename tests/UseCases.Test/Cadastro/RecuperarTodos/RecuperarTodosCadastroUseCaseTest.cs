@@ -12,7 +12,11 @@ public class RecuperarTodosCadastroUseCaseTest
         var resultado = await useCase.Executar();
 
         resultado.Should().NotBeNull();
-        resultado.Should().HaveCountGreaterThan(0);
+        resultado.Cadastros.Should().NotBeNull().And.AllSatisfy(cadastro =>
+        {
+            cadastro.Id.Should().BeGreaterThan(0);
+            cadastro.Email.Should().NotBeNullOrEmpty();
+        });
     }
 
     private RecuperarTodosCadastroUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Cadastro> cadastros)
