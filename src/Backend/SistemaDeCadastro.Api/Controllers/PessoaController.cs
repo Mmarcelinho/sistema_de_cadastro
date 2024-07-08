@@ -35,4 +35,14 @@ public class PessoaController : SistemaDeCadastroController
 
         return Created(string.Empty, resposta);
     }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Deletar([FromServices] IDeletarPessoaPorIdUseCase useCase, [FromRoute] long id)
+    {
+        await useCase.Executar(id);
+
+        return NoContent();
+    }
 }
