@@ -16,7 +16,7 @@ public class DeletarCadastroPorIdUseCase : IDeletarCadastroPorIdUseCase
     {
         var resultado = await _repositorio.Deletar(cadastroId);
 
-        if (resultado is false)
+        if (!resultado)
             throw new NaoEncontradoException(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
 
         await _unidadeDeTrabalho.Commit();

@@ -18,7 +18,34 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
     {
         await Validar(requisicao);
 
-        var cadastro = new Domain.Entidades.Cadastro
+        var cadastro = MapearRequisicaoParaCadastro(requisicao);
+
+        await _repositorioWrite.Registrar(cadastro);
+
+        await _unidadeDeTrabalho.Commit();
+
+        return MapearCadastroParaResposta(cadastro);
+    }
+
+    private async Task Validar(RequisicaoCadastroJson requisicao)
+    {
+        var validator = new RegistrarCadastroValidator();
+        var resultado = validator.Validate(requisicao);
+
+        var existeCadastroComEmail = await _repositorioRead.RecuperarCadastroExistentePorEmail(requisicao.Email);
+        if (existeCadastroComEmail)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
+
+        if (!resultado.IsValid)
+        {
+            var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
+            throw new ErrosDeValidacaoException(mensagensDeErro);
+        }
+    }
+
+    private static Domain.Entidades.Cadastro MapearRequisicaoParaCadastro(RequisicaoCadastroJson requisicao)
+    {
+        Domain.Entidades.Cadastro cadastro = new()
         {
             Email = requisicao.Email,
             NomeFantasia = requisicao.NomeFantasia,
@@ -55,11 +82,11 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
                         (IdentificacaoTipo)requisicao.Identificador.Tipo
                     )
         };
+        return cadastro;
+    }
 
-        await _repositorioWrite.Registrar(cadastro);
-
-        await _unidadeDeTrabalho.Commit();
-
+    private static RespostaCadastroJson MapearCadastroParaResposta(Domain.Entidades.Cadastro cadastro)
+    {
         return new RespostaCadastroJson(
             cadastro.Id,
             cadastro.DataCriacao,
@@ -90,20 +117,5 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
                 cadastro.Identificador.Identificador,
                 (Communication.Enum.IdentificacaoTipo)cadastro.Identificador.Tipo));
     }
-
-    private async Task Validar(RequisicaoCadastroJson requisicao)
-    {
-        var validator = new RegistrarCadastroValidator();
-        var resultado = validator.Validate(requisicao);
-
-        var existeCadastroComEmail = await _repositorioRead.RecuperarCadastroExistentePorEmail(requisicao.Email);
-        if (existeCadastroComEmail)
-            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
-
-        if (!resultado.IsValid)
-        {
-            var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagensDeErro);
-        }
-    }
 }
+

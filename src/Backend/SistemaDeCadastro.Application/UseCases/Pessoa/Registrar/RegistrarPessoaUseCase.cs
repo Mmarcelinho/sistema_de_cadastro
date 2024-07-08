@@ -25,43 +25,117 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
     {
         await Validar(requisicao);
 
-        var cadastro = new Domain.Entidades.Cadastro
+        var cadastro = MapearRequisicaoParaCadastro(requisicao.Cadastro);
+
+        var pessoa = await MapearRequisicaoParaPessoa(requisicao, cadastro);
+
+        await _repositorioCadastro.Registrar(cadastro);
+        await _repositorioWrite.Registrar(pessoa);
+
+        await _unidadeDeTrabalho.Commit();
+
+        return MapearPessoaParaResposta(pessoa);
+    }
+
+    private async Task Validar(RequisicaoPessoaJson requisicao)
+    {
+        var validatorPessoa = new RegistrarPessoaValidator();
+        var validatorCadastro = new RegistrarCadastroValidator();
+        var resultado = validatorPessoa.Validate(requisicao);
+        resultado = validatorCadastro.Validate(requisicao.Cadastro);
+
+        var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
+
+        var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
+
+        if (existePessoaComCpf)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CPF_JA_REGISTRADO));
+
+        else if (existePessoaComCnpj)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
+
+        if (!resultado.IsValid)
         {
-            Email = requisicao.Cadastro.Email,
-            NomeFantasia = requisicao.Cadastro.NomeFantasia,
-            SobrenomeSocial = requisicao.Cadastro.SobrenomeSocial,
-            Empresa = requisicao.Cadastro.Empresa,
+            var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
+            throw new ErrosDeValidacaoException(mensagensDeErro);
+        }
+    }
+
+    private async Task<List<Domicilio>> CepServices(RequisicaoPessoaJson requisicao)
+    {
+        List<Domicilio> domicilios = [];
+
+        foreach (var domicilio in requisicao.Domicilios)
+        {
+            var resultado = await _viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
+
+            Endereco Endereco = new(
+                domicilio.Endereco.Cep,
+                resultado.Logradouro,
+                domicilio.Endereco.Numero,
+                resultado.Bairro,
+                domicilio.Endereco.Complemento,
+                domicilio.Endereco.PontoReferencia,
+                resultado.Uf,
+                resultado.Localidade,
+                resultado.Ibge);
+
+            Domicilio Domicilio = new()
+            {
+                Tipo = (DomicilioTipo)domicilio.Tipo,
+                Endereco = Endereco
+            };
+
+            domicilios.Add(Domicilio);
+        }
+        return domicilios;
+    }
+
+    private static Domain.Entidades.Cadastro MapearRequisicaoParaCadastro(RequisicaoCadastroJson requisicao)
+    {
+        Domain.Entidades.Cadastro cadastro = new()
+        {
+            Email = requisicao.Email,
+            NomeFantasia = requisicao.NomeFantasia,
+            SobrenomeSocial = requisicao.SobrenomeSocial,
+            Empresa = requisicao.Empresa,
             Credencial = new Credencial
             {
-                Bloqueada = requisicao.Cadastro.Credencial.Bloqueada,
-                Expirada = requisicao.Cadastro.Credencial.Expirada,
-                Senha = requisicao.Cadastro.Credencial.Senha
+                Bloqueada = requisicao.Credencial.Bloqueada,
+                Expirada = requisicao.Credencial.Expirada,
+                Senha = requisicao.Credencial.Senha,
             },
             Inscrito = new Inscrito
             {
-                Assinante = requisicao.Cadastro.Inscrito.Assinante,
-                Associado = requisicao.Cadastro.Inscrito.Associado,
-                Senha = requisicao.Cadastro.Inscrito.Senha
+                Assinante = requisicao.Inscrito.Assinante,
+                Associado = requisicao.Inscrito.Associado,
+                Senha = requisicao.Inscrito.Senha
             },
             Parceiro = new Parceiro
             {
-                Cliente = requisicao.Cadastro.Parceiro.Cliente,
-                Fornecedor = requisicao.Cadastro.Parceiro.Fornecedor,
-                Prestador = requisicao.Cadastro.Parceiro.Prestador,
-                Colaborador = requisicao.Cadastro.Parceiro.Colaborador
+                Cliente = requisicao.Parceiro.Cliente,
+                Fornecedor = requisicao.Parceiro.Fornecedor,
+                Prestador = requisicao.Parceiro.Prestador,
+                Colaborador = requisicao.Parceiro.Colaborador
             },
             Documento = new Documento(
-               requisicao.Cadastro.Documento.Numero,
-               requisicao.Cadastro.Documento.OrgaoEmissor,
-               requisicao.Cadastro.Documento.EstadoEmissor,
-               requisicao.Cadastro.Documento.DataValidade),
+                        requisicao.Documento.Numero,
+                        requisicao.Documento.OrgaoEmissor,
+                        requisicao.Documento.EstadoEmissor,
+                        requisicao.Documento.DataValidade
+                    ),
             Identificador = new Identificacao(
-               requisicao.Cadastro.Identificador.Empresa,
-               requisicao.Cadastro.Identificador.Identificador,
-               (IdentificacaoTipo)requisicao.Cadastro.Identificador.Tipo)
+                        requisicao.Identificador.Empresa,
+                        requisicao.Identificador.Identificador,
+                        (IdentificacaoTipo)requisicao.Identificador.Tipo
+                    )
         };
+        return cadastro;
+    }
 
-        var pessoa = new Domain.Entidades.Pessoa
+    private async Task<Domain.Entidades.Pessoa> MapearRequisicaoParaPessoa(RequisicaoPessoaJson requisicao, Domain.Entidades.Cadastro cadastro)
+    {
+        Domain.Entidades.Pessoa pessoa = new()
         {
             Cpf = requisicao.Cpf,
             Cnpj = requisicao.Cnpj,
@@ -79,12 +153,11 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
                 requisicao.Telefone.Whatsapp,
                 requisicao.Telefone.Telegram)
         };
+        return pessoa;
+    }
 
-        await _repositorioCadastro.Registrar(cadastro);
-        await _repositorioWrite.Registrar(pessoa);
-
-        await _unidadeDeTrabalho.Commit();
-
+    private static RespostaPessoaJson MapearPessoaParaResposta(Domain.Entidades.Pessoa pessoa)
+    {
         return new RespostaPessoaJson(
             pessoa.Id,
             pessoa.Cpf,
@@ -150,60 +223,5 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
                 )
             )
         );
-
-    }
-
-    private async Task Validar(RequisicaoPessoaJson requisicao)
-    {
-        var validatorPessoa = new RegistrarPessoaValidator();
-        var validatorCadastro = new RegistrarCadastroValidator();
-        var resultado = validatorPessoa.Validate(requisicao);
-        resultado = validatorCadastro.Validate(requisicao.Cadastro);
-
-        var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
-
-        var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
-
-        if (existePessoaComCpf)
-            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CPF_JA_REGISTRADO));
-
-        else if (existePessoaComCnpj)
-            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
-
-        if (!resultado.IsValid)
-        {
-            var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
-            throw new ErrosDeValidacaoException(mensagensDeErro);
-        }
-    }
-
-    private async Task<List<Domicilio>> CepServices(RequisicaoPessoaJson requisicao)
-    {
-        List<Domicilio> domicilios = [];
-
-        foreach (var domicilio in requisicao.Domicilios)
-        {
-            var resultado = await _viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
-
-            Endereco Endereco = new(
-                domicilio.Endereco.Cep,
-                resultado.Logradouro,
-                domicilio.Endereco.Numero,
-                resultado.Bairro,
-                domicilio.Endereco.Complemento,
-                domicilio.Endereco.PontoReferencia,
-                resultado.Uf,
-                resultado.Localidade,
-                resultado.Ibge);
-
-            Domicilio Domicilio = new()
-            {
-                Tipo = (DomicilioTipo)domicilio.Tipo,
-                Endereco = Endereco
-            };
-
-            domicilios.Add(Domicilio);
-        }
-        return domicilios;
     }
 }

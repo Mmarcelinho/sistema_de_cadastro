@@ -46,7 +46,7 @@ public class AtualizarCadastroUseCase : IAtualizarCadastroUseCase
         }
     }
 
-    private SistemaDeCadastro.Domain.Entidades.Cadastro Atualizar(SistemaDeCadastro.Domain.Entidades.Cadastro cadastro, RequisicaoCadastroJson requisicao)
+    private Domain.Entidades.Cadastro Atualizar(Domain.Entidades.Cadastro cadastro, RequisicaoCadastroJson requisicao)
     {
         cadastro.Email = requisicao.Email;
         cadastro.SobrenomeSocial = requisicao.SobrenomeSocial;
