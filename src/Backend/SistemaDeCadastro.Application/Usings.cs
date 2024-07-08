@@ -15,6 +15,7 @@ global using SistemaDeCadastro.Application.UseCases.Cadastro;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarTodos;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarPorId;
+global using SistemaDeCadastro.Application.UseCases.Cadastro.Deletar;
 
 global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarTodos;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
