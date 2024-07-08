@@ -16,7 +16,7 @@ public class DeletarPessoaIdUseCase : IDeletarPessoaPorIdUseCase
     {
         var resultado = await _repositorio.Deletar(pessoaId);
 
-        if (resultado == false)
+        if (!resultado)
             throw new NaoEncontradoException(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
 
         await _unidadeDeTrabalho.Commit();
