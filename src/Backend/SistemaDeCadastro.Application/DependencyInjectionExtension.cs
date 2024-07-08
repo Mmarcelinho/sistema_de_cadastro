@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
+
 namespace SistemaDeCadastro.Application;
 
 public static class DependencyInjectionExtension
@@ -18,6 +20,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegistrarPessoaUseCase, RegistrarPessoaUseCase>();
         services.AddScoped<IRecuperarTodosPessoaUseCase, RecuperarTodosPessoaUseCase>();
         services.AddScoped<IRecuperarPessoaPorIdUseCase, RecuperarPessoaPorIdUseCase>();
+        services.AddScoped<IAtualizarPessoaUseCase, AtualizarPessoaUseCase>();
         services.AddScoped<IDeletarPessoaPorIdUseCase, DeletarPessoaIdUseCase>();   
     }
 }
