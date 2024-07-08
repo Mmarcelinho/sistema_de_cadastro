@@ -36,6 +36,16 @@ public class PessoaController : SistemaDeCadastroController
         return Created(string.Empty, resposta);
     }
 
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Atualizar([FromServices] IAtualizarPessoaUseCase useCase, [FromBody] RequisicaoPessoaJson requisicao, [FromRoute] long id)
+    {
+        await useCase.Executar(id, requisicao);
+
+        return NoContent();
+    }
+
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
