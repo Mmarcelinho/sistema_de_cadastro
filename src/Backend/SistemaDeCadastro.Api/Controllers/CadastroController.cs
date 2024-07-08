@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.UseCases.Cadastro.Deletar;
-
 namespace SistemaDeCadastro.Api.Controllers;
 
 public class CadastroController : SistemaDeCadastroController
