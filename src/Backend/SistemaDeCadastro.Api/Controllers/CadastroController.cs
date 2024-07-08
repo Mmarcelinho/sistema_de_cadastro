@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Application.UseCases.Cadastro.Deletar;
+
 namespace SistemaDeCadastro.Api.Controllers;
 
 public class CadastroController : SistemaDeCadastroController
@@ -34,5 +36,15 @@ public class CadastroController : SistemaDeCadastroController
         var resposta = await useCase.Executar(requisicao);
 
         return Created(string.Empty, resposta);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Deletar([FromServices] IDeletarCadastroPorIdUseCase useCase, [FromRoute] long id)
+    {
+        await useCase.Executar(id);
+
+        return NoContent();
     }
 }
