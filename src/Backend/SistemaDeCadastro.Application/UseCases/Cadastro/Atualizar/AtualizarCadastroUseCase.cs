@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Application.Mappings;
+
 namespace SistemaDeCadastro.Application.UseCases.Cadastro.Atualizar;
 
 public class AtualizarCadastroUseCase : IAtualizarCadastroUseCase
@@ -23,7 +25,7 @@ public class AtualizarCadastroUseCase : IAtualizarCadastroUseCase
         if (cadastro is null)
             throw new NaoEncontradoException(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);
 
-        cadastro = Atualizar(cadastro, requisicao);
+        cadastro = cadastro.Atualizar(requisicao);
 
         _repositorioUpdate.Atualizar(cadastro);
 
@@ -44,43 +46,5 @@ public class AtualizarCadastroUseCase : IAtualizarCadastroUseCase
             var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
             throw new ErrosDeValidacaoException(mensagensDeErro);
         }
-    }
-
-    private Domain.Entidades.Cadastro Atualizar(Domain.Entidades.Cadastro cadastro, RequisicaoCadastroJson requisicao)
-    {
-        cadastro.Email = requisicao.Email;
-        cadastro.SobrenomeSocial = requisicao.SobrenomeSocial;
-        cadastro.Empresa = requisicao.Empresa;
-        cadastro.Credencial = new Credencial
-        {
-            Bloqueada = requisicao.Credencial.Bloqueada,
-            Expirada = requisicao.Credencial.Expirada,
-            Senha = requisicao.Credencial.Senha,
-        };
-        cadastro.Inscrito = new Inscrito
-        {
-            Assinante = requisicao.Inscrito.Assinante,
-            Associado = requisicao.Inscrito.Associado,
-            Senha = requisicao.Inscrito.Senha
-        };
-        cadastro.Parceiro = new Parceiro
-        {
-            Cliente = requisicao.Parceiro.Cliente,
-            Fornecedor = requisicao.Parceiro.Fornecedor,
-            Prestador = requisicao.Parceiro.Prestador,
-            Colaborador = requisicao.Parceiro.Colaborador
-        };
-        cadastro.Documento = new Documento(
-                    requisicao.Documento.Numero,
-                    requisicao.Documento.OrgaoEmissor,
-                    requisicao.Documento.EstadoEmissor,
-                    requisicao.Documento.DataValidade
-                );
-        cadastro.Identificador = new Identificacao(
-                    requisicao.Identificador.Empresa,
-                    requisicao.Identificador.Identificador,
-                    (IdentificacaoTipo)requisicao.Identificador.Tipo
-                );
-        return cadastro;
     }
 }
