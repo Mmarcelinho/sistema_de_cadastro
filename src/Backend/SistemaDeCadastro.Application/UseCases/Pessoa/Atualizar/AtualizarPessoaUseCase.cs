@@ -1,3 +1,5 @@
+using SistemaDeCadastro.Application.Mappings;
+
 namespace SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
 
 public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
@@ -24,7 +26,9 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
         var pessoa = await _repositorioUpdate.RecuperarPorId(pessoaId);
 
-        pessoa = await Atualizar(pessoa, requisicao);
+        pessoa = pessoa.Atualizar(requisicao);
+
+        pessoa.Domicilios = await CepServices(requisicao);
 
         _repositorioUpdate.Atualizar(pessoa);
 
@@ -53,61 +57,6 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
             var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
             throw new ErrosDeValidacaoException(mensagensDeErro);
         }
-    }
-
-    private async Task<SistemaDeCadastro.Domain.Entidades.Pessoa> Atualizar(SistemaDeCadastro.Domain.Entidades.Pessoa pessoa, RequisicaoPessoaJson requisicao)
-    {
-
-        pessoa.Cadastro.Email = requisicao.Cadastro.Email;
-        pessoa.Cadastro.NomeFantasia = requisicao.Cadastro.NomeFantasia;
-        pessoa.Cadastro.SobrenomeSocial = requisicao.Cadastro.SobrenomeSocial;
-        pessoa.Cadastro.Empresa = requisicao.Cadastro.Empresa;
-        pessoa.Cadastro.Credencial = new Credencial
-        {
-            Bloqueada = requisicao.Cadastro.Credencial.Bloqueada,
-            Expirada = requisicao.Cadastro.Credencial.Expirada,
-            Senha = requisicao.Cadastro.Credencial.Senha
-        };
-        pessoa.Cadastro.Inscrito = new Inscrito
-        {
-            Assinante = requisicao.Cadastro.Inscrito.Assinante,
-            Associado = requisicao.Cadastro.Inscrito.Associado,
-            Senha = requisicao.Cadastro.Inscrito.Senha
-        };
-        pessoa.Cadastro.Parceiro = new Parceiro
-        {
-            Cliente = requisicao.Cadastro.Parceiro.Cliente,
-            Fornecedor = requisicao.Cadastro.Parceiro.Fornecedor,
-            Prestador = requisicao.Cadastro.Parceiro.Prestador,
-            Colaborador = requisicao.Cadastro.Parceiro.Colaborador
-        };
-        pessoa.Cadastro.Documento = new Documento(
-           requisicao.Cadastro.Documento.Numero,
-           requisicao.Cadastro.Documento.OrgaoEmissor,
-           requisicao.Cadastro.Documento.EstadoEmissor,
-           requisicao.Cadastro.Documento.DataValidade);
-        pessoa.Cadastro.Identificador = new Identificacao(
-           requisicao.Cadastro.Identificador.Empresa,
-           requisicao.Cadastro.Identificador.Identificador,
-           (IdentificacaoTipo)requisicao.Cadastro.Identificador.Tipo);
-
-
-
-        pessoa.Cpf = requisicao.Cpf;
-        pessoa.Cnpj = requisicao.Cnpj;
-        pessoa.Nome = requisicao.Nome;
-        pessoa.NomeFantasia = requisicao.NomeFantasia;
-        pessoa.Email = requisicao.Email;
-        pessoa.Nascimento = requisicao.Nascimento;
-        pessoa.Token = requisicao.Token;
-        pessoa.Domicilios = await CepServices(requisicao);
-        pessoa.Telefone = new Telefone(
-            requisicao.Telefone.Numero,
-            requisicao.Telefone.Celular,
-            requisicao.Telefone.Whatsapp,
-            requisicao.Telefone.Telegram);
-
-        return pessoa;
     }
 
     private async Task<List<Domicilio>> CepServices(RequisicaoPessoaJson requisicao)
