@@ -1,6 +1,5 @@
 global using FluentValidation;
 global using Microsoft.Extensions.DependencyInjection;
-global using Newtonsoft.Json;
 
 global using SistemaDeCadastro.Domain.Entidades;
 global using SistemaDeCadastro.Domain.Enum;
@@ -9,7 +8,6 @@ global using SistemaDeCadastro.Domain.Repositorios.Cadastro;
 global using SistemaDeCadastro.Domain.Repositorios.Pessoa;
 global using SistemaDeCadastro.Domain.ValueObjects;
 global using SistemaDeCadastro.Domain.Servicos.ViaCep;
-global using SistemaDeCadastro.Domain.Servicos.CachingService;
 
 global using SistemaDeCadastro.Application.UseCases.Cadastro;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;

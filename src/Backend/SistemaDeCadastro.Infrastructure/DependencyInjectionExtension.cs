@@ -8,7 +8,6 @@ public static class DependencyInjectionExtension
             AdicionarContexto(services, configuration);
 
         AdicionarRepositorios(services);
-        AdicionarCaching(services, configuration);
     }
 
     private static void AdicionarContexto(IServiceCollection services, IConfiguration configuration)
@@ -33,16 +32,5 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPessoaUpdateOnlyRepositorio, PessoaRepositorio>();
 
         services.AddScoped<IViaCep, ViaCep>();
-    }
-
-    private static void AdicionarCaching(IServiceCollection services, IConfiguration configuration)
-    {
-        var connectionString = configuration.GetConnectionString("Redis");
-        services.AddScoped<ICachingService, CachingService>();
-        services.AddStackExchangeRedisCache(o =>
-        {
-            o.InstanceName = "instance";
-            o.Configuration = connectionString;
-        });
     }
 }
