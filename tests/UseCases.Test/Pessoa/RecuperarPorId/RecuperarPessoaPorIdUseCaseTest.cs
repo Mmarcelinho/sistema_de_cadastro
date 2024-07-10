@@ -34,8 +34,7 @@ public class RecuperarPessoaPorIdUseCaseTest
     private RecuperarPessoaPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null)
     {
         var repositorio = new PessoaReadOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
-        var cache = CachingServiceBuilder.Build();
         
-        return new RecuperarPessoaPorIdUseCase(repositorio, cache);
+        return new RecuperarPessoaPorIdUseCase(repositorio);
     }
 }

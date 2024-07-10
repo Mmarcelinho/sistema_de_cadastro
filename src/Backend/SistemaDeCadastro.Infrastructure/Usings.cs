@@ -10,12 +10,10 @@ global using SistemaDeCadastro.Domain.Repositorios;
 global using SistemaDeCadastro.Domain.Repositorios.Cadastro;
 global using SistemaDeCadastro.Domain.Repositorios.Pessoa;
 global using SistemaDeCadastro.Domain.Servicos.ViaCep;
-global using SistemaDeCadastro.Domain.Servicos.CachingService;
 
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio.Repositorio;
 global using SistemaDeCadastro.Infrastructure.Servicos.ViaCep;
-global using SistemaDeCadastro.Infrastructure.Servicos.Caching;
 global using SistemaDeCadastro.Infrastructure.Extensions;
 
 global using SistemaDeCadastro.Exceptions;

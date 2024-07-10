@@ -19,16 +19,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 config.UseInternalServiceProvider(provider);
             });
 
-            var cacheMock = new Mock<ICachingService>();
-
-            cacheMock.Setup(x => x.Recuperar(It.IsAny<string>()))
-                            .ReturnsAsync((string)null);
-            cacheMock.Setup(x => x.Registrar(It.IsAny<string>(), It.IsAny<string>()))
-                            .Returns(Task.CompletedTask);
-
-            services.AddSingleton(cacheMock.Object);
-
-
             var scope = services.BuildServiceProvider().CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<SistemaDeCadastroContext>();
 
