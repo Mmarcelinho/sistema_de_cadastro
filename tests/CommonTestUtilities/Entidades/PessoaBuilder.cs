@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Entidades;
+namespace CommonTestUtilities.Entidades;
 
 public class PessoaBuilder
 {

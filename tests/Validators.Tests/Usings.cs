@@ -6,5 +6,5 @@ global using SistemaDeCadastro.Communication.Requisicoes.Cadastro;
 
 global using SistemaDeCadastro.Exceptions;
 
-global using Utilitarios.Testes.Requisicoes.Cadastro;
-global using Utilitarios.Testes.Requisicoes.Pessoa;
+global using CommonTestUtilities.Requisicoes.Cadastro;
+global using CommonTestUtilities.Requisicoes.Pessoa;

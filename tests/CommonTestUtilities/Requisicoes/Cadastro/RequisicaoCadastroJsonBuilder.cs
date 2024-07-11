@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Requisicoes.Cadastro;
+namespace CommonTestUtilities.Requisicoes.Cadastro;
 
 public class RequisicaoCadastroJsonBuilder
 {

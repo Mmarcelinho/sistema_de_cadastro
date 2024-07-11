@@ -12,9 +12,9 @@ global using SistemaDeCadastro.Domain.Entidades;
 
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
 
-global using Utilitarios.Testes.Entidades;
-global using Utilitarios.Testes.Requisicoes.Cadastro;
-global using Utilitarios.Testes.Requisicoes.Pessoa;
+global using CommonTestUtilities.Entidades;
+global using CommonTestUtilities.Requisicoes.Cadastro;
+global using CommonTestUtilities.Requisicoes.Pessoa;
 
 
 

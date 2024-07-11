@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Repositorios.Pessoa;
+namespace CommonTestUtilities.Repositorios.Pessoa;
 
     public class PessoaWriteOnlyRepositorioBuilder
     {
