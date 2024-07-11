@@ -16,6 +16,11 @@ public class RecuperarTodosPessoaUseCaseTest
         {
             pessoa.Id.Should().BeGreaterThan(0);
             pessoa.Email.Should().NotBeNullOrEmpty();
+            pessoa.Cpf.Should().NotBeNullOrEmpty();
+            pessoa.Cnpj.Should().NotBeNullOrEmpty();
+            pessoa.Nome.Should().NotBeNullOrEmpty();
+            pessoa.NomeFantasia.Should().NotBeNullOrEmpty();
+            pessoa.Email.Should().NotBeNullOrEmpty();
         });
     }
 
