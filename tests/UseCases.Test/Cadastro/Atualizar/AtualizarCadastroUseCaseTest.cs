@@ -1,31 +1,36 @@
-namespace UseCases.Test.Cadastro.Registrar;
+using SistemaDeCadastro.Application.UseCases.Cadastro.Atualizar;
 
-public class RegistrarCadastroUseCaseTest
+namespace UseCases.Test.Cadastro.Atualizar;
+
+public class AtualizarCadastroUseCaseTest
 {
     [Fact]
     public async Task Sucesso()
     {
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
+        var cadastro = CadastroBuilder.Instancia();
 
-        var useCase = CriarUseCase();
+        var useCase = CriarUseCase(cadastro);
 
-        var resultado = await useCase.Executar(requisicao);
+        var acao = async () => await useCase.Executar(cadastro.Id, requisicao);
 
-        resultado.Should().NotBeNull();
-        resultado.Email.Should().Be(requisicao.Email);
-        resultado.NomeFantasia.Should().Be(requisicao.NomeFantasia);
-        resultado.SobrenomeSocial.Should().Be(requisicao.SobrenomeSocial);
-        resultado.Empresa.Should().Be(requisicao.Empresa);
+        await acao.Should().NotThrowAsync();
+
+        cadastro.Email.Should().Be(requisicao.Email);
+        cadastro.NomeFantasia.Should().Be(requisicao.NomeFantasia);
+        cadastro.SobrenomeSocial.Should().Be(requisicao.SobrenomeSocial);
+        cadastro.Empresa.Should().Be(requisicao.Empresa);
     }
 
     [Fact]
     public async Task CadastroExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
+        var cadastro = CadastroBuilder.Instancia();
 
-        var useCase = CriarUseCase(requisicao.Email);
+        var useCase = CriarUseCase(cadastro, requisicao.Email);
 
-        Func<Task> acao = async () => await useCase.Executar(requisicao);
+        Func<Task> acao = async () => await useCase.Executar(cadastro.Id, requisicao);
 
         var resultado = await acao.Should().ThrowAsync<ErrosDeValidacaoException>();
 
@@ -40,10 +45,12 @@ public class RegistrarCadastroUseCaseTest
         {
             Documento = requisicao.Documento with { Numero = "" }
         };
+        
+        var cadastro = CadastroBuilder.Instancia();
 
-        var useCase = CriarUseCase();
+        var useCase = CriarUseCase(cadastro);
 
-        Func<Task> acao = async () => await useCase.Executar(requisicao);
+        var acao = async () => await useCase.Executar(cadastro.Id, requisicao);
 
         var resultado = await acao.Should().ThrowAsync<ErrosDeValidacaoException>();
 
@@ -59,25 +66,28 @@ public class RegistrarCadastroUseCaseTest
             Credencial = requisicao.Credencial with { Senha = "" }
         };
 
-        var useCase = CriarUseCase();
+        var cadastro = CadastroBuilder.Instancia();
 
-        Func<Task> acao = async () => await useCase.Executar(requisicao);
+        var useCase = CriarUseCase(cadastro);
+
+        var acao = async () => await useCase.Executar(cadastro.Id, requisicao);
 
         var resultado = await acao.Should().ThrowAsync<ErrosDeValidacaoException>();
 
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_CREDENCIAL_SENHA_EMBRANCO));
     }
 
-    private RegistrarCadastroUseCase CriarUseCase(string? email = null)
+    private AtualizarCadastroUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null, string? email = null)
     {
-        var repositorioWrite = CadastroWriteOnlyRepositorioBuilder.Build();
+        var repositorioUpdate = new CadastroUpdateOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
+
         var repositorioRead = new CadastroReadOnlyRepositorioBuilder();
+
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
 
         if (string.IsNullOrWhiteSpace(email) == false)
             repositorioRead.RecuperarCadastroExistentePorEmail(email);
 
-
-        return new RegistrarCadastroUseCase(repositorioWrite, repositorioRead.Build(), unidadeDeTrabalho);
+        return new AtualizarCadastroUseCase(repositorioUpdate, repositorioRead.Build(), unidadeDeTrabalho);
     }
 }

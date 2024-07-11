@@ -16,6 +16,8 @@ public class RecuperarTodosCadastroUseCaseTest
         {
             cadastro.Id.Should().BeGreaterThan(0);
             cadastro.Email.Should().NotBeNullOrEmpty();
+            cadastro.NomeFantasia.Should().NotBeNullOrEmpty();
+            cadastro.SobrenomeSocial.Should().NotBeNullOrEmpty();
         });
     }
 
