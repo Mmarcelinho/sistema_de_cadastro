@@ -5,6 +5,7 @@ public static class CadastroMap
     public static Cadastro Atualizar(this Cadastro cadastro, RequisicaoCadastroJson requisicao)
     {
         cadastro.Email = requisicao.Email;
+        cadastro.NomeFantasia = requisicao.NomeFantasia;
         cadastro.SobrenomeSocial = requisicao.SobrenomeSocial;
         cadastro.Empresa = requisicao.Empresa;
         cadastro.Credencial = new Credencial
