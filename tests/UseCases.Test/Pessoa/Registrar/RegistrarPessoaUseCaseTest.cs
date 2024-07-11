@@ -12,8 +12,12 @@ public class RegistrarPessoaUseCaseTest
         var resultado = await useCase.Executar(requisicao);
 
         resultado.Should().NotBeNull();
-        resultado.Email.Should().Be(requisicao.Email);
+        resultado.Cpf.Should().Be(requisicao.Cpf);
+        resultado.Cnpj.Should().Be(requisicao.Cnpj);
         resultado.Nome.Should().Be(requisicao.Nome);
+        resultado.NomeFantasia.Should().Be(requisicao.NomeFantasia);
+        resultado.Email.Should().Be(requisicao.Email);
+        resultado.Nascimento.Should().Be(requisicao.Nascimento);
     }
 
     [Fact]

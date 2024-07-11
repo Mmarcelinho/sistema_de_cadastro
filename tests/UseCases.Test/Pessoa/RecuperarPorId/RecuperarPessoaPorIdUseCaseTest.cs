@@ -13,8 +13,12 @@ public class RecuperarPessoaPorIdUseCaseTest
         var resultado = await useCase.Executar(pessoa.Id);
 
         resultado.Should().NotBeNull();
-        resultado.Id.Should().Be(pessoa.Id);
+        resultado.Cpf.Should().Be(pessoa.Cpf);
+        resultado.Cnpj.Should().Be(pessoa.Cnpj);
+        resultado.Nome.Should().Be(pessoa.Nome);
+        resultado.NomeFantasia.Should().Be(pessoa.NomeFantasia);
         resultado.Email.Should().Be(pessoa.Email);
+        resultado.Nascimento.Should().Be(pessoa.Nascimento);
     }
 
     [Fact]
