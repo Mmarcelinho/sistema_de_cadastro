@@ -12,6 +12,10 @@ public class RegistrarCadastroUseCaseTest
         var resultado = await useCase.Executar(requisicao);
 
         resultado.Should().NotBeNull();
+        resultado.Email.Should().Be(requisicao.Email);
+        resultado.NomeFantasia.Should().Be(requisicao.NomeFantasia);
+        resultado.SobrenomeSocial.Should().Be(requisicao.SobrenomeSocial);
+        resultado.Empresa.Should().Be(requisicao.Empresa);
     }
 
     [Fact]

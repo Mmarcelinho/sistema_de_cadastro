@@ -14,6 +14,9 @@ public class RecuperarCadastroPorIdUseCaseTest
         resultado.Should().NotBeNull();
         resultado.Id.Should().Be(cadastro.Id);
         resultado.Email.Should().Be(cadastro.Email);
+        resultado.NomeFantasia.Should().Be(cadastro.NomeFantasia);
+        resultado.SobrenomeSocial.Should().Be(cadastro.SobrenomeSocial);
+        resultado.Empresa.Should().Be(cadastro.Empresa);
     }
 
     [Fact]
