@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Servicos;
+namespace CommonTestUtilities.Servicos;
 
 public class ViaCepBuilder
 {

@@ -13,4 +13,4 @@ global using SistemaDeCadastro.Domain.Servicos.ViaCep;
 global using SistemaDeCadastro.Communication.Requisicoes.Cadastro;
 global using SistemaDeCadastro.Communication.Requisicoes.Pessoa;
 
-global using Utilitarios.Testes.Requisicoes.Cadastro;
+global using CommonTestUtilities.Requisicoes.Cadastro;

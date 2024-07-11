@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utilitarios.Testes\Utilitarios.Testes.csproj" />
+    <ProjectReference Include="..\CommonTestUtilities\CommonTestUtilities.csproj" />
     <ProjectReference Include="..\..\src\Backend\SistemaDeCadastro.Infrastructure\SistemaDeCadastro.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\Backend\SistemaDeCadastro.Api\SistemaDeCadastro.Api.csproj" />
   </ItemGroup>

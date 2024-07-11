@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Repositorios.Cadastro;
+namespace CommonTestUtilities.Repositorios.Cadastro;
 
 public class CadastroReadOnlyRepositorioBuilder
 {

@@ -1,4 +1,4 @@
-namespace Utilitarios.Testes.Requisicoes.Pessoa;
+namespace CommonTestUtilities.Requisicoes.Pessoa;
 
 public class RequisicaoPessoaJsonBuilder
 {
