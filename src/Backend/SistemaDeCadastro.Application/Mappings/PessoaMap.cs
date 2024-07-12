@@ -53,6 +53,36 @@ public static class PessoaMap
         return pessoa;
     }
 
+    public static async Task<List<Domicilio>> RecuperarEndereco(RequisicaoPessoaJson requisicao, IViaCep viaCep)
+    {
+        List<Domicilio> domicilios = [];
+
+        foreach (var domicilio in requisicao.Domicilios)
+        {
+            var resultado = await viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
+
+            Endereco Endereco = new(
+                domicilio.Endereco.Cep,
+                resultado.Logradouro,
+                domicilio.Endereco.Numero,
+                resultado.Bairro,
+                domicilio.Endereco.Complemento,
+                domicilio.Endereco.PontoReferencia,
+                resultado.Uf,
+                resultado.Localidade,
+                resultado.Ibge);
+
+            Domicilio Domicilio = new()
+            {
+                Tipo = (DomicilioTipo)domicilio.Tipo,
+                Endereco = Endereco
+            };
+
+            domicilios.Add(Domicilio);
+        }
+        return domicilios;
+    }
+
     public static Pessoa ConverterParaEntidade(RequisicaoPessoaJson requisicao, Cadastro cadastro)
     {
         Pessoa pessoa = new()

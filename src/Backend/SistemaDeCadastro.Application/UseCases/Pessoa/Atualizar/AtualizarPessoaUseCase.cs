@@ -29,7 +29,7 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
         pessoa = pessoa.Atualizar(requisicao);
 
-        pessoa.Domicilios = await CepServices(requisicao);
+        pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _viaCep);
 
         _repositorioUpdate.Atualizar(pessoa);
 
@@ -56,36 +56,6 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
             var mensagensDeErro = resultado.Errors.Select(error => error.ErrorMessage).ToList();
             throw new ErrosDeValidacaoException(mensagensDeErro);
         }
-    }
-
-    private async Task<List<Domicilio>> CepServices(RequisicaoPessoaJson requisicao)
-    {
-        List<Domicilio> domicilios = [];
-
-        foreach (var domicilio in requisicao.Domicilios)
-        {
-            var resultado = await _viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
-
-            Endereco Endereco = new(
-                domicilio.Endereco.Cep,
-                resultado.Logradouro,
-                domicilio.Endereco.Numero,
-                resultado.Bairro,
-                domicilio.Endereco.Complemento,
-                domicilio.Endereco.PontoReferencia,
-                resultado.Uf,
-                resultado.Localidade,
-                resultado.Ibge);
-
-            Domicilio Domicilio = new()
-            {
-                Tipo = (DomicilioTipo)domicilio.Tipo,
-                Endereco = Endereco
-            };
-
-            domicilios.Add(Domicilio);
-        }
-        return domicilios;
     }
 }
 
