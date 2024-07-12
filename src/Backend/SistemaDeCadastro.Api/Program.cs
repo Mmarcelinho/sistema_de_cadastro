@@ -1,5 +1,3 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -23,10 +21,9 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-if (builder.Configuration.IsTestEnvironment()  == false)
-{
+if (!builder.Configuration.IsTestEnvironment())
     await AtualizarBaseDeDados();
-}
+
 
 app.Run();
 

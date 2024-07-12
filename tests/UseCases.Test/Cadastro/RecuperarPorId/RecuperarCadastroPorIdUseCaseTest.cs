@@ -32,7 +32,7 @@ public class RecuperarCadastroPorIdUseCaseTest
         .Where(exception => exception.RecuperarErros().Count == 1 && exception.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO));
     }
 
-    private static RecuperarCadastroPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null)
+    private static RecuperarCadastroPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro cadastro)
     {
         var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
         

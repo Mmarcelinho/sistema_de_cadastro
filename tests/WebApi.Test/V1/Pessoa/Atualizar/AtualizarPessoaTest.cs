@@ -8,7 +8,7 @@ public class AtualizarPessoaTest : SistemaDeCadastroClassFixture
 
     public AtualizarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     =>
-        _pessoa = webApplicationFactory.RecuperarPessoa;
+        _pessoa = webApplicationFactory.Pessoa;
 
     [Fact]
     public async Task Sucesso()

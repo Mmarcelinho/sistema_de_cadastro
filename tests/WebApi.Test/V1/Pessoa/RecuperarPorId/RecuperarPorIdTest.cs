@@ -8,7 +8,7 @@ namespace WebApi.Test.V1.Pessoa.RecuperarPorId;
 
     public RecuperarPorIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     =>
-        _pessoa = webApplicationFactory.RecuperarPessoa;
+        _pessoa = webApplicationFactory.Pessoa;
     
 
     [Fact]
