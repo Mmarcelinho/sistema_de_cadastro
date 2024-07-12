@@ -48,7 +48,7 @@ public class RegistrarPessoaUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
     }
 
-    private RegistrarPessoaUseCase CriarUseCase(string? cpf = null, string? cnpj = null)
+    private static RegistrarPessoaUseCase CriarUseCase(string? cpf = null, string? cnpj = null)
     {
         var repositorioWrite = PessoaWriteOnlyRepositorioBuilder.Build();
         var repositorioRead = new PessoaReadOnlyRepositorioBuilder();

@@ -11,7 +11,7 @@ public class FiltroDeExcecao : IExceptionFilter
             LancarErroDesconhecido(context);
     }
 
-    private void TratarSistemaDeCadastroException(ExceptionContext context)
+    private static void TratarSistemaDeCadastroException(ExceptionContext context)
     {
         var cadastroException = (SistemaDeCadastroException)context.Exception;
         var respostaDeErro = new RespostaErroJson(cadastroException.RecuperarErros());
@@ -21,7 +21,7 @@ public class FiltroDeExcecao : IExceptionFilter
         context.Result = new ObjectResult(respostaDeErro);
     }
 
-    private void LancarErroDesconhecido(ExceptionContext context)
+    private static void LancarErroDesconhecido(ExceptionContext context)
     {
         var respostaDeErro = new RespostaErroJson(MensagensDeErro.ERRO_DESCONHECIDO);
 

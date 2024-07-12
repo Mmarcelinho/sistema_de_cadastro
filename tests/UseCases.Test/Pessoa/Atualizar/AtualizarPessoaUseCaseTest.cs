@@ -52,11 +52,10 @@ public class AtualizarPessoaUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
     }
 
-    private AtualizarPessoaUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null, string? cpf = null, string? cnpj = null)
+    private static AtualizarPessoaUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null, string? cpf = null, string? cnpj = null)
     {
         var repositorioUpdate = new PessoaUpdateOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
         var repositorioRead = new PessoaReadOnlyRepositorioBuilder();
-        var repositorioCadastro = CadastroWriteOnlyRepositorioBuilder.Build();
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
         var viaCep = ViaCepBuilder.Build();
 

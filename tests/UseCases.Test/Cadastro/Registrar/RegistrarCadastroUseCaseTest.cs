@@ -68,7 +68,7 @@ public class RegistrarCadastroUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_CREDENCIAL_SENHA_EMBRANCO));
     }
 
-    private RegistrarCadastroUseCase CriarUseCase(string? email = null)
+    private static RegistrarCadastroUseCase CriarUseCase(string? email = null)
     {
         var repositorioWrite = CadastroWriteOnlyRepositorioBuilder.Build();
         var repositorioRead = new CadastroReadOnlyRepositorioBuilder();

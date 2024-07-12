@@ -34,7 +34,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.SaveChanges();
     }
 
-    private Cadastro AdicionarCadastro(SistemaDeCadastroContext dbContext)
+    private static Cadastro AdicionarCadastro(SistemaDeCadastroContext dbContext)
     {
         var cadastro = CadastroBuilder.Instancia();
 
@@ -43,7 +43,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return cadastro;
     }
 
-    private Pessoa AdicionarPessoa(SistemaDeCadastroContext dbContext, long cadastroId)
+    private static Pessoa AdicionarPessoa(SistemaDeCadastroContext dbContext, long cadastroId)
     {
         var cadastro = CadastroBuilder.Instancia();
         cadastro.Id = cadastroId;
@@ -55,7 +55,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         return pessoa;
     }
 
-    public Cadastro RecuperarCadastro => _cadastro;
+    public Cadastro? RecuperarCadastro => _cadastro;
 
-    public Pessoa RecuperarPessoa => _pessoa;
+    public Pessoa? RecuperarPessoa => _pessoa;
 }

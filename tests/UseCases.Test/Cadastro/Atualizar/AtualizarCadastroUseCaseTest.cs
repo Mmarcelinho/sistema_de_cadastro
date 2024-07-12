@@ -75,7 +75,7 @@ public class AtualizarCadastroUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_CREDENCIAL_SENHA_EMBRANCO));
     }
 
-    private AtualizarCadastroUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null, string? email = null)
+    private static AtualizarCadastroUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null, string? email = null)
     {
         var repositorioUpdate = new CadastroUpdateOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
 
