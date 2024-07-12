@@ -20,6 +20,7 @@ global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarTodos;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarPorId;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.Deletar;
+global using SistemaDeCadastro.Application.Mappings;
 
 global using SistemaDeCadastro.Communication.Requisicoes.Cadastro;
 global using SistemaDeCadastro.Communication.Respostas.Cadastro;
@@ -28,3 +29,5 @@ global using SistemaDeCadastro.Communication.Respostas.Pessoa;
 
 global using SistemaDeCadastro.Exceptions;
 global using SistemaDeCadastro.Exceptions.ExceptionsBase;
+
+

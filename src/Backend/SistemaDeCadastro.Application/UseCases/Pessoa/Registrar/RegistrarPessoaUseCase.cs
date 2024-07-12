@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.Mappings;
-
 namespace SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
 
 public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
@@ -42,10 +40,8 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private async Task Validar(RequisicaoPessoaJson requisicao)
     {
-        var validatorPessoa = new RegistrarPessoaValidator();
-        var validatorCadastro = new RegistrarCadastroValidator();
-        var resultado = validatorPessoa.Validate(requisicao);
-        resultado = validatorCadastro.Validate(requisicao.Cadastro);
+        var validator = new RegistrarPessoaValidator();
+        var resultado = validator.Validate(requisicao);
 
         var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
 

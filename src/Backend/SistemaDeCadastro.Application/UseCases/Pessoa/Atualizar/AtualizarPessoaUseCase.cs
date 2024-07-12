@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.Mappings;
-
 namespace SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
 
 public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
@@ -26,6 +24,9 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
         var pessoa = await _repositorioUpdate.RecuperarPorId(pessoaId);
 
+        if (pessoa is null)
+            throw new NaoEncontradoException(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
+
         pessoa = pessoa.Atualizar(requisicao);
 
         pessoa.Domicilios = await CepServices(requisicao);
@@ -37,10 +38,8 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
     private async Task Validar(RequisicaoPessoaJson requisicao)
     {
-        var validatorPessoa = new RegistrarPessoaValidator();
-        var validatorCadastro = new RegistrarCadastroValidator();
-        var resultado = validatorPessoa.Validate(requisicao);
-        resultado = validatorCadastro.Validate(requisicao.Cadastro);
+        var validator = new RegistrarPessoaValidator();
+        var resultado = validator.Validate(requisicao);
 
         var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
 

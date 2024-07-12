@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.Mappings;
-
 namespace SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarPorId;
 
 public class RecuperarPessoaPorIdUseCase : IRecuperarPessoaPorIdUseCase

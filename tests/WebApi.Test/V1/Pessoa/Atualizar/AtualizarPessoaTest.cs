@@ -1,26 +1,43 @@
-namespace WebApi.Test.V1.Pessoa.Registrar;
+namespace WebApi.Test.V1.Pessoa.Atualizar;
 
-public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
+public class AtualizarPessoaTest : SistemaDeCadastroClassFixture
 {
     private const string METODO = "pessoa";
 
-    public RegistrarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    { }
+    private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa;
+
+    public AtualizarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    =>
+        _pessoa = webApplicationFactory.RecuperarPessoa;
 
     [Fact]
     public async Task Sucesso()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicao);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicao);
 
-        resultado.StatusCode.Should().Be(HttpStatusCode.Created);
+        resultado.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task Erro_Pessoa_NaoEncontrado()
+    {
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
+
+        var resultado = await DoPut(requestUri: $"{METODO}/{100}", request: requisicao);
+
+        resultado.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         var body = await resultado.Content.ReadAsStreamAsync();
 
         var resposta = await JsonDocument.ParseAsync(body);
 
-        resposta.RootElement.GetProperty("email").GetString().Should().NotBeNullOrWhiteSpace();
+        var erros = resposta.RootElement.GetProperty("mensagens").EnumerateArray();
+
+        var mensagemEsperada = PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO;
+
+        erros.Should().HaveCount(1).And.Contain(erro => erro.GetString()!.Equals(mensagemEsperada));
     }
 
     [Fact]
@@ -29,7 +46,7 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var requisicaoCpfVazio = requisicao with { Cpf = string.Empty };
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicaoCpfVazio);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoCpfVazio);
 
         resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -50,7 +67,7 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var requisicaoNomeVazio = requisicao with { Nome = string.Empty };
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicaoNomeVazio);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoNomeVazio);
 
         resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -71,7 +88,7 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var requisicaoNomeFantasiaVazio = requisicao with { NomeFantasia = string.Empty };
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicaoNomeFantasiaVazio);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoNomeFantasiaVazio);
 
         resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -92,7 +109,7 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var requisicaoNascimentoInvalido = requisicao with { Nascimento = DateTime.MinValue };
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicaoNascimentoInvalido);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoNascimentoInvalido);
 
         resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -113,7 +130,7 @@ public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var requisicaoCadastroVazio = requisicao with { Cadastro = null };
 
-        var resultado = await DoPost(requestUri: METODO, request: requisicaoCadastroVazio);
+        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoCadastroVazio);
 
         resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
