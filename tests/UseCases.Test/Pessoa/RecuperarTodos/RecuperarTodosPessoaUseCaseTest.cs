@@ -24,7 +24,7 @@ public class RecuperarTodosPessoaUseCaseTest
         });
     }
 
-    private RecuperarTodosPessoaUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Pessoa> pessoas)
+    private static RecuperarTodosPessoaUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Pessoa> pessoas)
     {
         var repositorio = new PessoaReadOnlyRepositorioBuilder().RecuperarTodos(pessoas).Build();
 
