@@ -14,5 +14,8 @@ public class SistemaDeCadastroClassFixture : IClassFixture<CustomWebApplicationF
 
     protected async Task<HttpResponseMessage> DoPost(string requestUri, object request)
     => await _httpClient.PostAsJsonAsync(requestUri, request);
+
+    protected async Task<HttpResponseMessage> DoPut(string requestUri, object request)
+    => await _httpClient.PutAsJsonAsync(requestUri, request);
     
 }
