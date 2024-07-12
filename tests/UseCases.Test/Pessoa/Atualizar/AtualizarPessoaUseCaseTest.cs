@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
-
 namespace UseCases.Test.Pessoa.Atualizar;
 
 public class AtualizarPessoaUseCaseTest

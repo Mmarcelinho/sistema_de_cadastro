@@ -9,13 +9,12 @@ global using Microsoft.Extensions.DependencyInjection;
 global using FluentAssertions;
 
 global using SistemaDeCadastro.Domain.Entidades;
-
 global using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
+global using SistemaDeCadastro.Exceptions;
 
 global using CommonTestUtilities.Entidades;
 global using CommonTestUtilities.Requisicoes.Cadastro;
 global using CommonTestUtilities.Requisicoes.Pessoa;
-
 
 
 
