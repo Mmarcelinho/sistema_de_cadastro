@@ -9,7 +9,7 @@ public class RecuperarPorIdTest : SistemaDeCadastroClassFixture
 
     public RecuperarPorIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     =>
-        _cadastro = webApplicationFactory.RecuperarCadastro;
+        _cadastro = webApplicationFactory.Cadastro;
     
 
     [Fact]

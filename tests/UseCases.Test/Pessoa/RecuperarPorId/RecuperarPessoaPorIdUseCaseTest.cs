@@ -35,7 +35,7 @@ public class RecuperarPessoaPorIdUseCaseTest
         .Where(exception => exception.RecuperarErros().Count == 1 && exception.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO));
     }
 
-    private static RecuperarPessoaPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null)
+    private static RecuperarPessoaPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa pessoa)
     {
         var repositorio = new PessoaReadOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
         

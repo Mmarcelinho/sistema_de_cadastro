@@ -4,7 +4,7 @@ public static class DependencyInjectionExtension
 {
     public static void AdicionarInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        if (configuration.IsTestEnvironment() == false)
+        if (!configuration.IsTestEnvironment())
             AdicionarContexto(services, configuration);
 
         AdicionarRepositorios(services);

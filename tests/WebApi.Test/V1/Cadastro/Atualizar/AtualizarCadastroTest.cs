@@ -8,7 +8,7 @@ public class AtualizarCadastroTest : SistemaDeCadastroClassFixture
 
     public AtualizarCadastroTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     =>
-        _cadastro = webApplicationFactory.RecuperarCadastro;
+        _cadastro = webApplicationFactory.Cadastro;
 
     [Fact]
     public async Task Sucesso()

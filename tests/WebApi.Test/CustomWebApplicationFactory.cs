@@ -2,9 +2,9 @@ namespace WebApi.Test;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private Cadastro? _cadastro;
+    public Cadastro Cadastro { get; private set; } = default!;
 
-    private Pessoa? _pessoa;
+    public Pessoa Pessoa { get; private set; } = default!;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -28,8 +28,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     private void IniciarDatabase(SistemaDeCadastroContext dbContext)
     {
-        _cadastro = AdicionarCadastro(dbContext);
-        _pessoa = AdicionarPessoa(dbContext, 2);
+        Cadastro = AdicionarCadastro(dbContext);
+        Pessoa = AdicionarPessoa(dbContext, 2);
 
         dbContext.SaveChanges();
     }
@@ -54,8 +54,4 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
         return pessoa;
     }
-
-    public Cadastro? RecuperarCadastro => _cadastro;
-
-    public Pessoa? RecuperarPessoa => _pessoa;
 }
