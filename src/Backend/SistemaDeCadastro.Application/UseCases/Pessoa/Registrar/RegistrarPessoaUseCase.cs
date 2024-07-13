@@ -2,7 +2,9 @@ namespace SistemaDeCadastro.Application.UseCases.Pessoa.Registrar;
 
 public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 {
-    private readonly ICadastroWriteOnlyRepositorio _repositorioCadastro;
+    private readonly ICadastroWriteOnlyRepositorio _repositorioWriteCadastro;
+
+    private readonly ICadastroReadOnlyRepositorio _repositorioReadCadastro;
 
     private readonly IPessoaWriteOnlyRepositorio _repositorioWrite;
 
@@ -12,9 +14,10 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
-    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, IViaCep viaCep, IUnidadeDeTrabalho unidadeDeTrabalho)
+    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioWriteCadastro, ICadastroReadOnlyRepositorio repositorioReadCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, IViaCep viaCep, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
-        _repositorioCadastro = repositorioCadastro;
+        _repositorioWriteCadastro = repositorioWriteCadastro;
+        _repositorioReadCadastro = repositorioReadCadastro;
         _repositorioWrite = repositorioWrite;
         _repositorioRead = repositorioRead;
         _unidadeDeTrabalho = unidadeDeTrabalho;
@@ -30,7 +33,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
         pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _viaCep);
 
-        await _repositorioCadastro.Registrar(cadastro);
+        await _repositorioWriteCadastro.Registrar(cadastro);
         await _repositorioWrite.Registrar(pessoa);
 
         await _unidadeDeTrabalho.Commit();
@@ -47,11 +50,16 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
         var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
 
+        var existeCadastroComEmail = await _repositorioReadCadastro.RecuperarCadastroExistentePorEmail(requisicao.Cadastro.Email);
+
         if (existePessoaComCpf)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CPF_JA_REGISTRADO));
 
         else if (existePessoaComCnpj)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
+
+        else if (existeCadastroComEmail)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
 
         if (!resultado.IsValid)
         {
