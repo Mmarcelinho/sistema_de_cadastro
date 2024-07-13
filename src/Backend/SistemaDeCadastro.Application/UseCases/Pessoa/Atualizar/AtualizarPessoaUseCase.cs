@@ -6,14 +6,17 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
     private readonly IPessoaReadOnlyRepositorio _repositorioRead;
 
+    private readonly ICadastroReadOnlyRepositorio _repositorioReadCadastro;
+
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
     private readonly IViaCep _viaCep;
 
-    public AtualizarPessoaUseCase(IPessoaUpdateOnlyRepositorio repositorioUpdate, IPessoaReadOnlyRepositorio repositorioRead, IUnidadeDeTrabalho unidadeDeTrabalho, IViaCep viaCep)
+    public AtualizarPessoaUseCase(IPessoaUpdateOnlyRepositorio repositorioUpdate, IPessoaReadOnlyRepositorio repositorioRead, ICadastroReadOnlyRepositorio repositorioReadCadastro, IUnidadeDeTrabalho unidadeDeTrabalho, IViaCep viaCep)
     {
         _repositorioUpdate = repositorioUpdate;
         _repositorioRead = repositorioRead;
+        _repositorioReadCadastro = repositorioReadCadastro;
         _unidadeDeTrabalho = unidadeDeTrabalho;
         _viaCep = viaCep;
     }
@@ -45,11 +48,16 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 
         var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
 
+        var existeCadastroComEmail = await _repositorioReadCadastro.RecuperarCadastroExistentePorEmail(requisicao.Cadastro.Email);
+
         if (existePessoaComCpf)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CPF_JA_REGISTRADO));
 
         else if (existePessoaComCnpj)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("cpf", PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
+
+        else if (existeCadastroComEmail)
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
 
         if (!resultado.IsValid)
         {
