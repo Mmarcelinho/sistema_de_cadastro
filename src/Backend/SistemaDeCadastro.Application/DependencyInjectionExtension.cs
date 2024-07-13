@@ -1,5 +1,3 @@
-using SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
-
 namespace SistemaDeCadastro.Application;
 
 public static class DependencyInjectionExtension
