@@ -53,13 +53,13 @@ public static class PessoaMap
         return pessoa;
     }
 
-    public static async Task<List<Domicilio>> RecuperarEndereco(RequisicaoPessoaJson requisicao, IViaCep viaCep)
+    public static async Task<List<Domicilio>> RecuperarEndereco(RequisicaoPessoaJson requisicao, ICepService cepService)
     {
         List<Domicilio> domicilios = [];
 
         foreach (var domicilio in requisicao.Domicilios)
         {
-            var resultado = await viaCep.RecuperarEndereco(domicilio.Endereco.Cep);
+            var resultado = await cepService.RecuperarEndereco(domicilio.Endereco.Cep);
 
             Endereco Endereco = new(
                 domicilio.Endereco.Cep,

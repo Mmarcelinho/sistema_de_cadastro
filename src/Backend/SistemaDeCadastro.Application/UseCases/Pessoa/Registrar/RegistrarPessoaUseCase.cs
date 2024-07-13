@@ -6,22 +6,22 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private readonly ICadastroReadOnlyRepositorio _repositorioReadCadastro;
 
-    private readonly IPessoaWriteOnlyRepositorio _repositorioWrite;
+    private readonly IPessoaWriteOnlyRepositorio _repositorioWritePessoa;
 
-    private readonly IPessoaReadOnlyRepositorio _repositorioRead;
+    private readonly IPessoaReadOnlyRepositorio _repositorioReadPessoa;
 
-    private readonly IViaCep _viaCep;
+    private readonly ICepService _cepService;
 
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
-    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioWriteCadastro, ICadastroReadOnlyRepositorio repositorioReadCadastro, IPessoaReadOnlyRepositorio repositorioRead, IPessoaWriteOnlyRepositorio repositorioWrite, IViaCep viaCep, IUnidadeDeTrabalho unidadeDeTrabalho)
+    public RegistrarPessoaUseCase(ICadastroWriteOnlyRepositorio repositorioWriteCadastro, ICadastroReadOnlyRepositorio repositorioReadCadastro, IPessoaReadOnlyRepositorio repositorioReadPessoa, IPessoaWriteOnlyRepositorio repositorioWritePessoa, ICepService cepService, IUnidadeDeTrabalho unidadeDeTrabalho)
     {
         _repositorioWriteCadastro = repositorioWriteCadastro;
         _repositorioReadCadastro = repositorioReadCadastro;
-        _repositorioWrite = repositorioWrite;
-        _repositorioRead = repositorioRead;
+        _repositorioWritePessoa = repositorioWritePessoa;
+        _repositorioReadPessoa = repositorioReadPessoa;
         _unidadeDeTrabalho = unidadeDeTrabalho;
-        _viaCep = viaCep;
+        _cepService = cepService;
     }
 
     public async Task<RespostaPessoaJson> Executar(RequisicaoPessoaJson requisicao)
@@ -31,10 +31,10 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
         var cadastro = CadastroMap.ConverterParaEntidade(requisicao.Cadastro);
         var pessoa = PessoaMap.ConverterParaEntidade(requisicao, cadastro);
 
-        pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _viaCep);
+        pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _cepService);
 
         await _repositorioWriteCadastro.Registrar(cadastro);
-        await _repositorioWrite.Registrar(pessoa);
+        await _repositorioWritePessoa.Registrar(pessoa);
 
         await _unidadeDeTrabalho.Commit();
 
@@ -46,9 +46,9 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
         var validator = new RegistrarPessoaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
+        var existePessoaComCpf = await _repositorioReadPessoa.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
 
-        var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
+        var existePessoaComCnpj = await _repositorioReadPessoa.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
 
         var existeCadastroComEmail = await _repositorioReadCadastro.RecuperarCadastroExistentePorEmail(requisicao.Cadastro.Email);
 

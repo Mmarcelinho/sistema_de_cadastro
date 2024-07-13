@@ -2,39 +2,39 @@ namespace SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
 
 public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
 {
-    private readonly IPessoaUpdateOnlyRepositorio _repositorioUpdate;
+    private readonly IPessoaUpdateOnlyRepositorio _repositorioUpdatePessoa;
 
-    private readonly IPessoaReadOnlyRepositorio _repositorioRead;
+    private readonly IPessoaReadOnlyRepositorio _repositorioReadPessoa;
 
     private readonly ICadastroReadOnlyRepositorio _repositorioReadCadastro;
 
     private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
 
-    private readonly IViaCep _viaCep;
+    private readonly ICepService _cepService;
 
-    public AtualizarPessoaUseCase(IPessoaUpdateOnlyRepositorio repositorioUpdate, IPessoaReadOnlyRepositorio repositorioRead, ICadastroReadOnlyRepositorio repositorioReadCadastro, IUnidadeDeTrabalho unidadeDeTrabalho, IViaCep viaCep)
+    public AtualizarPessoaUseCase(IPessoaUpdateOnlyRepositorio repositorioUpdatePessoa, IPessoaReadOnlyRepositorio repositorioReadPessoa, ICadastroReadOnlyRepositorio repositorioReadCadastro, IUnidadeDeTrabalho unidadeDeTrabalho, ICepService cepService)
     {
-        _repositorioUpdate = repositorioUpdate;
-        _repositorioRead = repositorioRead;
+        _repositorioUpdatePessoa = repositorioUpdatePessoa;
+        _repositorioReadPessoa = repositorioReadPessoa;
         _repositorioReadCadastro = repositorioReadCadastro;
         _unidadeDeTrabalho = unidadeDeTrabalho;
-        _viaCep = viaCep;
+        _cepService = cepService;
     }
 
     public async Task Executar(long pessoaId, RequisicaoPessoaJson requisicao)
     {
         await Validar(requisicao);
 
-        var pessoa = await _repositorioUpdate.RecuperarPorId(pessoaId);
+        var pessoa = await _repositorioUpdatePessoa.RecuperarPorId(pessoaId);
 
         if (pessoa is null)
             throw new NaoEncontradoException(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO);
 
         pessoa = pessoa.Atualizar(requisicao);
 
-        pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _viaCep);
+        pessoa.Domicilios = await PessoaMap.RecuperarEndereco(requisicao, _cepService);
 
-        _repositorioUpdate.Atualizar(pessoa);
+        _repositorioUpdatePessoa.Atualizar(pessoa);
 
         await _unidadeDeTrabalho.Commit();
     }
@@ -44,9 +44,9 @@ public class AtualizarPessoaUseCase : IAtualizarPessoaUseCase
         var validator = new RegistrarPessoaValidator();
         var resultado = validator.Validate(requisicao);
 
-        var existePessoaComCpf = await _repositorioRead.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
+        var existePessoaComCpf = await _repositorioReadPessoa.RecuperarPessoaExistentePorCpf(requisicao.Cpf);
 
-        var existePessoaComCnpj = await _repositorioRead.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
+        var existePessoaComCnpj = await _repositorioReadPessoa.RecuperarPessoaExistentePorCnpj(requisicao.Cnpj);
 
         var existeCadastroComEmail = await _repositorioReadCadastro.RecuperarCadastroExistentePorEmail(requisicao.Cadastro.Email);
 

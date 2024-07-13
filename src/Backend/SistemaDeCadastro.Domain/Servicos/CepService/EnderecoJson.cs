@@ -1,4 +1,4 @@
-namespace SistemaDeCadastro.Domain.Servicos.ViaCep;
+namespace SistemaDeCadastro.Domain.Servicos.CepService;
 
 public record EnderecoJson(
     [property: JsonPropertyName("cep")] string Cep,

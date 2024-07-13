@@ -1,6 +1,6 @@
-namespace SistemaDeCadastro.Infrastructure.Servicos.ViaCep;
+namespace SistemaDeCadastro.Infrastructure.Servicos.CepService;
 
-public class ViaCep : IViaCep
+public class ViaCep : ICepService
 {
     public bool ValidarCep(string cep) => !string.IsNullOrEmpty(cep) && cep.Length == 8;
 

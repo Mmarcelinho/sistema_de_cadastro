@@ -1,10 +1,10 @@
 namespace CommonTestUtilities.Servicos;
 
-public class ViaCepBuilder
+public class CepServiceBuilder
 {
-    public static IViaCep Build()
+    public static ICepService Build()
     {
-        var mock = new Mock<IViaCep>();
+        var mock = new Mock<ICepService>();
 
         mock.Setup(service => service.ValidarCep(It.IsAny<string>()))
             .Returns(true);

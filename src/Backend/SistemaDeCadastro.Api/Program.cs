@@ -34,4 +34,7 @@ async Task AtualizarBaseDeDados()
     await MigrateExtension.MigrateBancoDeDados(scope.ServiceProvider);
 }
 
-public partial class Program { }
+public partial class Program 
+{ 
+    protected Program() { }
+}
