@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
 
 #nullable disable
@@ -12,8 +12,8 @@ using SistemaDeCadastro.Infrastructure.AcessoRepositorio;
 namespace SistemaDeCadastro.Infrastructure.Migrations
 {
     [DbContext(typeof(SistemaDeCadastroContext))]
-    [Migration("20240625183659_Version000001")]
-    partial class Version000001
+    [Migration("20240713234527_version000001")]
+    partial class version000001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +21,9 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.6")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("SistemaDeCadastro.Domain.Entidades.Cadastro", b =>
                 {
@@ -31,28 +31,28 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("Empresa")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("NomeFantasia")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SobrenomeSocial")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -65,42 +65,42 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("CadastroId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Cnpj")
                         .HasMaxLength(14)
-                        .HasColumnType("character varying(14)");
+                        .HasColumnType("nvarchar(14)");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(11)
-                        .HasColumnType("character varying(11)");
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("Nascimento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NomeFantasia")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Token")
                         .HasMaxLength(255)
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -117,19 +117,19 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<bool>("Bloqueada")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("CredencialBloqueada");
 
                             b1.Property<string>("Expirada")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("character varying(255)")
+                                .HasColumnType("nvarchar(255)")
                                 .HasColumnName("CredencialExpirada");
 
                             b1.Property<string>("Senha")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("character varying(255)")
+                                .HasColumnType("nvarchar(255)")
                                 .HasColumnName("CredencialSenha");
 
                             b1.HasKey("CadastroId");
@@ -146,17 +146,17 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<bool>("Assinante")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("InscritoAssinante");
 
                             b1.Property<bool>("Associado")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("InscritoAssociado");
 
                             b1.Property<string>("Senha")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("character varying(255)")
+                                .HasColumnType("nvarchar(255)")
                                 .HasColumnName("InscritoSenha");
 
                             b1.HasKey("CadastroId");
@@ -173,19 +173,19 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<bool>("Cliente")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("ParceiroCliente");
 
                             b1.Property<bool>("Colaborador")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("ParceiroColaborador");
 
                             b1.Property<bool>("Fornecedor")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("ParceiroFornecedor");
 
                             b1.Property<bool>("Prestador")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("ParceiroPrestador");
 
                             b1.HasKey("CadastroId");
@@ -202,25 +202,25 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<DateTime>("DataValidade")
-                                .HasColumnType("timestamp with time zone")
+                                .HasColumnType("datetime2")
                                 .HasColumnName("DocumentoDataValidade");
 
                             b1.Property<string>("EstadoEmissor")
                                 .IsRequired()
                                 .HasMaxLength(50)
-                                .HasColumnType("character varying(50)")
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("DocumentoEstadoEmissor");
 
                             b1.Property<string>("Numero")
                                 .IsRequired()
                                 .HasMaxLength(50)
-                                .HasColumnType("character varying(50)")
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("DocumentoNumero");
 
                             b1.Property<string>("OrgaoEmissor")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("character varying(100)")
+                                .HasColumnType("nvarchar(100)")
                                 .HasColumnName("DocumentoOrgaoEmissor");
 
                             b1.HasKey("CadastroId");
@@ -237,17 +237,17 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<int>("Empresa")
-                                .HasColumnType("integer")
+                                .HasColumnType("int")
                                 .HasColumnName("IdentificacaoEmpresa");
 
                             b1.Property<string>("Identificador")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("character varying(255)")
+                                .HasColumnType("nvarchar(255)")
                                 .HasColumnName("IdentificacaoIdentificador");
 
                             b1.Property<int>("Tipo")
-                                .HasColumnType("integer")
+                                .HasColumnType("int")
                                 .HasColumnName("IdentificacaoTipo");
 
                             b1.HasKey("CadastroId");
@@ -283,16 +283,16 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("bigint");
 
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<long>("Id"));
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
 
                             b1.Property<DateTime>("DataCriacao")
-                                .HasColumnType("timestamp with time zone");
+                                .HasColumnType("datetime2");
 
                             b1.Property<long>("PessoaId")
                                 .HasColumnType("bigint");
 
                             b1.Property<int>("Tipo")
-                                .HasColumnType("integer")
+                                .HasColumnType("int")
                                 .HasColumnName("DomicilioTipo");
 
                             b1.HasKey("Id");
@@ -312,52 +312,52 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                     b2.Property<string>("Bairro")
                                         .IsRequired()
                                         .HasMaxLength(50)
-                                        .HasColumnType("character varying(50)")
+                                        .HasColumnType("nvarchar(50)")
                                         .HasColumnName("Bairro");
 
                                     b2.Property<string>("Cep")
                                         .IsRequired()
                                         .HasMaxLength(8)
-                                        .HasColumnType("character varying(8)")
+                                        .HasColumnType("nvarchar(8)")
                                         .HasColumnName("Cep");
 
                                     b2.Property<string>("Cidade")
                                         .IsRequired()
                                         .HasMaxLength(50)
-                                        .HasColumnType("character varying(50)")
+                                        .HasColumnType("nvarchar(50)")
                                         .HasColumnName("Cidade");
 
                                     b2.Property<string>("Complemento")
                                         .HasMaxLength(255)
-                                        .HasColumnType("character varying(255)")
+                                        .HasColumnType("nvarchar(255)")
                                         .HasColumnName("Complemento");
 
                                     b2.Property<string>("Ibge")
                                         .IsRequired()
-                                        .HasColumnType("text")
+                                        .HasColumnType("nvarchar(max)")
                                         .HasColumnName("Ibge");
 
                                     b2.Property<string>("Logradouro")
                                         .IsRequired()
                                         .HasMaxLength(255)
-                                        .HasColumnType("character varying(255)")
+                                        .HasColumnType("nvarchar(255)")
                                         .HasColumnName("Logradouro");
 
                                     b2.Property<string>("Numero")
                                         .IsRequired()
                                         .HasMaxLength(10)
-                                        .HasColumnType("character varying(10)")
+                                        .HasColumnType("nvarchar(10)")
                                         .HasColumnName("Numero");
 
                                     b2.Property<string>("PontoReferencia")
                                         .HasMaxLength(255)
-                                        .HasColumnType("character varying(255)")
+                                        .HasColumnType("nvarchar(255)")
                                         .HasColumnName("PontoReferencia");
 
                                     b2.Property<string>("Uf")
                                         .IsRequired()
                                         .HasMaxLength(2)
-                                        .HasColumnType("character varying(2)")
+                                        .HasColumnType("nvarchar(2)")
                                         .HasColumnName("Uf");
 
                                     b2.HasKey("DomicilioId");
@@ -377,7 +377,7 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<bool>("Celular")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("TelefoneCelular");
 
                             b1.Property<long>("Numero")
@@ -385,11 +385,11 @@ namespace SistemaDeCadastro.Infrastructure.Migrations
                                 .HasColumnName("TelefoneNumero");
 
                             b1.Property<bool>("Telegram")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("TelefoneTelegram");
 
                             b1.Property<bool>("Whatsapp")
-                                .HasColumnType("boolean")
+                                .HasColumnType("bit")
                                 .HasColumnName("TelefoneWhatsapp");
 
                             b1.HasKey("PessoaId");

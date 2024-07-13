@@ -16,7 +16,7 @@ public static class DependencyInjectionExtension
 
         services.AddDbContext<SistemaDeCadastroContext>(opcoes =>
         {
-            opcoes.UseNpgsql(connectionString);
+            opcoes.UseSqlServer(connectionString);
         });
     }
 
@@ -31,6 +31,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPessoaWriteOnlyRepositorio, PessoaRepositorio>();
         services.AddScoped<IPessoaUpdateOnlyRepositorio, PessoaRepositorio>();
 
-        services.AddScoped<IViaCep, ViaCep>();
+        services.AddScoped<ICepService, ViaCep>();
     }
 }
