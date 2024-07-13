@@ -21,7 +21,7 @@ public class RegistrarPessoaUseCaseTest
     }
 
     [Fact]
-    public async Task DeveRetornarErroQuandoCpfJaExistente()
+    public async Task CpfExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
@@ -35,7 +35,7 @@ public class RegistrarPessoaUseCaseTest
     }
 
     [Fact]
-    public async Task DeveRetornarErroQuandoCnpjJaExistente()
+    public async Task CnpjExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
@@ -48,20 +48,38 @@ public class RegistrarPessoaUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
     }
 
-    private static RegistrarPessoaUseCase CriarUseCase(string? cpf = null, string? cnpj = null)
+    [Fact]
+    public async Task CadastroExistente_DeveRetornarErro()
     {
-        var repositorioWrite = PessoaWriteOnlyRepositorioBuilder.Build();
-        var repositorioRead = new PessoaReadOnlyRepositorioBuilder();
-        var repositorioCadastro = CadastroWriteOnlyRepositorioBuilder.Build();
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
+
+        var useCase = CriarUseCase(email: requisicao.Cadastro.Email);
+
+        Func<Task> acao = async () => await useCase.Executar(requisicao);
+
+        var resultado = await acao.Should().ThrowAsync<ErrosDeValidacaoException>();
+
+        resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
+    }
+
+    private static RegistrarPessoaUseCase CriarUseCase(string? cpf = null, string? cnpj = null, string? email = null)
+    {
+        var repositorioWritePessoa = PessoaWriteOnlyRepositorioBuilder.Build();
+        var repositorioReadPessoa = new PessoaReadOnlyRepositorioBuilder();
+        var repositorioWriteCadastro = CadastroWriteOnlyRepositorioBuilder.Build();
+        var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
         var viaCep = ViaCepBuilder.Build();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
-            repositorioRead.RecuperarPessoaExistentePorCpf(cpf);
+            repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
 
         else if (string.IsNullOrWhiteSpace(cnpj) == false)
-            repositorioRead.RecuperarPessoaExistentePorCnpj(cnpj);
+            repositorioReadPessoa.RecuperarPessoaExistentePorCnpj(cnpj);
 
-        return new RegistrarPessoaUseCase(repositorioCadastro, repositorioRead.Build(), repositorioWrite, viaCep, unidadeDeTrabalho);
+        else if (string.IsNullOrWhiteSpace(email) == false)
+            repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
+
+        return new RegistrarPessoaUseCase(repositorioWriteCadastro, repositorioReadCadastro.Build(), repositorioReadPessoa.Build(), repositorioWritePessoa, viaCep, unidadeDeTrabalho);
     }
 }

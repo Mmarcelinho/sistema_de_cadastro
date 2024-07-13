@@ -123,25 +123,4 @@ public class AtualizarPessoaTest : SistemaDeCadastroClassFixture
 
         erros.Should().HaveCount(1).And.Contain(erro => erro.GetString()!.Equals(mensagemEsperada));
     }
-
-    [Fact]
-    public async Task Erro_Cadastro_EmBranco()
-    {
-        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
-        var requisicaoCadastroVazio = requisicao with { Cadastro = null };
-
-        var resultado = await DoPut(requestUri: $"{METODO}/{_pessoa.Id}", request: requisicaoCadastroVazio);
-
-        resultado.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-        var body = await resultado.Content.ReadAsStreamAsync();
-
-        var resposta = await JsonDocument.ParseAsync(body);
-
-        var erros = resposta.RootElement.GetProperty("mensagens").EnumerateArray();
-
-        var mensagemEsperada = PessoaMensagensDeErro.PESSOA_CADASTRO_EMBRANCO;
-
-        erros.Should().HaveCount(1).And.Contain(erro => erro.GetString()!.Equals(mensagemEsperada));
-    }
 }

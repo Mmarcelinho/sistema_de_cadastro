@@ -23,7 +23,7 @@ public class AtualizarPessoaUseCaseTest
     }
 
     [Fact]
-    public async Task DeveRetornarErroQuandoCpfJaExistente()
+    public async Task CpfExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var cadastro = CadastroBuilder.Instancia();
@@ -38,7 +38,7 @@ public class AtualizarPessoaUseCaseTest
     }
 
     [Fact]
-    public async Task DeveRetornarErroQuandoCnpjJaExistente()
+    public async Task CnpjExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
         var cadastro = CadastroBuilder.Instancia();
@@ -52,19 +52,39 @@ public class AtualizarPessoaUseCaseTest
         resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_CNPJ_JA_REGISTRADO));
     }
 
-    private static AtualizarPessoaUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null, string? cpf = null, string? cnpj = null)
+    [Fact]
+    public async Task CadastroExistente_DeveRetornarErro()
     {
-        var repositorioUpdate = new PessoaUpdateOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
-        var repositorioRead = new PessoaReadOnlyRepositorioBuilder();
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
+        var cadastro = CadastroBuilder.Instancia();
+        var pessoa = PessoaBuilder.Instancia(cadastro);
+
+        var useCase = CriarUseCase(pessoa, email: requisicao.Cadastro.Email);
+
+        Func<Task> acao = async () => await useCase.Executar(pessoa.Id, requisicao);
+
+        var resultado = await acao.Should().ThrowAsync<ErrosDeValidacaoException>();
+
+        resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
+    }
+
+    private static AtualizarPessoaUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null, string? cpf = null, string? cnpj = null, string? email = null)
+    {
+        var repositorioUpdatePessoa = new PessoaUpdateOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
+        var repositorioReadPessoa = new PessoaReadOnlyRepositorioBuilder();
+        var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
         var viaCep = ViaCepBuilder.Build();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
-            repositorioRead.RecuperarPessoaExistentePorCpf(cpf);
+            repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
 
         else if (string.IsNullOrWhiteSpace(cnpj) == false)
-            repositorioRead.RecuperarPessoaExistentePorCnpj(cnpj);
+            repositorioReadPessoa.RecuperarPessoaExistentePorCnpj(cnpj);
 
-        return new AtualizarPessoaUseCase(repositorioUpdate, repositorioRead.Build(), unidadeDeTrabalho, viaCep);
+        else if (string.IsNullOrWhiteSpace(email) == false)
+            repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
+
+        return new AtualizarPessoaUseCase(repositorioUpdatePessoa, repositorioReadPessoa.Build(), repositorioReadCadastro.Build(), unidadeDeTrabalho, viaCep);
     }
 }
