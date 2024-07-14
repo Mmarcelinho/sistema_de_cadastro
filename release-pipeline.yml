@@ -20,6 +20,6 @@ steps:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          lasted
+          latest
           $(tag)
 
