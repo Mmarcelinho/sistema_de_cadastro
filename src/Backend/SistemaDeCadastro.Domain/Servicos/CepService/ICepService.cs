@@ -1,6 +1,6 @@
-namespace SistemaDeCadastro.Domain.Servicos.ViaCep;
+namespace SistemaDeCadastro.Domain.Servicos.CepService;
 
-public interface IViaCep
+public interface ICepService
 {
     bool ValidarCep(string cep);
 

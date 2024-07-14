@@ -74,7 +74,7 @@ public class AtualizarPessoaUseCaseTest
         var repositorioReadPessoa = new PessoaReadOnlyRepositorioBuilder();
         var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
-        var viaCep = ViaCepBuilder.Build();
+        var cepService = CepServiceBuilder.Build();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
             repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
@@ -85,6 +85,6 @@ public class AtualizarPessoaUseCaseTest
         else if (string.IsNullOrWhiteSpace(email) == false)
             repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
 
-        return new AtualizarPessoaUseCase(repositorioUpdatePessoa, repositorioReadPessoa.Build(), repositorioReadCadastro.Build(), unidadeDeTrabalho, viaCep);
+        return new AtualizarPessoaUseCase(repositorioUpdatePessoa, repositorioReadPessoa.Build(), repositorioReadCadastro.Build(), unidadeDeTrabalho, cepService);
     }
 }

@@ -1,11 +1,11 @@
 namespace Validators.Tests.Pessoa.Registrar;
 
-    public class RegistrarPessoaValidatorTest
+    public class PessoaValidatorTest
     {
         [Fact]
         public void Sucesso()
         {
-            var validator = new RegistrarPessoaValidator();
+            var validator = new PessoaValidator();
 
             var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
 
@@ -17,7 +17,7 @@ namespace Validators.Tests.Pessoa.Registrar;
         [Fact]
     public void CpfEmBranco_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Cpf = string.Empty };
 
@@ -38,7 +38,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     [Fact]
     public void NomeEmBranco_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Nome = string.Empty };
 
@@ -51,7 +51,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     [Fact]
     public void NomeFantasiaEmBranco_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { NomeFantasia = string.Empty };
 
@@ -64,7 +64,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     [Fact]
     public void EmailEmBranco_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Email = string.Empty };
 
@@ -85,7 +85,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     [Fact]
     public void NascimentoInvalido_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Nascimento = DateTime.MinValue };
 
@@ -98,7 +98,7 @@ namespace Validators.Tests.Pessoa.Registrar;
     [Fact]
     public void TokenInvalido_DeveRetornarErro()
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
 
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia() with { Token = 0 };
 

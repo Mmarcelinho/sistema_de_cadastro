@@ -69,7 +69,7 @@ public class RegistrarPessoaUseCaseTest
         var repositorioWriteCadastro = CadastroWriteOnlyRepositorioBuilder.Build();
         var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
         var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
-        var viaCep = ViaCepBuilder.Build();
+        var cepService = CepServiceBuilder.Build();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
             repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
@@ -80,6 +80,6 @@ public class RegistrarPessoaUseCaseTest
         else if (string.IsNullOrWhiteSpace(email) == false)
             repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
 
-        return new RegistrarPessoaUseCase(repositorioWriteCadastro, repositorioReadCadastro.Build(), repositorioReadPessoa.Build(), repositorioWritePessoa, viaCep, unidadeDeTrabalho);
+        return new RegistrarPessoaUseCase(repositorioWriteCadastro, repositorioReadCadastro.Build(), repositorioReadPessoa.Build(), repositorioWritePessoa, cepService, unidadeDeTrabalho);
     }
 }
