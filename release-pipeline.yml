@@ -1,0 +1,25 @@
+trigger:
+- main
+
+variables:
+  dockerRegistryServiceConnection: 'b32818a9-98f0-4042-9d79-0b591e9ed269'
+  imageRepository: 'apisistemadecadastro'
+  containerRegistry: 'apisistemadecadastro.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  tag: '$(Build.BuildId)'
+
+pool:
+      vmImage: 'ubuntu-latest'
+
+steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          lasted
+          $(tag)
+
