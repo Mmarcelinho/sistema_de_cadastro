@@ -1,13 +1,12 @@
-using SistemaDeCadastro.Application.UseCases.Cadastro.Atualizar;
+namespace Validators.Tests.Cadastro;
 
-namespace Validators.Tests.Cadastro.Atualizar;
-
-public class AtualizarCadastroValidatorTest
+public class CadastroValidatorTest
 {
+
     [Fact]
     public void Sucesso()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
 
@@ -19,7 +18,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void EmailEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Email = string.Empty };
 
@@ -42,7 +41,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void EmailInvalido_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Email = "emailinvalido" };
 
@@ -55,7 +54,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void NomeFantasiaEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { NomeFantasia = string.Empty };
 
@@ -68,7 +67,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void CredencialSenhaEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Credencial = new RequisicaoCredencialJson(true, "2024-12-31", string.Empty) };
 
@@ -81,7 +80,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void DocumentoNumeroEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson(string.Empty, "orgaoEmissor", "estadoEmissor", DateTime.Now) };
 
@@ -94,7 +93,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void DocumentoOrgaoEmissorEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson("numero", string.Empty, "estadoEmissor", DateTime.Now) };
 
@@ -107,7 +106,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void DocumentoDataValidadeInvalida_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Documento = new RequisicaoDocumentoJson("numero", "orgaoEmissor", "estadoEmissor", DateTime.MinValue) };
 
@@ -120,7 +119,7 @@ public class AtualizarCadastroValidatorTest
     [Fact]
     public void IdentificadorEmBranco_DeveRetornarErro()
     {
-        var validator = new AtualizarCadastroValidator();
+        var validator = new CadastroValidator();
 
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia() with { Identificador = null! };
 

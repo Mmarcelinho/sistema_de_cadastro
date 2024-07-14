@@ -43,7 +43,7 @@ public class RegistrarPessoaUseCase : IRegistrarPessoaUseCase
 
     private async Task Validar(RequisicaoPessoaJson requisicao)
     {
-        var validator = new RegistrarPessoaValidator();
+        var validator = new PessoaValidator();
         var resultado = validator.Validate(requisicao);
 
         var existePessoaComCpf = await _repositorioReadPessoa.RecuperarPessoaExistentePorCpf(requisicao.Cpf);

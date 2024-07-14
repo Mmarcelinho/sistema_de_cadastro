@@ -32,7 +32,7 @@ public class AtualizarCadastroUseCase : IAtualizarCadastroUseCase
 
     private async Task Validar(RequisicaoCadastroJson requisicao)
     {
-        var validator = new RegistrarCadastroValidator();
+        var validator = new CadastroValidator();
         var resultado = validator.Validate(requisicao);
 
         var existeCadastroComEmail = await _repositorioRead.RecuperarCadastroExistentePorEmail(requisicao.Email);
