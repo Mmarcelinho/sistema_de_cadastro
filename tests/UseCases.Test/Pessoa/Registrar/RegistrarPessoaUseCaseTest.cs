@@ -64,12 +64,12 @@ public class RegistrarPessoaUseCaseTest
 
     private static RegistrarPessoaUseCase CriarUseCase(string? cpf = null, string? cnpj = null, string? email = null)
     {
-        var repositorioWritePessoa = PessoaWriteOnlyRepositorioBuilder.Build();
+        var repositorioWritePessoa = PessoaWriteOnlyRepositorioBuilder.Instancia();
         var repositorioReadPessoa = new PessoaReadOnlyRepositorioBuilder();
-        var repositorioWriteCadastro = CadastroWriteOnlyRepositorioBuilder.Build();
+        var repositorioWriteCadastro = CadastroWriteOnlyRepositorioBuilder.Instancia();
         var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
-        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
-        var cepService = CepServiceBuilder.Build();
+        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Instancia();
+        var cepService = CepServiceBuilder.Instancia();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
             repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
@@ -80,6 +80,6 @@ public class RegistrarPessoaUseCaseTest
         else if (string.IsNullOrWhiteSpace(email) == false)
             repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
 
-        return new RegistrarPessoaUseCase(repositorioWriteCadastro, repositorioReadCadastro.Build(), repositorioReadPessoa.Build(), repositorioWritePessoa, cepService, unidadeDeTrabalho);
+        return new RegistrarPessoaUseCase(repositorioWriteCadastro, repositorioReadCadastro.Instancia(), repositorioReadPessoa.Instancia(), repositorioWritePessoa, cepService, unidadeDeTrabalho);
     }
 }

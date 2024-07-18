@@ -2,7 +2,7 @@ namespace CommonTestUtilities.Repositorios.Cadastro;
 
 public class CadastroWriteOnlyRepositorioBuilder
 {
-    public static ICadastroWriteOnlyRepositorio Build()
+    public static ICadastroWriteOnlyRepositorio Instancia()
     {
         var mock = new Mock<ICadastroWriteOnlyRepositorio>();
 

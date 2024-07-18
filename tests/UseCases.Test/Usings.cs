@@ -16,11 +16,12 @@ global using CommonTestUtilities.Servicos;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarTodos;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarPorId;
 global using SistemaDeCadastro.Application.UseCases.Cadastro.Atualizar;
+global using SistemaDeCadastro.Application.UseCases.Cadastro.Deletar;
 
 global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarTodos;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarPorId;
 global using SistemaDeCadastro.Application.UseCases.Pessoa.Atualizar;
-
+global using SistemaDeCadastro.Application.UseCases.Pessoa.Deletar;
 
 
 

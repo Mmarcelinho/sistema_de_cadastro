@@ -2,7 +2,7 @@ namespace CommonTestUtilities.Servicos;
 
 public class CepServiceBuilder
 {
-    public static ICepService Build()
+    public static ICepService Instancia()
     {
         var mock = new Mock<ICepService>();
 

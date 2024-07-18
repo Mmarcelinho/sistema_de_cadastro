@@ -23,6 +23,21 @@ public class AtualizarPessoaUseCaseTest
     }
 
     [Fact]
+    public async Task PessoaNaoEncontrado_DeveRetornarErro()
+    {
+        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
+        var cadastro = CadastroBuilder.Instancia();
+        var pessoa = PessoaBuilder.Instancia(cadastro);
+
+        var useCase = CriarUseCase(pessoa);
+
+        var acao = async () => await useCase.Executar(pessoaId: 100, requisicao);
+
+        await acao.Should().ThrowAsync<NaoEncontradoException>()
+        .Where(exception => exception.RecuperarErros().Count == 1 && exception.RecuperarErros().Contains(PessoaMensagensDeErro.PESSOA_NAO_ENCONTRADO));
+    }
+
+    [Fact]
     public async Task CpfExistente_DeveRetornarErro()
     {
         var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
@@ -70,11 +85,11 @@ public class AtualizarPessoaUseCaseTest
 
     private static AtualizarPessoaUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Pessoa? pessoa = null, string? cpf = null, string? cnpj = null, string? email = null)
     {
-        var repositorioUpdatePessoa = new PessoaUpdateOnlyRepositorioBuilder().RecuperarPorId(pessoa).Build();
+        var repositorioUpdatePessoa = new PessoaUpdateOnlyRepositorioBuilder().RecuperarPorId(pessoa).Instancia();
         var repositorioReadPessoa = new PessoaReadOnlyRepositorioBuilder();
         var repositorioReadCadastro = new CadastroReadOnlyRepositorioBuilder();
-        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
-        var cepService = CepServiceBuilder.Build();
+        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Instancia();
+        var cepService = CepServiceBuilder.Instancia();
 
         if (string.IsNullOrWhiteSpace(cpf) == false)
             repositorioReadPessoa.RecuperarPessoaExistentePorCpf(cpf);
@@ -85,6 +100,6 @@ public class AtualizarPessoaUseCaseTest
         else if (string.IsNullOrWhiteSpace(email) == false)
             repositorioReadCadastro.RecuperarCadastroExistentePorEmail(email);
 
-        return new AtualizarPessoaUseCase(repositorioUpdatePessoa, repositorioReadPessoa.Build(), repositorioReadCadastro.Build(), unidadeDeTrabalho, cepService);
+        return new AtualizarPessoaUseCase(repositorioUpdatePessoa, repositorioReadPessoa.Instancia(), repositorioReadCadastro.Instancia(), unidadeDeTrabalho, cepService);
     }
 }

@@ -14,5 +14,5 @@ public class PessoaUpdateOnlyRepositorioBuilder
         return this;
     }
 
-    public IPessoaUpdateOnlyRepositorio Build() => _repositorio.Object;
+    public IPessoaUpdateOnlyRepositorio Instancia() => _repositorio.Object;
 }

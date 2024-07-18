@@ -27,5 +27,5 @@ public class CadastroReadOnlyRepositorioBuilder
         return this;
     }
 
-    public ICadastroReadOnlyRepositorio Build() => _repositorio.Object;
+    public ICadastroReadOnlyRepositorio Instancia() => _repositorio.Object;
 }

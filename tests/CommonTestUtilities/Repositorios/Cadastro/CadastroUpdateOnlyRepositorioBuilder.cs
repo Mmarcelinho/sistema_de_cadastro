@@ -14,5 +14,5 @@ public class CadastroUpdateOnlyRepositorioBuilder
         return this;
     }
 
-    public ICadastroUpdateOnlyRepositorio Build() => _repositorio.Object;
+    public ICadastroUpdateOnlyRepositorio Instancia() => _repositorio.Object;
 }

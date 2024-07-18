@@ -34,5 +34,5 @@ public class PessoaReadOnlyRepositorioBuilder
         return this;
     }
 
-    public IPessoaReadOnlyRepositorio Build() => _repositorio.Object;
+    public IPessoaReadOnlyRepositorio Instancia() => _repositorio.Object;
 }

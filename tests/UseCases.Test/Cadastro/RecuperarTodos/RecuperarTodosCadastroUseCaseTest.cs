@@ -23,7 +23,7 @@ public class RecuperarTodosCadastroUseCaseTest
 
     private static RecuperarTodosCadastroUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Cadastro> cadastros)
     {
-        var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarTodos(cadastros).Build();
+        var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarTodos(cadastros).Instancia();
 
         return new RecuperarTodosCadastroUseCase(repositorio);
     }

@@ -20,7 +20,7 @@ public class RecuperarCadastroPorIdUseCaseTest
     }
 
     [Fact]
-    public async Task Erro_Cadastro_NaoEncontrado()
+    public async Task CadastroNaoEncontrado_DeveRetornarErro()
     {
         var cadastro = CadastroBuilder.Instancia();
 
@@ -34,7 +34,7 @@ public class RecuperarCadastroPorIdUseCaseTest
 
     private static RecuperarCadastroPorIdUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro cadastro)
     {
-        var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
+        var repositorio = new CadastroReadOnlyRepositorioBuilder().RecuperarPorId(cadastro).Instancia();
         
         return new RecuperarCadastroPorIdUseCase(repositorio);
     }
