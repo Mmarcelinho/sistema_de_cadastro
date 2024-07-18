@@ -70,14 +70,14 @@ public class RegistrarCadastroUseCaseTest
 
     private static RegistrarCadastroUseCase CriarUseCase(string? email = null)
     {
-        var repositorioWrite = CadastroWriteOnlyRepositorioBuilder.Build();
+        var repositorioWrite = CadastroWriteOnlyRepositorioBuilder.Instancia();
         var repositorioRead = new CadastroReadOnlyRepositorioBuilder();
-        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
+        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Instancia();
 
         if (string.IsNullOrWhiteSpace(email) == false)
             repositorioRead.RecuperarCadastroExistentePorEmail(email);
 
 
-        return new RegistrarCadastroUseCase(repositorioWrite, repositorioRead.Build(), unidadeDeTrabalho);
+        return new RegistrarCadastroUseCase(repositorioWrite, repositorioRead.Instancia(), unidadeDeTrabalho);
     }
 }

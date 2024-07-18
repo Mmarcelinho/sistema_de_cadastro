@@ -2,7 +2,7 @@ namespace CommonTestUtilities.Repositorios.Pessoa;
 
     public class PessoaWriteOnlyRepositorioBuilder
     {
-        public static IPessoaWriteOnlyRepositorio Build()
+        public static IPessoaWriteOnlyRepositorio Instancia()
         {
             var mock = new Mock<IPessoaWriteOnlyRepositorio>();
 

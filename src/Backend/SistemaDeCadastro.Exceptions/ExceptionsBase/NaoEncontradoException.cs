@@ -1,4 +1,3 @@
-
 using System.Net;
 
 namespace SistemaDeCadastro.Exceptions.ExceptionsBase;

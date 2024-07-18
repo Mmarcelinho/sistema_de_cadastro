@@ -36,6 +36,21 @@ public class AtualizarCadastroUseCaseTest
     }
 
     [Fact]
+    public async Task CadastroNaoEncontrado_DeveRetornarErro()
+    {
+        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
+        var cadastro = CadastroBuilder.Instancia();
+
+        var useCase = CriarUseCase(cadastro);
+
+        Func<Task> acao = async () => await useCase.Executar(100, requisicao);
+
+        var resultado = await acao.Should().ThrowAsync<NaoEncontradoException>();
+
+        resultado.Where(ex => ex.RecuperarErros().Count == 1 && ex.RecuperarErros().Contains(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO));
+    }
+
+    [Fact]
     public async Task DocumentoInvalido_DeveRetornarErro()
     {
         var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
@@ -77,15 +92,15 @@ public class AtualizarCadastroUseCaseTest
 
     private static AtualizarCadastroUseCase CriarUseCase(SistemaDeCadastro.Domain.Entidades.Cadastro? cadastro = null, string? email = null)
     {
-        var repositorioUpdate = new CadastroUpdateOnlyRepositorioBuilder().RecuperarPorId(cadastro).Build();
+        var repositorioUpdate = new CadastroUpdateOnlyRepositorioBuilder().RecuperarPorId(cadastro).Instancia();
 
         var repositorioRead = new CadastroReadOnlyRepositorioBuilder();
 
-        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Build();
+        var unidadeDeTrabalho = UnidadeDeTrabalhoBuilder.Instancia();
 
         if (string.IsNullOrWhiteSpace(email) == false)
             repositorioRead.RecuperarCadastroExistentePorEmail(email);
 
-        return new AtualizarCadastroUseCase(repositorioUpdate, repositorioRead.Build(), unidadeDeTrabalho);
+        return new AtualizarCadastroUseCase(repositorioUpdate, repositorioRead.Instancia(), unidadeDeTrabalho);
     }
 }

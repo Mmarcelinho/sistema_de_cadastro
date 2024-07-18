@@ -25,15 +25,10 @@ public class PessoaRepositorio : IPessoaReadOnlyRepositorio, IPessoaWriteOnlyRep
 
     public void Atualizar(Pessoa pessoa) => _contexto.Pessoas.Update(pessoa);
 
-    public async Task<bool> Deletar(long pessoaId)
+    public async Task Deletar(long pessoaId)
     {
-        var resultado = await _contexto.Pessoas.FirstOrDefaultAsync(pessoa => pessoa.Id == pessoaId);
+        var pessoa = await _contexto.Cadastros.FindAsync(pessoaId);
 
-        if (resultado is null)
-            return false;
-
-        _contexto.Pessoas.Remove(resultado);
-
-        return true;
+        _contexto.Cadastros.Remove(pessoa);
     }
 }

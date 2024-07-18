@@ -26,7 +26,7 @@ public class RecuperarTodosPessoaUseCaseTest
 
     private static RecuperarTodosPessoaUseCase CriarUseCase(List<SistemaDeCadastro.Domain.Entidades.Pessoa> pessoas)
     {
-        var repositorio = new PessoaReadOnlyRepositorioBuilder().RecuperarTodos(pessoas).Build();
+        var repositorio = new PessoaReadOnlyRepositorioBuilder().RecuperarTodos(pessoas).Instancia();
 
         return new RecuperarTodosPessoaUseCase(repositorio);
     }
