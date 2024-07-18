@@ -19,6 +19,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRecuperarTodosPessoaUseCase, RecuperarTodosPessoaUseCase>();
         services.AddScoped<IRecuperarPessoaPorIdUseCase, RecuperarPessoaPorIdUseCase>();
         services.AddScoped<IAtualizarPessoaUseCase, AtualizarPessoaUseCase>();
-        services.AddScoped<IDeletarPessoaPorIdUseCase, DeletarPessoaIdUseCase>();   
+        services.AddScoped<IDeletarPessoaPorIdUseCase, DeletarPessoaPorIdUseCase>();   
     }
 }

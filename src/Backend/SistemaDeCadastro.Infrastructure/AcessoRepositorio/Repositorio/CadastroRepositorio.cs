@@ -19,15 +19,10 @@ public class CadastroRepositorio : ICadastroReadOnlyRepositorio, ICadastroWriteO
 
     public void Atualizar(Cadastro cadastro) => _contexto.Cadastros.Update(cadastro);
 
-    public async Task<bool> Deletar(long cadastroId)
+    public async Task Deletar(long cadastroId)
     {
-        var resultado = await _contexto.Cadastros.FirstOrDefaultAsync(cadastro => cadastro.Id == cadastroId);
+        var cadastro = await _contexto.Cadastros.FindAsync(cadastroId);
 
-        if (resultado is null)
-            return false;
-
-        _contexto.Cadastros.Remove(resultado);
-
-        return true;
+        _contexto.Cadastros.Remove(cadastro);
     }
 }
