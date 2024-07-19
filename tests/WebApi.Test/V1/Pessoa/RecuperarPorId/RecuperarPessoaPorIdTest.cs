@@ -1,12 +1,12 @@
 namespace WebApi.Test.V1.Pessoa.RecuperarPorId;
 
-    public class RecuperarPorIdTest : SistemaDeCadastroClassFixture
+    public class RecuperarPessoaPorIdTest : SistemaDeCadastroClassFixture
 {
     private const string METODO = "pessoa";
 
     private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa;
 
-    public RecuperarPorIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    public RecuperarPessoaPorIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     =>
         _pessoa = webApplicationFactory.Pessoa;
     

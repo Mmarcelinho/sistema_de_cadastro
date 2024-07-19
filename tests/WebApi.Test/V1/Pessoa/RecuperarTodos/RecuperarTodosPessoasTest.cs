@@ -1,10 +1,10 @@
 namespace WebApi.Test.V1.Pessoa.RecuperarTodos;
 
-public class RecuperarTodosTest : SistemaDeCadastroClassFixture
+public class RecuperarTodosPessoasTest : SistemaDeCadastroClassFixture
 {
     private const string METODO = "pessoa";
 
-    public RecuperarTodosTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    public RecuperarTodosPessoasTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     { }
 
     [Fact]
