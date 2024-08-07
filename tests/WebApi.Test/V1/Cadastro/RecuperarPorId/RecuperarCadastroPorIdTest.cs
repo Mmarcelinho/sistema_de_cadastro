@@ -1,16 +1,10 @@
 namespace WebApi.Test.V1.Cadastro.RecuperarPorId;
 
-public class RecuperarCadastroPorIdTest : SistemaDeCadastroClassFixture
+public class RecuperarCadastroPorIdTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "cadastro";
 
-    private readonly SistemaDeCadastro.Domain.Entidades.Cadastro _cadastro;
-
-
-    public RecuperarCadastroPorIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    =>
-        _cadastro = webApplicationFactory.Cadastro;
-    
+    private readonly SistemaDeCadastro.Domain.Entidades.Cadastro _cadastro = webApplicationFactory.Cadastro;
 
     [Fact]
     public async Task Sucesso()

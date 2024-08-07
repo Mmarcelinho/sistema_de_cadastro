@@ -1,20 +1,14 @@
 namespace WebApi.Test.V1.Cadastro.Deletar;
 
-public class DeletarCadastroTest : SistemaDeCadastroClassFixture
+public class DeletarCadastroTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "cadastro";
 
-    private readonly SistemaDeCadastro.Domain.Entidades.Cadastro _cadastro;
-
-    public DeletarCadastroTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    =>
-        _cadastro = webApplicationFactory.Cadastro;
+    private readonly SistemaDeCadastro.Domain.Entidades.Cadastro _cadastro = webApplicationFactory.Cadastro;
 
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoCadastroJsonBuilder.Instancia();
-
         var resultado = await DoDelete(requestUri: $"{METODO}/{_cadastro.Id}");
 
         resultado.StatusCode.Should().Be(HttpStatusCode.NoContent);

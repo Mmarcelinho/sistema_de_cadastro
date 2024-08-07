@@ -1,14 +1,10 @@
 namespace WebApi.Test.V1.Pessoa.Atualizar;
 
-public class AtualizarPessoaTest : SistemaDeCadastroClassFixture
+public class AtualizarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "pessoa";
 
-    private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa;
-
-    public AtualizarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    =>
-        _pessoa = webApplicationFactory.Pessoa;
+    private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa = webApplicationFactory.Pessoa;
 
     [Fact]
     public async Task Sucesso()

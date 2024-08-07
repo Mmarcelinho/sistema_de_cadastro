@@ -1,16 +1,10 @@
 namespace SistemaDeCadastro.Application.UseCases.Pessoa.RecuperarTodos;
 
-public class RecuperarTodosPessoaUseCase : IRecuperarTodosPessoaUseCase
+public class RecuperarTodosPessoaUseCase(IPessoaReadOnlyRepositorio repositorio) : IRecuperarTodosPessoaUseCase
 {
-    private readonly IPessoaReadOnlyRepositorio _repositorio;
-
-    public RecuperarTodosPessoaUseCase(IPessoaReadOnlyRepositorio repositorio)
-    =>
-        _repositorio = repositorio;
-    
     public async Task<RespostaPessoasJson> Executar()
     {
-        var pessoas = await _repositorio.RecuperarTodos();
+        var pessoas = await repositorio.RecuperarTodos();
 
         return new RespostaPessoasJson
         {

@@ -1,11 +1,8 @@
 namespace WebApi.Test.V1.Cadastro.RecuperarTodos;
 
-public class RecuperarTodosCadastrosTest : SistemaDeCadastroClassFixture
+public class RecuperarTodosCadastrosTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "cadastro";
-
-    public RecuperarTodosCadastrosTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    { }
 
     [Fact]
     public async Task Sucesso()

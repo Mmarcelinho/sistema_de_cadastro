@@ -1,14 +1,10 @@
 namespace SistemaDeCadastro.Application.UseCases.Cadastro.RecuperarPorId;
 
-public class RecuperarCadastroPorIdUseCase : IRecuperarCadastroPorIdUseCase
+public class RecuperarCadastroPorIdUseCase(ICadastroReadOnlyRepositorio repositorio) : IRecuperarCadastroPorIdUseCase
 {
-    private readonly ICadastroReadOnlyRepositorio _repositorio;
-
-    public RecuperarCadastroPorIdUseCase(ICadastroReadOnlyRepositorio repositorio) => _repositorio = repositorio;
-
     public async Task<RespostaCadastroJson> Executar(long cadastroId)
     {
-        var cadastro = await _repositorio.RecuperarPorId(cadastroId);
+        var cadastro = await repositorio.RecuperarPorId(cadastroId);
 
         if (cadastro is null)
             throw new NaoEncontradoException(CadastroMensagensDeErro.CADASTRO_NAO_ENCONTRADO);

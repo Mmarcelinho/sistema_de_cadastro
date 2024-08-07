@@ -1,9 +1,7 @@
 namespace SistemaDeCadastro.Exceptions.ExceptionsBase;
 
-public abstract class SistemaDeCadastroException : SystemException
+public abstract class SistemaDeCadastroException(string mensagem) : SystemException(mensagem)
 {
-    protected SistemaDeCadastroException(string mensagem) : base(mensagem) { }
-
     public abstract int StatusCode { get; }
 
     public abstract List<string> RecuperarErros();

@@ -1,11 +1,8 @@
 namespace WebApi.Test.V1.Pessoa.RecuperarTodos;
 
-public class RecuperarTodosPessoasTest : SistemaDeCadastroClassFixture
+public class RecuperarTodosPessoasTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "pessoa";
-
-    public RecuperarTodosPessoasTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    { }
 
     [Fact]
     public async Task Sucesso()
