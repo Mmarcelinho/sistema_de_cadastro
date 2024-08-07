@@ -1,20 +1,14 @@
 namespace WebApi.Test.V1.Pessoa.Deletar;
 
-public class DeletarPessoaTest : SistemaDeCadastroClassFixture
+public class DeletarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "pessoa";
 
-    private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa;
-
-    public DeletarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    =>
-        _pessoa = webApplicationFactory.Pessoa;
+    private readonly SistemaDeCadastro.Domain.Entidades.Pessoa _pessoa = webApplicationFactory.Pessoa;
 
     [Fact]
     public async Task Sucesso()
     {
-        var requisicao = RequisicaoPessoaJsonBuilder.Instancia();
-
         var resultado = await DoDelete(requestUri: $"{METODO}/{_pessoa.Id}");
 
         resultado.StatusCode.Should().Be(HttpStatusCode.NoContent);

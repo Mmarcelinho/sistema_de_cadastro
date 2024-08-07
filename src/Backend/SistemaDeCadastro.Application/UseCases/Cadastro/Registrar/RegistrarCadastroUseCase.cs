@@ -1,29 +1,16 @@
 namespace SistemaDeCadastro.Application.UseCases.Cadastro.Registrar;
 
-public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
+public class RegistrarCadastroUseCase(ICadastroWriteOnlyRepositorio repositorioWrite, ICadastroReadOnlyRepositorio repositorioRead, IUnidadeDeTrabalho unidadeDeTrabalho) : IRegistrarCadastroUseCase
 {
-    private readonly ICadastroWriteOnlyRepositorio _repositorioWrite;
-
-    private readonly ICadastroReadOnlyRepositorio _repositorioRead;
-
-    private readonly IUnidadeDeTrabalho _unidadeDeTrabalho;
-
-    public RegistrarCadastroUseCase(ICadastroWriteOnlyRepositorio repositorioWrite, ICadastroReadOnlyRepositorio repositorioRead, IUnidadeDeTrabalho unidadeDeTrabalho)
-    {
-        _repositorioWrite = repositorioWrite;
-        _repositorioRead = repositorioRead;
-        _unidadeDeTrabalho = unidadeDeTrabalho;
-    }
-    
     public async Task<RespostaCadastroJson> Executar(RequisicaoCadastroJson requisicao)
     {
         await Validar(requisicao);
 
         var cadastro = CadastroMap.ConverterParaEntidade(requisicao);
 
-        await _repositorioWrite.Registrar(cadastro);
+        await repositorioWrite.Registrar(cadastro);
 
-        await _unidadeDeTrabalho.Commit();
+        await unidadeDeTrabalho.Commit();
 
         return CadastroMap.ConverterParaResposta(cadastro);
     }
@@ -33,7 +20,7 @@ public class RegistrarCadastroUseCase : IRegistrarCadastroUseCase
         var validator = new CadastroValidator();
         var resultado = validator.Validate(requisicao);
 
-        var existeCadastroComEmail = await _repositorioRead.RecuperarCadastroExistentePorEmail(requisicao.Email);
+        var existeCadastroComEmail = await repositorioRead.RecuperarCadastroExistentePorEmail(requisicao.Email);
         if (existeCadastroComEmail)
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure("email", CadastroMensagensDeErro.CADASTRO_EMAIL_JA_REGISTRADO));
 

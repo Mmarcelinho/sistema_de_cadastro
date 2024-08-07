@@ -1,11 +1,8 @@
 namespace WebApi.Test.V1.Pessoa.Registrar;
 
-public class RegistrarPessoaTest : SistemaDeCadastroClassFixture
+public class RegistrarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : SistemaDeCadastroClassFixture(webApplicationFactory)
 {
     private const string METODO = "pessoa";
-
-    public RegistrarPessoaTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
-    { }
 
     [Fact]
     public async Task Sucesso()
